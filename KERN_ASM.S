@@ -9,18 +9,21 @@
 					
 					xdef	_write,_sys_write
 					xref	_do_write
-					
+						
 					xdef	_read,_sys_read
 					xref	_do_read
-
+					
 					xdef	_get_pid,_sys_get_pid
 					xref	_do_get_pid
 					
 					xdef	_yield,_sys_yield
 					xref	_do_yield
-					
+
+					xref	_do_disk_operation
+
 					xdef	_vbl_isr
 					xref	_do_vbl_isr
+
 					xdef	_addr_exception_isr
 					xref	_do_addr_exception_isr
 					xdef	_exception_isr

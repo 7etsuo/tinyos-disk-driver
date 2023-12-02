@@ -536,9 +536,12 @@ int seek(int track);
 int read_sector(int sector, void *buffer_address);
 int write_sector(int sector, const void *buffer_address);
 
-int perform_disk_operation(disk_io_request_t *disk_io_req);
-int perform_read_operation_from_floppy(disk_io_request_t *io);
-int perform_write_operation_to_floppy(disk_io_request_t *io);
+int disk_operation(disk_io_request_t *disk_io_req);
+extern void sys_disk_operation(void);
+int do_disk_operation(disk_io_request_t *disk_io_req);
+
+int read_operation_from_floppy(disk_io_request_t *io);
+int write_operation_to_floppy(disk_io_request_t *io);
 
 /* string helpers */
 UINT32 my_strlen(const char *str);
@@ -1304,7 +1307,7 @@ void setup_dma_buffer(void *buffer_address)
     SET_DMA_ADDRESS(buffer_address);
 }
 
-int perform_read_operation_from_floppy(disk_io_request_t *io)
+int read_operation_from_floppy(disk_io_request_t *io)
 {
     if (setup_dma_for_rw(io->disk, io->side, io->track))
     {
@@ -1315,7 +1318,7 @@ int perform_read_operation_from_floppy(disk_io_request_t *io)
     return 0;
 }
 
-int perform_write_operation_to_floppy(disk_io_request_t *io)
+int write_operation_to_floppy(disk_io_request_t *io)
 {
 
     if (setup_dma_for_rw(io->disk, io->side, io->track))
@@ -1327,15 +1330,15 @@ int perform_write_operation_to_floppy(disk_io_request_t *io)
     return 0;
 }
 
-int perform_disk_operation(disk_io_request_t *io)
+int do_disk_operation(disk_io_request_t *io)
 {
     if (io->operation == DISK_OPERATION_READ)
     {
-        return perform_read_operation_from_floppy(io);
+        return read_operation_from_floppy(io);
     }
     else if (io->operation == DISK_OPERATION_WRITE)
     {
-        return perform_write_operation_to_floppy(io);
+        return write_operation_to_floppy(io);
     }
 
     return 0;

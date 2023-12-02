@@ -24,6 +24,17 @@
         "CONSOLE.C": "cpp",
         "CONS.C": "cpp",
         "FDC_OLD.C": "cpp",
-        "FDC_TEST.C": "cpp"
+        "FDC_TEST.C": "cpp",
+        "format": "cpp",
+        "*.rh": "cpp",
+        "exception": "cpp",
+        "memory_resource": "cpp",
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "new": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "stop_token": "cpp",
+        "streambuf": "cpp"
     },
 }
