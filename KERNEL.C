@@ -540,7 +540,13 @@ int perform_disk_operation(disk_io_request_t *disk_io_req);
 int perform_read_operation_from_floppy(disk_io_request_t *io);
 int perform_write_operation_to_floppy(disk_io_request_t *io);
 
-void init()
+/* string helpers */
+UINT32 my_strlen(const char *str);
+
+/* added */
+void init_console(void);
+
+void init(void)
 {
     /* [TO DO] init_memory? */
     init_IO();
@@ -556,6 +562,21 @@ void init()
         - clean up code incl. assembly; better modularize project
     */
 
+   init_console();
+
+    if (initialize_floppy_driver() == 0)
+    {
+        return;
+    }
+
+    init_proc_table();
+    do_create_process(0, 1); /* load shell */
+
+    schedule();
+}
+
+void init_console(void)
+{
     print_char(CHAR_FF); /* form feed inits console output driver */
     print_str("Welcome to TOY OS (kernel v0.1).\r\n");
 
@@ -570,16 +591,8 @@ void init()
     *kybd_auto_count = 0;
     *kybd_blocked_proc = -1;
     *kybd_fg_proc = 0;
-
-    if (initialize_floppy_driver() == 0) {
-        return;
-    }
-
-    init_proc_table();
-    do_create_process(0, 1); /* load shell */
-
-    schedule();
 }
+
 
 void init_proc_table()
 {
@@ -769,13 +782,24 @@ void input_enqueue(char ch)
     }
 }
 
+UINT32 my_strlen(const char *str)
+{
+    const char *s;
+    for (s = str; *s; ++s)
+    {
+        ;
+    }
+    return s - str;
+}
+
 void hello()
 {
     char pid = '0' + (char)get_pid();
+    char *greeting = "\r\nhello, world from ";
 
-    write("\r\nhello, world from ", 20);
+    write(greeting, my_strlen(greeting));
     write(&pid, 1);
-    write("!\r\n", 3);
+    write("!\r\n", 5);
     exit();
 }
 
