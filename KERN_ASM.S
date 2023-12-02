@@ -19,11 +19,11 @@
 					xdef	_yield,_sys_yield
 					xref	_do_yield
 
+					xdef	_disk_operation,_sys_disk_operation
 					xref	_do_disk_operation
 
 					xdef	_vbl_isr
 					xref	_do_vbl_isr
-
 					xdef	_addr_exception_isr
 					xref	_do_addr_exception_isr
 					xdef	_exception_isr
@@ -181,6 +181,20 @@ _sys_read:			;movem.l	d0-2/a0-2,-(sp)		; [TO DO] simplify reg save/restore for e
 					;movem.l	(sp)+,d0-2/a0-2
 					jsr		pre_return
 					rte
+
+_disk_operation:	link 	a6,#0					; create new stack frame
+					move.l	8(a6),-(sp)				; Push pointer to disk_io_request_t struct pointer onto stack
+					trap	#6						; returns with output in d0.w
+					unlk	a6						; Restore previous stack frame
+					rts
+
+_sys_disk_operation:
+					move.l	usp,a0					; move user stack pointer to a0
+					move.l	(a0),-(sp)				; Push pointer to disk_io_request_t struct pointer onto stack
+					jsr		_do_disk_operation		; Call c function to perform operation
+					addq.l	#4,sp					; cleanup stack
+					jsr		pre_return				; 
+					rte								; return from exception
 
 _get_pid:			trap	#5						; returns with output in d0.w
 					rts
