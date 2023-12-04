@@ -248,7 +248,9 @@ extern int disk_operation(disk_io_request_t *disk_io_req);
 extern void sys_disk_operation(void);
 extern int do_disk_operation(disk_io_request_t *disk_io_req);
 
-/* string helpers */
+/* helpers */
+
+void *memcpy(void *dest, const void *src, UINT32 n);
 UINT32 my_strlen(const char *str);
 
 /* added */
@@ -489,6 +491,17 @@ void input_enqueue(char ch)
         (*kybd_buff_fill)++;
         print_char(ch);
     }
+}
+
+void *memcpy(void *dest, const void *src, UINT32 n)
+{
+    unsigned char *d = (unsigned char *)dest;
+    const unsigned char *s = (const unsigned char *)src;
+
+        while (n--)
+            *d++ = *s++;
+
+        return dest;
 }
 
 UINT32 my_strlen(const char *str)

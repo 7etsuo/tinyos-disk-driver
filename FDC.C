@@ -23,6 +23,10 @@ const UINT8 write_deleted_data_command =
 
 extern UINT16 set_ipl(UINT16 ipl);
 
+#define SECTOR_SIZE 512
+
+UINT8 test_buffer[SECTOR_SIZE];
+
 #ifdef TESTING
 #include <osbind.h>
 #include <stdio.h>
@@ -125,6 +129,7 @@ void select_floppy_drive(disk_selection_t drive, disk_side_t side)
 
 void busy_wait(void)
 {
+    int i; 
     *dma_mode = DMA_COMMAND_REG_READ;
 
     while (*fdc_access & FDC_BUSY)
@@ -259,8 +264,41 @@ int do_disk_operation(disk_io_request_t *io)
 
 int initialize_floppy_driver(void)
 {
+    int drive_count = 0;
+
+    /* Reset the FDC to track 0 (restore) */
+    if (do_fdc_restore_command() == 0)
+        return 0; /* If the restore command failed, return with an error */
+
+    /* Initialize the DMA mode */
+    *dma_mode = DMA_MODE_READ | DMA_SECTOR_COUNT_REG_SELECT;
+
+    /* Detect the number of drives */
     select_floppy_drive(DRIVE_A, SIDE_0);
-    return do_fdc_restore_command();
+    busy_wait();
+
+    /* Issue a command to drive A and wait for it to complete */
+    send_command_to_fdc(FDC_CMD_STEPI | FDC_FLAG_STEP_RATE_3);
+    busy_wait(); /* Wait for the command to complete */
+
+    if (!FDC_SEEK_ERROR_CHECK(*fdc_access))
+    {
+        drive_count++; /* Drive A is present */
+    }
+
+    /* Repeat the above steps for drive B if necessary */
+    select_floppy_drive(DRIVE_B, SIDE_0);
+    busy_wait();
+
+    send_command_to_fdc(FDC_CMD_STEPI | FDC_FLAG_STEP_RATE_3);
+    busy_wait(); /* Wait for the command to complete */
+
+    if (!FDC_SEEK_ERROR_CHECK(*fdc_access))
+    {
+        drive_count++; /* Drive B is present */
+    }
+
+    return drive_count;
 }
 
 void handle_floppy_interrupt(void)

@@ -70,6 +70,8 @@ start:				move.w	#$2700,sr
 					clr.b	VIDEO_SYNC_REG
 					move.w	#1,VIDEO_PAL0_REG
 					move.b	#MONO,VIDEO_REZ_REG
+;					move.w	#$190,$FF8606			; clear the fifo
+;					move.w	#$90,$FF8606			; and leave in the write state
 					jsr		_init
 
 _restart:			jmp		start
