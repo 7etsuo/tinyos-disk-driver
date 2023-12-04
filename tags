@@ -35,6 +35,13 @@
 !_TAG_KIND_DESCRIPTION!JSON	o,object	/objects/
 !_TAG_KIND_DESCRIPTION!JSON	s,string	/strings/
 !_TAG_KIND_DESCRIPTION!JSON	z,null	/nulls/
+!_TAG_KIND_DESCRIPTION!Markdown	S,subsection	/level 2 sections/
+!_TAG_KIND_DESCRIPTION!Markdown	T,l4subsection	/level 4 sections/
+!_TAG_KIND_DESCRIPTION!Markdown	c,chapter	/chapters/
+!_TAG_KIND_DESCRIPTION!Markdown	n,footnote	/footnotes/
+!_TAG_KIND_DESCRIPTION!Markdown	s,section	/sections/
+!_TAG_KIND_DESCRIPTION!Markdown	t,subsubsection	/level 3 sections/
+!_TAG_KIND_DESCRIPTION!Markdown	u,l5subsection	/level 5 sections/
 !_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
@@ -42,6 +49,7 @@
 !_TAG_PARSER_VERSION!Asm	0.0	/current.age/
 !_TAG_PARSER_VERSION!C++	0.0	/current.age/
 !_TAG_PARSER_VERSION!JSON	0.0	/current.age/
+!_TAG_PARSER_VERSION!Markdown	0.0	/current.age/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
 !_TAG_PROC_CWD	/home/storm/OS/CODE/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
@@ -52,6 +60,7 @@
 !_TAG_ROLE_DESCRIPTION!C++!header	local	/local header/
 !_TAG_ROLE_DESCRIPTION!C++!header	system	/system header/
 !_TAG_ROLE_DESCRIPTION!C++!macro	undef	/undefined/
+*.rh	.vscode/settings.json	/^        "*.rh": "cpp",$/;"	s	object:files.associations
 *.tcc	.vscode/settings.json	/^        "*.tcc": "cpp",$/;"	s	object:files.associations
 0	.vscode/tasks.json	/^                "$gcc"$/;"	s	array:tasks.0.problemMatcher
 0	.vscode/tasks.json	/^                "-fdiagnostics-color=always",$/;"	s	array:tasks.0.args
@@ -63,47 +72,15 @@
 ACIA_IRQ	KERNEL.C	/^#define ACIA_IRQ /;"	d	file:
 ACIA_OVRN	KERNEL.C	/^#define ACIA_OVRN /;"	d	file:
 CA1_CONTROL	DISK.C	/^        UINT16 CA1_CONTROL : 1;             \/* Bit 1 - Controls CA1 output (FDC A0 line and HDC/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:1	file:
-CA1_CONTROL	FDC.H	/^    CA1_CONTROL = 1 << 1,$/;"	e	enum:__anon0d1820680a03
-CA1_CONTROL	KERNEL.C	/^    CA1_CONTROL = 1 << 1,$/;"	e	enum:__anon3760a2770a03	file:
-CA1_CONTROL	TESTS/FDC_OLD.C	/^    CA1_CONTROL = 1 << 1,$/;"	e	enum:__anon8feab0430a03	file:
-CA1_CONTROL	TESTS/FDC_TEST.C	/^    CA1_CONTROL = 1 << 1,$/;"	e	enum:__anon9874b1240a03	file:
 CA2_CONTROL	DISK.C	/^        UINT16 CA2_CONTROL : 1;             \/* Bit 2 - Controls CA2 output (FDC A1 line) *\/$/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:1	file:
-CA2_CONTROL	FDC.H	/^    CA2_CONTROL = 1 << 2,$/;"	e	enum:__anon0d1820680a03
-CA2_CONTROL	KERNEL.C	/^    CA2_CONTROL = 1 << 2,$/;"	e	enum:__anon3760a2770a03	file:
-CA2_CONTROL	TESTS/FDC_OLD.C	/^    CA2_CONTROL = 1 << 2,$/;"	e	enum:__anon8feab0430a03	file:
-CA2_CONTROL	TESTS/FDC_TEST.C	/^    CA2_CONTROL = 1 << 2,$/;"	e	enum:__anon9874b1240a03	file:
 CB_SECTOR	FDC.H	/^#define CB_SECTOR /;"	d
-CB_SECTOR	KERNEL.C	/^#define CB_SECTOR /;"	d	file:
-CB_SECTOR	TESTS/FDC_OLD.C	/^#define CB_SECTOR /;"	d	file:
-CB_SECTOR	TESTS/FDC_TEST.C	/^#define CB_SECTOR /;"	d	file:
 CENTRONICS_STROBE	FDC.H	/^    CENTRONICS_STROBE = 1 << 5,$/;"	e	enum:__anon0d1820680603
-CENTRONICS_STROBE	KERNEL.C	/^    CENTRONICS_STROBE = 1 << 5,$/;"	e	enum:__anon3760a2770603	file:
-CENTRONICS_STROBE	TESTS/FDC_OLD.C	/^    CENTRONICS_STROBE = 1 << 5,$/;"	e	enum:__anon8feab0430603	file:
-CENTRONICS_STROBE	TESTS/FDC_TEST.C	/^    CENTRONICS_STROBE = 1 << 5,$/;"	e	enum:__anon9874b1240603	file:
 CHANNEL_A_NOISE	FDC.H	/^    CHANNEL_A_NOISE = 1 << 3,$/;"	e	enum:__anon0d1820680703
-CHANNEL_A_NOISE	KERNEL.C	/^    CHANNEL_A_NOISE = 1 << 3,$/;"	e	enum:__anon3760a2770703	file:
-CHANNEL_A_NOISE	TESTS/FDC_OLD.C	/^    CHANNEL_A_NOISE = 1 << 3,$/;"	e	enum:__anon8feab0430703	file:
-CHANNEL_A_NOISE	TESTS/FDC_TEST.C	/^    CHANNEL_A_NOISE = 1 << 3,$/;"	e	enum:__anon9874b1240703	file:
 CHANNEL_A_TONE	FDC.H	/^    CHANNEL_A_TONE = 1 << 0,$/;"	e	enum:__anon0d1820680703
-CHANNEL_A_TONE	KERNEL.C	/^    CHANNEL_A_TONE = 1 << 0,$/;"	e	enum:__anon3760a2770703	file:
-CHANNEL_A_TONE	TESTS/FDC_OLD.C	/^    CHANNEL_A_TONE = 1 << 0,$/;"	e	enum:__anon8feab0430703	file:
-CHANNEL_A_TONE	TESTS/FDC_TEST.C	/^    CHANNEL_A_TONE = 1 << 0,$/;"	e	enum:__anon9874b1240703	file:
 CHANNEL_B_NOISE	FDC.H	/^    CHANNEL_B_NOISE = 1 << 4,$/;"	e	enum:__anon0d1820680703
-CHANNEL_B_NOISE	KERNEL.C	/^    CHANNEL_B_NOISE = 1 << 4,$/;"	e	enum:__anon3760a2770703	file:
-CHANNEL_B_NOISE	TESTS/FDC_OLD.C	/^    CHANNEL_B_NOISE = 1 << 4,$/;"	e	enum:__anon8feab0430703	file:
-CHANNEL_B_NOISE	TESTS/FDC_TEST.C	/^    CHANNEL_B_NOISE = 1 << 4,$/;"	e	enum:__anon9874b1240703	file:
 CHANNEL_B_TONE	FDC.H	/^    CHANNEL_B_TONE = 1 << 1,$/;"	e	enum:__anon0d1820680703
-CHANNEL_B_TONE	KERNEL.C	/^    CHANNEL_B_TONE = 1 << 1,$/;"	e	enum:__anon3760a2770703	file:
-CHANNEL_B_TONE	TESTS/FDC_OLD.C	/^    CHANNEL_B_TONE = 1 << 1,$/;"	e	enum:__anon8feab0430703	file:
-CHANNEL_B_TONE	TESTS/FDC_TEST.C	/^    CHANNEL_B_TONE = 1 << 1,$/;"	e	enum:__anon9874b1240703	file:
 CHANNEL_C_NOISE	FDC.H	/^    CHANNEL_C_NOISE = 1 << 5,$/;"	e	enum:__anon0d1820680703
-CHANNEL_C_NOISE	KERNEL.C	/^    CHANNEL_C_NOISE = 1 << 5,$/;"	e	enum:__anon3760a2770703	file:
-CHANNEL_C_NOISE	TESTS/FDC_OLD.C	/^    CHANNEL_C_NOISE = 1 << 5,$/;"	e	enum:__anon8feab0430703	file:
-CHANNEL_C_NOISE	TESTS/FDC_TEST.C	/^    CHANNEL_C_NOISE = 1 << 5,$/;"	e	enum:__anon9874b1240703	file:
 CHANNEL_C_TONE	FDC.H	/^    CHANNEL_C_TONE = 1 << 2,$/;"	e	enum:__anon0d1820680703
-CHANNEL_C_TONE	KERNEL.C	/^    CHANNEL_C_TONE = 1 << 2,$/;"	e	enum:__anon3760a2770703	file:
-CHANNEL_C_TONE	TESTS/FDC_OLD.C	/^    CHANNEL_C_TONE = 1 << 2,$/;"	e	enum:__anon8feab0430703	file:
-CHANNEL_C_TONE	TESTS/FDC_TEST.C	/^    CHANNEL_C_TONE = 1 << 2,$/;"	e	enum:__anon9874b1240703	file:
 CHAR_BEL	FONT.H	/^#define CHAR_BEL /;"	d
 CHAR_CR	FONT.H	/^#define CHAR_CR /;"	d
 CHAR_DEL	FONT.H	/^#define CHAR_DEL /;"	d
@@ -113,57 +90,35 @@ CHAR_TAB	FONT.H	/^#define CHAR_TAB /;"	d
 CHAR_VT	FONT.H	/^#define CHAR_VT /;"	d
 CONS.C	.vscode/settings.json	/^        "CONS.C": "cpp",$/;"	s	object:files.associations
 CONSOLE.C	.vscode/settings.json	/^        "CONSOLE.C": "cpp",$/;"	s	object:files.associations
-CONSOLE_H	TESTS/TEST_CLEAN/CONS.H	/^#define CONSOLE_H$/;"	d
 CPU_CONTEXT_SIZE	KERN_ASM.S	/^CPU_CONTEXT_SIZE	equ		70$/;"	d
 CPU_context	KERNEL.C	/^struct CPU_context \/* 70 bytes *\/$/;"	s	file:
 CURR_PROC	KERNEL.C	/^#define CURR_PROC /;"	d	file:
+Custom Atari ST Disk Driver	README.md	/^# Custom Atari ST Disk Driver$/;"	c
 DATA_REQUEST_CONDITION	DISK.C	/^        UINT16 DATA_REQUEST_CONDITION : 1; \/* Bit 2 - Data request condition (1: data request, /;"	m	struct:__anonabd59501010a::__anonabd595010208	typeref:typename:UINT16:1	file:
-DATA_REQUEST_CONDITION	FDC.H	/^    DATA_REQUEST_CONDITION = 1 << 2$/;"	e	enum:__anon0d1820680903
-DATA_REQUEST_CONDITION	KERNEL.C	/^    DATA_REQUEST_CONDITION = 1 << 2$/;"	e	enum:__anon3760a2770903	file:
-DATA_REQUEST_CONDITION	TESTS/FDC_OLD.C	/^    DATA_REQUEST_CONDITION = 1 << 2$/;"	e	enum:__anon8feab0430903	file:
-DATA_REQUEST_CONDITION	TESTS/FDC_TEST.C	/^    DATA_REQUEST_CONDITION = 1 << 2$/;"	e	enum:__anon9874b1240903	file:
+DELAY_68000_16MHZ	FDC.H	/^#define DELAY_68000_16MHZ /;"	d
+DELAY_68000_8MHZ	FDC.H	/^#define DELAY_68000_8MHZ /;"	d
+DELAY_GUESS	FDC.H	/^#define DELAY_GUESS /;"	d
 DISABLE_DMA_SC_REG	DISK.C	/^#define DISABLE_DMA_SC_REG(/;"	d	file:
 DISK.C	.vscode/settings.json	/^        "DISK.C": "cpp",$/;"	s	object:files.associations
 DISK_OPERATION_READ	FDC.H	/^    DISK_OPERATION_READ,$/;"	e	enum:__anon0d1820680103
-DISK_OPERATION_READ	KERNEL.C	/^    DISK_OPERATION_READ,$/;"	e	enum:__anon3760a2770103	file:
-DISK_OPERATION_READ	TESTS/FDC_OLD.C	/^    DISK_OPERATION_READ,$/;"	e	enum:__anon8feab0430103	file:
-DISK_OPERATION_READ	TESTS/FDC_TEST.C	/^    DISK_OPERATION_READ,$/;"	e	enum:__anon9874b1240103	file:
 DISK_OPERATION_WRITE	FDC.H	/^    DISK_OPERATION_WRITE$/;"	e	enum:__anon0d1820680103
-DISK_OPERATION_WRITE	KERNEL.C	/^    DISK_OPERATION_WRITE$/;"	e	enum:__anon3760a2770103	file:
-DISK_OPERATION_WRITE	TESTS/FDC_OLD.C	/^    DISK_OPERATION_WRITE$/;"	e	enum:__anon8feab0430103	file:
-DISK_OPERATION_WRITE	TESTS/FDC_TEST.C	/^    DISK_OPERATION_WRITE$/;"	e	enum:__anon9874b1240103	file:
+DMA_A0_CONTROL	FDC.H	/^    DMA_A0_CONTROL = 1 << 1,$/;"	e	enum:__anon0d1820680a03
+DMA_A1_CONTROL	FDC.H	/^    DMA_A1_CONTROL = 1 << 2,$/;"	e	enum:__anon0d1820680a03
+DMA_CHIP_SELECT	FDC.H	/^    DMA_CHIP_SELECT = 1 << 3,$/;"	e	enum:__anon0d1820680a03
 DMA_COMMAND_REG_READ	FDC.H	/^#define DMA_COMMAND_REG_READ /;"	d
-DMA_COMMAND_REG_READ	KERNEL.C	/^#define DMA_COMMAND_REG_READ /;"	d	file:
-DMA_COMMAND_REG_READ	TESTS/FDC_OLD.C	/^#define DMA_COMMAND_REG_READ /;"	d	file:
-DMA_COMMAND_REG_READ	TESTS/FDC_TEST.C	/^#define DMA_COMMAND_REG_READ /;"	d	file:
 DMA_COMMAND_REG_WRITE	FDC.H	/^#define DMA_COMMAND_REG_WRITE /;"	d
-DMA_COMMAND_REG_WRITE	KERNEL.C	/^#define DMA_COMMAND_REG_WRITE /;"	d	file:
-DMA_COMMAND_REG_WRITE	TESTS/FDC_OLD.C	/^#define DMA_COMMAND_REG_WRITE /;"	d	file:
-DMA_COMMAND_REG_WRITE	TESTS/FDC_TEST.C	/^#define DMA_COMMAND_REG_WRITE /;"	d	file:
 DMA_CONTROL_REGISTER	DISK.C	/^IO_PORT16 DMA_CONTROL_REGISTER = (IO_PORT16)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16
 DMA_COUNT_REG_READ	DISK.C	/^#define DMA_COUNT_REG_READ /;"	d	file:
 DMA_COUNT_REG_WRITE	DISK.C	/^#define DMA_COUNT_REG_WRITE /;"	d	file:
 DMA_COUNT_REG_WRITE	FDC.H	/^#define DMA_COUNT_REG_WRITE /;"	d
-DMA_COUNT_REG_WRITE	KERNEL.C	/^#define DMA_COUNT_REG_WRITE /;"	d	file:
-DMA_COUNT_REG_WRITE	TESTS/FDC_OLD.C	/^#define DMA_COUNT_REG_WRITE /;"	d	file:
-DMA_COUNT_REG_WRITE	TESTS/FDC_TEST.C	/^#define DMA_COUNT_REG_WRITE /;"	d	file:
 DMA_DATA_REG_READ	FDC.H	/^#define DMA_DATA_REG_READ /;"	d
-DMA_DATA_REG_READ	KERNEL.C	/^#define DMA_DATA_REG_READ /;"	d	file:
-DMA_DATA_REG_READ	TESTS/FDC_OLD.C	/^#define DMA_DATA_REG_READ /;"	d	file:
-DMA_DATA_REG_READ	TESTS/FDC_TEST.C	/^#define DMA_DATA_REG_READ /;"	d	file:
 DMA_DATA_REG_WRITE	FDC.H	/^#define DMA_DATA_REG_WRITE /;"	d
-DMA_DATA_REG_WRITE	KERNEL.C	/^#define DMA_DATA_REG_WRITE /;"	d	file:
-DMA_DATA_REG_WRITE	TESTS/FDC_OLD.C	/^#define DMA_DATA_REG_WRITE /;"	d	file:
-DMA_DATA_REG_WRITE	TESTS/FDC_TEST.C	/^#define DMA_DATA_REG_WRITE /;"	d	file:
+DMA_DATREQ_CONDITION	FDC.H	/^    DMA_DATREQ_CONDITION = 1 << 2$/;"	e	enum:__anon0d1820680903
 DMA_DIRECTION_READ	DISK.C	/^#define DMA_DIRECTION_READ /;"	d	file:
 DMA_DIRECTION_WRITE	DISK.C	/^#define DMA_DIRECTION_WRITE /;"	d	file:
 DMA_DRQ_BIT	DISK.C	/^#define DMA_DRQ_BIT /;"	d	file:
 DMA_ERROR_BIT	DISK.C	/^#define DMA_ERROR_BIT /;"	d	file:
 DMA_ERROR_STATUS	DISK.C	/^        UINT16 DMA_ERROR_STATUS : 1;       \/* Bit 0 - Indicates DMA error (1: error, 0: no erro/;"	m	struct:__anonabd59501010a::__anonabd595010208	typeref:typename:UINT16:1	file:
-DMA_ERROR_STATUS	FDC.H	/^    DMA_ERROR_STATUS = 1 << 0,$/;"	e	enum:__anon0d1820680903
-DMA_ERROR_STATUS	KERNEL.C	/^    DMA_ERROR_STATUS = 1 << 0,$/;"	e	enum:__anon3760a2770903	file:
-DMA_ERROR_STATUS	TESTS/FDC_OLD.C	/^    DMA_ERROR_STATUS = 1 << 0,$/;"	e	enum:__anon8feab0430903	file:
-DMA_ERROR_STATUS	TESTS/FDC_TEST.C	/^    DMA_ERROR_STATUS = 1 << 0,$/;"	e	enum:__anon9874b1240903	file:
 DMA_FDC_DATA_REG_READ	DISK.C	/^#define DMA_FDC_DATA_REG_READ /;"	d	file:
 DMA_FDC_DATA_REG_WRITE	DISK.C	/^#define DMA_FDC_DATA_REG_WRITE /;"	d	file:
 DMA_FDC_REG_CONTROL_STATUS_READ	DISK.C	/^#define DMA_FDC_REG_CONTROL_STATUS_READ /;"	d	file:
@@ -178,232 +133,117 @@ DMA_HDCS_SELECT_BIT	DISK.C	/^#define DMA_HDCS_SELECT_BIT /;"	d	file:
 DMA_MODE	DISK.C	/^#define DMA_MODE /;"	d	file:
 DMA_MODE_READ	DISK.C	/^#define DMA_MODE_READ /;"	d	file:
 DMA_MODE_READ	FDC.H	/^#define DMA_MODE_READ /;"	d
-DMA_MODE_READ	KERNEL.C	/^#define DMA_MODE_READ /;"	d	file:
-DMA_MODE_READ	TESTS/FDC_OLD.C	/^#define DMA_MODE_READ /;"	d	file:
-DMA_MODE_READ	TESTS/FDC_TEST.C	/^#define DMA_MODE_READ /;"	d	file:
 DMA_MODE_READ_BIT	DISK.C	/^#define DMA_MODE_READ_BIT /;"	d	file:
 DMA_MODE_SECTOR_COUNT	DISK.C	/^#define DMA_MODE_SECTOR_COUNT /;"	d	file:
 DMA_MODE_WRITE	DISK.C	/^#define DMA_MODE_WRITE /;"	d	file:
 DMA_MODE_WRITE	FDC.H	/^#define DMA_MODE_WRITE /;"	d
-DMA_MODE_WRITE	KERNEL.C	/^#define DMA_MODE_WRITE /;"	d	file:
-DMA_MODE_WRITE	TESTS/FDC_OLD.C	/^#define DMA_MODE_WRITE /;"	d	file:
-DMA_MODE_WRITE	TESTS/FDC_TEST.C	/^#define DMA_MODE_WRITE /;"	d	file:
 DMA_MODE_WRITE_BIT	DISK.C	/^#define DMA_MODE_WRITE_BIT /;"	d	file:
+DMA_NOT_NEWCMDBLK	FDC.H	/^    DMA_NOT_NEWCMDBLK = 1 << 1,$/;"	e	enum:__anon0d1820680a03
+DMA_OK_ERROR_STATUS	FDC.H	/^    DMA_OK_ERROR_STATUS = 1 << 0,$/;"	e	enum:__anon0d1820680903
 DMA_READ_WRITE_BITS	DISK.C	/^#define DMA_READ_WRITE_BITS /;"	d	file:
 DMA_SC_NONZERO_BIT	DISK.C	/^#define DMA_SC_NONZERO_BIT /;"	d	file:
 DMA_SC_REG_ACCESS_BIT	DISK.C	/^#define DMA_SC_REG_ACCESS_BIT /;"	d	file:
+DMA_SECTOR_COUNT_NOT0	FDC.H	/^    DMA_SECTOR_COUNT_NOT0 = 1 << 1,$/;"	e	enum:__anon0d1820680903
+DMA_SECTOR_COUNT_REG_SELECT	FDC.H	/^    DMA_SECTOR_COUNT_REG_SELECT = 1 << 4,$/;"	e	enum:__anon0d1820680a03
 DMA_SECTOR_REG_READ	FDC.H	/^#define DMA_SECTOR_REG_READ /;"	d
-DMA_SECTOR_REG_READ	KERNEL.C	/^#define DMA_SECTOR_REG_READ /;"	d	file:
-DMA_SECTOR_REG_READ	TESTS/FDC_OLD.C	/^#define DMA_SECTOR_REG_READ /;"	d	file:
-DMA_SECTOR_REG_READ	TESTS/FDC_TEST.C	/^#define DMA_SECTOR_REG_READ /;"	d	file:
 DMA_SECTOR_REG_WRITE	FDC.H	/^#define DMA_SECTOR_REG_WRITE /;"	d
-DMA_SECTOR_REG_WRITE	KERNEL.C	/^#define DMA_SECTOR_REG_WRITE /;"	d	file:
-DMA_SECTOR_REG_WRITE	TESTS/FDC_OLD.C	/^#define DMA_SECTOR_REG_WRITE /;"	d	file:
-DMA_SECTOR_REG_WRITE	TESTS/FDC_TEST.C	/^#define DMA_SECTOR_REG_WRITE /;"	d	file:
 DMA_STATUS	DISK.C	/^#define DMA_STATUS /;"	d	file:
 DMA_STATUS_REGISTER	DISK.C	/^IO_PORT16_RO DMA_STATUS_REGISTER = (IO_PORT16_RO)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16_RO
 DMA_TRACK_REG_READ	FDC.H	/^#define DMA_TRACK_REG_READ /;"	d
-DMA_TRACK_REG_READ	KERNEL.C	/^#define DMA_TRACK_REG_READ /;"	d	file:
-DMA_TRACK_REG_READ	TESTS/FDC_OLD.C	/^#define DMA_TRACK_REG_READ /;"	d	file:
-DMA_TRACK_REG_READ	TESTS/FDC_TEST.C	/^#define DMA_TRACK_REG_READ /;"	d	file:
 DMA_TRACK_REG_WRITE	FDC.H	/^#define DMA_TRACK_REG_WRITE /;"	d
-DMA_TRACK_REG_WRITE	KERNEL.C	/^#define DMA_TRACK_REG_WRITE /;"	d	file:
-DMA_TRACK_REG_WRITE	TESTS/FDC_OLD.C	/^#define DMA_TRACK_REG_WRITE /;"	d	file:
-DMA_TRACK_REG_WRITE	TESTS/FDC_TEST.C	/^#define DMA_TRACK_REG_WRITE /;"	d	file:
 DMA_UNUSED	DISK.C	/^        UINT16 DMA_UNUSED : 1;              \/* Bit 6 - Unused, set to 0 (historically for DMA e/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:1	file:
 DRIVE_A	FDC.H	/^    DRIVE_A,$/;"	e	enum:__anon0d1820680203
-DRIVE_A	KERNEL.C	/^    DRIVE_A,$/;"	e	enum:__anon3760a2770203	file:
-DRIVE_A	TESTS/FDC_OLD.C	/^    DRIVE_A,$/;"	e	enum:__anon8feab0430203	file:
-DRIVE_A	TESTS/FDC_TEST.C	/^    DRIVE_A,$/;"	e	enum:__anon9874b1240203	file:
 DRIVE_A_DISABLE	FDC.H	/^    DRIVE_A_DISABLE = 1 << 1,$/;"	e	enum:__anon0d1820680603
-DRIVE_A_DISABLE	KERNEL.C	/^    DRIVE_A_DISABLE = 1 << 1,$/;"	e	enum:__anon3760a2770603	file:
-DRIVE_A_DISABLE	TESTS/FDC_OLD.C	/^    DRIVE_A_DISABLE = 1 << 1,$/;"	e	enum:__anon8feab0430603	file:
-DRIVE_A_DISABLE	TESTS/FDC_TEST.C	/^    DRIVE_A_DISABLE = 1 << 1,$/;"	e	enum:__anon9874b1240603	file:
 DRIVE_B	FDC.H	/^    DRIVE_B$/;"	e	enum:__anon0d1820680203
-DRIVE_B	KERNEL.C	/^    DRIVE_B$/;"	e	enum:__anon3760a2770203	file:
-DRIVE_B	TESTS/FDC_OLD.C	/^    DRIVE_B$/;"	e	enum:__anon8feab0430203	file:
-DRIVE_B	TESTS/FDC_TEST.C	/^    DRIVE_B$/;"	e	enum:__anon9874b1240203	file:
 DRIVE_B_DISABLE	FDC.H	/^    DRIVE_B_DISABLE = 1 << 2,$/;"	e	enum:__anon0d1820680603
-DRIVE_B_DISABLE	KERNEL.C	/^    DRIVE_B_DISABLE = 1 << 2,$/;"	e	enum:__anon3760a2770603	file:
-DRIVE_B_DISABLE	TESTS/FDC_OLD.C	/^    DRIVE_B_DISABLE = 1 << 2,$/;"	e	enum:__anon8feab0430603	file:
-DRIVE_B_DISABLE	TESTS/FDC_TEST.C	/^    DRIVE_B_DISABLE = 1 << 2,$/;"	e	enum:__anon9874b1240603	file:
 DSP_RESET_ENABLE	FDC.H	/^    DSP_RESET_ENABLE = 1 << 4,$/;"	e	enum:__anon0d1820680603
-DSP_RESET_ENABLE	KERNEL.C	/^    DSP_RESET_ENABLE = 1 << 4,$/;"	e	enum:__anon3760a2770603	file:
-DSP_RESET_ENABLE	TESTS/FDC_OLD.C	/^    DSP_RESET_ENABLE = 1 << 4,$/;"	e	enum:__anon8feab0430603	file:
-DSP_RESET_ENABLE	TESTS/FDC_TEST.C	/^    DSP_RESET_ENABLE = 1 << 4,$/;"	e	enum:__anon9874b1240603	file:
 ENABLE_DMA_SC_REG	DISK.C	/^#define ENABLE_DMA_SC_REG(/;"	d	file:
 FDC.C	.vscode/settings.json	/^        "FDC.C": "cpp",$/;"	s	object:files.associations
 FDC_BUSY	FDC.H	/^    FDC_BUSY = 1 << 0,$/;"	e	enum:__anon0d1820680803
-FDC_BUSY	KERNEL.C	/^    FDC_BUSY = 1 << 0,$/;"	e	enum:__anon3760a2770803	file:
-FDC_BUSY	TESTS/FDC_OLD.C	/^    FDC_BUSY = 1 << 0,$/;"	e	enum:__anon8feab0430803	file:
-FDC_BUSY	TESTS/FDC_TEST.C	/^    FDC_BUSY = 1 << 0,$/;"	e	enum:__anon9874b1240803	file:
 FDC_CMD_FORCE_INT	DISK.C	/^#define FDC_CMD_FORCE_INT /;"	d	file:
 FDC_CMD_FORCE_INTERRUPT_WITH_ALL_CONDITIONS	DISK.C	/^#define FDC_CMD_FORCE_INTERRUPT_WITH_ALL_CONDITIONS /;"	d	file:
+FDC_CMD_INTERRUPT	FDC.H	/^#define FDC_CMD_INTERRUPT /;"	d
 FDC_CMD_READ	DISK.C	/^#define FDC_CMD_READ /;"	d	file:
 FDC_CMD_READ	FDC.H	/^#define FDC_CMD_READ /;"	d
-FDC_CMD_READ	KERNEL.C	/^#define FDC_CMD_READ /;"	d	file:
-FDC_CMD_READ	TESTS/FDC_OLD.C	/^#define FDC_CMD_READ /;"	d	file:
-FDC_CMD_READ	TESTS/FDC_TEST.C	/^#define FDC_CMD_READ /;"	d	file:
+FDC_CMD_READID	FDC.H	/^#define FDC_CMD_READID /;"	d
+FDC_CMD_READTR	FDC.H	/^#define FDC_CMD_READTR /;"	d
 FDC_CMD_READ_ADDR	DISK.C	/^#define FDC_CMD_READ_ADDR /;"	d	file:
 FDC_CMD_READ_TRACK	DISK.C	/^#define FDC_CMD_READ_TRACK /;"	d	file:
 FDC_CMD_RESTORE	DISK.C	/^#define FDC_CMD_RESTORE /;"	d	file:
 FDC_CMD_RESTORE	FDC.H	/^#define FDC_CMD_RESTORE /;"	d
-FDC_CMD_RESTORE	KERNEL.C	/^#define FDC_CMD_RESTORE /;"	d	file:
-FDC_CMD_RESTORE	TESTS/FDC_OLD.C	/^#define FDC_CMD_RESTORE /;"	d	file:
-FDC_CMD_RESTORE	TESTS/FDC_TEST.C	/^#define FDC_CMD_RESTORE /;"	d	file:
 FDC_CMD_SEEK	DISK.C	/^#define FDC_CMD_SEEK /;"	d	file:
 FDC_CMD_SEEK	FDC.H	/^#define FDC_CMD_SEEK /;"	d
-FDC_CMD_SEEK	KERNEL.C	/^#define FDC_CMD_SEEK /;"	d	file:
-FDC_CMD_SEEK	TESTS/FDC_OLD.C	/^#define FDC_CMD_SEEK /;"	d	file:
-FDC_CMD_SEEK	TESTS/FDC_TEST.C	/^#define FDC_CMD_SEEK /;"	d	file:
+FDC_CMD_STEP	FDC.H	/^#define FDC_CMD_STEP /;"	d
+FDC_CMD_STEPI	FDC.H	/^#define FDC_CMD_STEPI /;"	d
+FDC_CMD_STEPO	FDC.H	/^#define FDC_CMD_STEPO /;"	d
 FDC_CMD_WRITE	DISK.C	/^#define FDC_CMD_WRITE /;"	d	file:
 FDC_CMD_WRITE	FDC.H	/^#define FDC_CMD_WRITE /;"	d
-FDC_CMD_WRITE	KERNEL.C	/^#define FDC_CMD_WRITE /;"	d	file:
-FDC_CMD_WRITE	TESTS/FDC_OLD.C	/^#define FDC_CMD_WRITE /;"	d	file:
-FDC_CMD_WRITE	TESTS/FDC_TEST.C	/^#define FDC_CMD_WRITE /;"	d	file:
+FDC_CMD_WRITETR	FDC.H	/^#define FDC_CMD_WRITETR /;"	d
 FDC_CMD_WRITE_TRACK	DISK.C	/^#define FDC_CMD_WRITE_TRACK /;"	d	file:
 FDC_CRC_ERROR	FDC.H	/^    FDC_CRC_ERROR = 1 << 3,$/;"	e	enum:__anon0d1820680803
-FDC_CRC_ERROR	KERNEL.C	/^    FDC_CRC_ERROR = 1 << 3,$/;"	e	enum:__anon3760a2770803	file:
-FDC_CRC_ERROR	TESTS/FDC_OLD.C	/^    FDC_CRC_ERROR = 1 << 3,$/;"	e	enum:__anon8feab0430803	file:
-FDC_CRC_ERROR	TESTS/FDC_TEST.C	/^    FDC_CRC_ERROR = 1 << 3,$/;"	e	enum:__anon9874b1240803	file:
 FDC_FLAG_DATA_ADDR_MARK	DISK.C	/^#define FDC_FLAG_DATA_ADDR_MARK /;"	d	file:
-FDC_FLAG_DATA_ADDR_MARK	FDC.H	/^#define FDC_FLAG_DATA_ADDR_MARK /;"	d
-FDC_FLAG_DATA_ADDR_MARK	KERNEL.C	/^#define FDC_FLAG_DATA_ADDR_MARK /;"	d	file:
-FDC_FLAG_DATA_ADDR_MARK	TESTS/FDC_OLD.C	/^#define FDC_FLAG_DATA_ADDR_MARK /;"	d	file:
-FDC_FLAG_DATA_ADDR_MARK	TESTS/FDC_TEST.C	/^#define FDC_FLAG_DATA_ADDR_MARK /;"	d	file:
 FDC_FLAG_DELAY	DISK.C	/^#define FDC_FLAG_DELAY /;"	d	file:
-FDC_FLAG_DELAY	FDC.H	/^#define FDC_FLAG_DELAY /;"	d
-FDC_FLAG_DELAY	KERNEL.C	/^#define FDC_FLAG_DELAY /;"	d	file:
-FDC_FLAG_DELAY	TESTS/FDC_OLD.C	/^#define FDC_FLAG_DELAY /;"	d	file:
-FDC_FLAG_DELAY	TESTS/FDC_TEST.C	/^#define FDC_FLAG_DELAY /;"	d	file:
-FDC_FLAG_H	FDC.H	/^#define FDC_FLAG_H /;"	d
-FDC_FLAG_H	KERNEL.C	/^#define FDC_FLAG_H /;"	d	file:
-FDC_FLAG_H	TESTS/FDC_OLD.C	/^#define FDC_FLAG_H /;"	d	file:
-FDC_FLAG_H	TESTS/FDC_TEST.C	/^#define FDC_FLAG_H /;"	d	file:
+FDC_FLAG_FORCE_INTERRUPT	FDC.H	/^#define FDC_FLAG_FORCE_INTERRUPT /;"	d
+FDC_FLAG_INTERRUPT_INDEX_PULSE	FDC.H	/^#define FDC_FLAG_INTERRUPT_INDEX_PULSE /;"	d
 FDC_FLAG_INT_CONDITION	DISK.C	/^#define FDC_FLAG_INT_CONDITION /;"	d	file:
 FDC_FLAG_MOTOR_ON	DISK.C	/^#define FDC_FLAG_MOTOR_ON /;"	d	file:
-FDC_FLAG_MOTOR_ON	FDC.H	/^#define FDC_FLAG_MOTOR_ON /;"	d
-FDC_FLAG_MOTOR_ON	KERNEL.C	/^#define FDC_FLAG_MOTOR_ON /;"	d	file:
-FDC_FLAG_MOTOR_ON	TESTS/FDC_OLD.C	/^#define FDC_FLAG_MOTOR_ON /;"	d	file:
-FDC_FLAG_MOTOR_ON	TESTS/FDC_TEST.C	/^#define FDC_FLAG_MOTOR_ON /;"	d	file:
 FDC_FLAG_MULTIPLE_SECT	DISK.C	/^#define FDC_FLAG_MULTIPLE_SECT /;"	d	file:
-FDC_FLAG_MULTIPLE_SECT	FDC.H	/^#define FDC_FLAG_MULTIPLE_SECT /;"	d
-FDC_FLAG_MULTIPLE_SECT	KERNEL.C	/^#define FDC_FLAG_MULTIPLE_SECT /;"	d	file:
-FDC_FLAG_MULTIPLE_SECT	TESTS/FDC_OLD.C	/^#define FDC_FLAG_MULTIPLE_SECT /;"	d	file:
-FDC_FLAG_MULTIPLE_SECT	TESTS/FDC_TEST.C	/^#define FDC_FLAG_MULTIPLE_SECT /;"	d	file:
-FDC_FLAG_R0	FDC.H	/^#define FDC_FLAG_R0 /;"	d
-FDC_FLAG_R0	KERNEL.C	/^#define FDC_FLAG_R0 /;"	d	file:
-FDC_FLAG_R0	TESTS/FDC_OLD.C	/^#define FDC_FLAG_R0 /;"	d	file:
-FDC_FLAG_R0	TESTS/FDC_TEST.C	/^#define FDC_FLAG_R0 /;"	d	file:
-FDC_FLAG_R1	FDC.H	/^#define FDC_FLAG_R1 /;"	d
-FDC_FLAG_R1	KERNEL.C	/^#define FDC_FLAG_R1 /;"	d	file:
-FDC_FLAG_R1	TESTS/FDC_OLD.C	/^#define FDC_FLAG_R1 /;"	d	file:
-FDC_FLAG_R1	TESTS/FDC_TEST.C	/^#define FDC_FLAG_R1 /;"	d	file:
+FDC_FLAG_MULTI_SECTOR	FDC.H	/^#define FDC_FLAG_MULTI_SECTOR /;"	d
+FDC_FLAG_SETTLE_DELAY	FDC.H	/^#define FDC_FLAG_SETTLE_DELAY /;"	d
 FDC_FLAG_STEP_RATE	DISK.C	/^#define FDC_FLAG_STEP_RATE /;"	d	file:
-FDC_FLAG_V	FDC.H	/^#define FDC_FLAG_V /;"	d
-FDC_FLAG_V	KERNEL.C	/^#define FDC_FLAG_V /;"	d	file:
-FDC_FLAG_V	TESTS/FDC_OLD.C	/^#define FDC_FLAG_V /;"	d	file:
-FDC_FLAG_V	TESTS/FDC_TEST.C	/^#define FDC_FLAG_V /;"	d	file:
+FDC_FLAG_STEP_RATE_12	FDC.H	/^#define FDC_FLAG_STEP_RATE_12 /;"	d
+FDC_FLAG_STEP_RATE_2	FDC.H	/^#define FDC_FLAG_STEP_RATE_2 /;"	d
+FDC_FLAG_STEP_RATE_3	FDC.H	/^#define FDC_FLAG_STEP_RATE_3 /;"	d
+FDC_FLAG_STEP_RATE_6	FDC.H	/^#define FDC_FLAG_STEP_RATE_6 /;"	d
+FDC_FLAG_SUPPRESS_DATA_ADDR_MARK	FDC.H	/^#define FDC_FLAG_SUPPRESS_DATA_ADDR_MARK /;"	d
+FDC_FLAG_SUPPRESS_MOTOR_ON	FDC.H	/^#define FDC_FLAG_SUPPRESS_MOTOR_ON /;"	d
+FDC_FLAG_UPDATE_TRACK_REG	FDC.H	/^#define FDC_FLAG_UPDATE_TRACK_REG /;"	d
 FDC_FLAG_VERIFY	DISK.C	/^#define FDC_FLAG_VERIFY /;"	d	file:
+FDC_FLAG_VERIFY_SECTOR_ID	FDC.H	/^#define FDC_FLAG_VERIFY_SECTOR_ID /;"	d
 FDC_FLAG_WRITE_PRECOMP	DISK.C	/^#define FDC_FLAG_WRITE_PRECOMP /;"	d	file:
-FDC_FLAG_WRITE_PRECOMP	FDC.H	/^#define FDC_FLAG_WRITE_PRECOMP /;"	d
-FDC_FLAG_WRITE_PRECOMP	KERNEL.C	/^#define FDC_FLAG_WRITE_PRECOMP /;"	d	file:
-FDC_FLAG_WRITE_PRECOMP	TESTS/FDC_OLD.C	/^#define FDC_FLAG_WRITE_PRECOMP /;"	d	file:
-FDC_FLAG_WRITE_PRECOMP	TESTS/FDC_TEST.C	/^#define FDC_FLAG_WRITE_PRECOMP /;"	d	file:
+FDC_FLAG_WRITE_PRECOMPENSATION	FDC.H	/^#define FDC_FLAG_WRITE_PRECOMPENSATION /;"	d
 FDC_H	FDC.H	/^#define FDC_H$/;"	d
 FDC_INDEX_DATA_REQUEST	FDC.H	/^    FDC_INDEX_DATA_REQUEST = 1 << 1,$/;"	e	enum:__anon0d1820680803
-FDC_INDEX_DATA_REQUEST	KERNEL.C	/^    FDC_INDEX_DATA_REQUEST = 1 << 1,$/;"	e	enum:__anon3760a2770803	file:
-FDC_INDEX_DATA_REQUEST	TESTS/FDC_OLD.C	/^    FDC_INDEX_DATA_REQUEST = 1 << 1,$/;"	e	enum:__anon8feab0430803	file:
-FDC_INDEX_DATA_REQUEST	TESTS/FDC_TEST.C	/^    FDC_INDEX_DATA_REQUEST = 1 << 1,$/;"	e	enum:__anon9874b1240803	file:
+FDC_LOST_DATA	FDC.H	/^    FDC_LOST_DATA = 1 << 2,$/;"	e	enum:__anon0d1820680803
 FDC_MOTOR_ON	FDC.H	/^    FDC_MOTOR_ON = 1 << 7$/;"	e	enum:__anon0d1820680803
-FDC_MOTOR_ON	KERNEL.C	/^    FDC_MOTOR_ON = 1 << 7$/;"	e	enum:__anon3760a2770803	file:
-FDC_MOTOR_ON	TESTS/FDC_OLD.C	/^    FDC_MOTOR_ON = 1 << 7$/;"	e	enum:__anon8feab0430803	file:
-FDC_MOTOR_ON	TESTS/FDC_TEST.C	/^    FDC_MOTOR_ON = 1 << 7$/;"	e	enum:__anon9874b1240803	file:
 FDC_OLD.C	.vscode/settings.json	/^        "FDC_OLD.C": "cpp",$/;"	s	object:files.associations
 FDC_READ_ERROR_CHECK	FDC.H	/^#define FDC_READ_ERROR_CHECK(/;"	d
-FDC_READ_ERROR_CHECK	KERNEL.C	/^#define FDC_READ_ERROR_CHECK(/;"	d	file:
-FDC_READ_ERROR_CHECK	TESTS/FDC_OLD.C	/^#define FDC_READ_ERROR_CHECK(/;"	d	file:
-FDC_READ_ERROR_CHECK	TESTS/FDC_TEST.C	/^#define FDC_READ_ERROR_CHECK(/;"	d	file:
 FDC_RECORD_NOT_FOUND	FDC.H	/^    FDC_RECORD_NOT_FOUND = 1 << 4,$/;"	e	enum:__anon0d1820680803
-FDC_RECORD_NOT_FOUND	KERNEL.C	/^    FDC_RECORD_NOT_FOUND = 1 << 4,$/;"	e	enum:__anon3760a2770803	file:
-FDC_RECORD_NOT_FOUND	TESTS/FDC_OLD.C	/^    FDC_RECORD_NOT_FOUND = 1 << 4,$/;"	e	enum:__anon8feab0430803	file:
-FDC_RECORD_NOT_FOUND	TESTS/FDC_TEST.C	/^    FDC_RECORD_NOT_FOUND = 1 << 4,$/;"	e	enum:__anon9874b1240803	file:
 FDC_RESTORE_ERROR_CHECK	FDC.H	/^#define FDC_RESTORE_ERROR_CHECK(/;"	d
-FDC_RESTORE_ERROR_CHECK	KERNEL.C	/^#define FDC_RESTORE_ERROR_CHECK(/;"	d	file:
-FDC_RESTORE_ERROR_CHECK	TESTS/FDC_OLD.C	/^#define FDC_RESTORE_ERROR_CHECK(/;"	d	file:
-FDC_RESTORE_ERROR_CHECK	TESTS/FDC_TEST.C	/^#define FDC_RESTORE_ERROR_CHECK(/;"	d	file:
 FDC_SEEK_ERROR_CHECK	FDC.H	/^#define FDC_SEEK_ERROR_CHECK(/;"	d
-FDC_SEEK_ERROR_CHECK	KERNEL.C	/^#define FDC_SEEK_ERROR_CHECK(/;"	d	file:
-FDC_SEEK_ERROR_CHECK	TESTS/FDC_OLD.C	/^#define FDC_SEEK_ERROR_CHECK(/;"	d	file:
-FDC_SEEK_ERROR_CHECK	TESTS/FDC_TEST.C	/^#define FDC_SEEK_ERROR_CHECK(/;"	d	file:
 FDC_SPIN_UP_RECORD_TYPE	FDC.H	/^    FDC_SPIN_UP_RECORD_TYPE = 1 << 5,$/;"	e	enum:__anon0d1820680803
-FDC_SPIN_UP_RECORD_TYPE	KERNEL.C	/^    FDC_SPIN_UP_RECORD_TYPE = 1 << 5,$/;"	e	enum:__anon3760a2770803	file:
-FDC_SPIN_UP_RECORD_TYPE	TESTS/FDC_OLD.C	/^    FDC_SPIN_UP_RECORD_TYPE = 1 << 5,$/;"	e	enum:__anon8feab0430803	file:
-FDC_SPIN_UP_RECORD_TYPE	TESTS/FDC_TEST.C	/^    FDC_SPIN_UP_RECORD_TYPE = 1 << 5,$/;"	e	enum:__anon9874b1240803	file:
-FDC_TEST.C	.vscode/settings.json	/^        "FDC_TEST.C": "cpp"$/;"	s	object:files.associations
-FDC_TRACK_ZERO_LOST_DATA	FDC.H	/^    FDC_TRACK_ZERO_LOST_DATA = 1 << 2,$/;"	e	enum:__anon0d1820680803
-FDC_TRACK_ZERO_LOST_DATA	KERNEL.C	/^    FDC_TRACK_ZERO_LOST_DATA = 1 << 2,$/;"	e	enum:__anon3760a2770803	file:
-FDC_TRACK_ZERO_LOST_DATA	TESTS/FDC_OLD.C	/^    FDC_TRACK_ZERO_LOST_DATA = 1 << 2,$/;"	e	enum:__anon8feab0430803	file:
-FDC_TRACK_ZERO_LOST_DATA	TESTS/FDC_TEST.C	/^    FDC_TRACK_ZERO_LOST_DATA = 1 << 2,$/;"	e	enum:__anon9874b1240803	file:
+FDC_TEST.C	.vscode/settings.json	/^        "FDC_TEST.C": "cpp",$/;"	s	object:files.associations
+FDC_TRACK_ZERO	FDC.H	/^    FDC_TRACK_ZERO = 1 << 2,$/;"	e	enum:__anon0d1820680803
 FDC_WRITE_ERROR_CHECK	FDC.H	/^#define FDC_WRITE_ERROR_CHECK(/;"	d
-FDC_WRITE_ERROR_CHECK	KERNEL.C	/^#define FDC_WRITE_ERROR_CHECK(/;"	d	file:
-FDC_WRITE_ERROR_CHECK	TESTS/FDC_OLD.C	/^#define FDC_WRITE_ERROR_CHECK(/;"	d	file:
-FDC_WRITE_ERROR_CHECK	TESTS/FDC_TEST.C	/^#define FDC_WRITE_ERROR_CHECK(/;"	d	file:
 FDC_WRITE_PROTECT	FDC.H	/^    FDC_WRITE_PROTECT = 1 << 6,$/;"	e	enum:__anon0d1820680803
-FDC_WRITE_PROTECT	KERNEL.C	/^    FDC_WRITE_PROTECT = 1 << 6,$/;"	e	enum:__anon3760a2770803	file:
-FDC_WRITE_PROTECT	TESTS/FDC_OLD.C	/^    FDC_WRITE_PROTECT = 1 << 6,$/;"	e	enum:__anon8feab0430803	file:
-FDC_WRITE_PROTECT	TESTS/FDC_TEST.C	/^    FDC_WRITE_PROTECT = 1 << 6,$/;"	e	enum:__anon9874b1240803	file:
+FLOPPY_VECTOR	KERNEL.C	/^#define FLOPPY_VECTOR /;"	d	file:
 FONT.C	.vscode/settings.json	/^        "FONT.C": "cpp",$/;"	s	object:files.associations
 FONT_H	FONT.H	/^#define FONT_H$/;"	d
+Features	README.md	/^## Features$/;"	s	chapter:Custom Atari ST Disk Driver
 GLYPH_START	FONT.H	/^#define GLYPH_START(/;"	d
 HBL_VECTOR	KERNEL.C	/^#define HBL_VECTOR /;"	d	file:
 HDCS_FDCS_SELECT	DISK.C	/^        UINT16 HDCS_FDCS_SELECT : 1;        \/* Bit 3 - Selects HDCS* or FDCS* chip-select (1: H/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:1	file:
-HDCS_FDCS_SELECT	FDC.H	/^    HDCS_FDCS_SELECT = 1 << 3,$/;"	e	enum:__anon0d1820680a03
-HDCS_FDCS_SELECT	KERNEL.C	/^    HDCS_FDCS_SELECT = 1 << 3,$/;"	e	enum:__anon3760a2770a03	file:
-HDCS_FDCS_SELECT	TESTS/FDC_OLD.C	/^    HDCS_FDCS_SELECT = 1 << 3,$/;"	e	enum:__anon8feab0430a03	file:
-HDCS_FDCS_SELECT	TESTS/FDC_TEST.C	/^    HDCS_FDCS_SELECT = 1 << 3,$/;"	e	enum:__anon9874b1240a03	file:
 IDE_RESET_ENABLE	FDC.H	/^    IDE_RESET_ENABLE = 1 << 7$/;"	e	enum:__anon0d1820680603
-IDE_RESET_ENABLE	KERNEL.C	/^    IDE_RESET_ENABLE = 1 << 7$/;"	e	enum:__anon3760a2770603	file:
-IDE_RESET_ENABLE	TESTS/FDC_OLD.C	/^    IDE_RESET_ENABLE = 1 << 7$/;"	e	enum:__anon8feab0430603	file:
-IDE_RESET_ENABLE	TESTS/FDC_TEST.C	/^    IDE_RESET_ENABLE = 1 << 7$/;"	e	enum:__anon9874b1240603	file:
 IKBD_ACIA_CR	KERNEL.C	/^IO_PORT8 IKBD_ACIA_CR = 0xFFFC00;$/;"	v	typeref:typename:IO_PORT8
 IKBD_ACIA_RDR	KERNEL.C	/^IO_PORT8_RO IKBD_ACIA_RDR = 0xFFFC02;$/;"	v	typeref:typename:IO_PORT8_RO
 IKBD_ACIA_SR	KERNEL.C	/^IO_PORT8_RO IKBD_ACIA_SR = 0xFFFC00;$/;"	v	typeref:typename:IO_PORT8_RO
 IKBD_VECTOR	KERNEL.C	/^#define IKBD_VECTOR /;"	d	file:
 IOA	FDC.H	/^    IOA = 0xE,$/;"	e	enum:__anon0d1820680403
-IOA	KERNEL.C	/^    IOA = 0xE,$/;"	e	enum:__anon3760a2770403	file:
-IOA	TESTS/FDC_OLD.C	/^    IOA = 0xE,$/;"	e	enum:__anon8feab0430403	file:
-IOA	TESTS/FDC_TEST.C	/^    IOA = 0xE,$/;"	e	enum:__anon9874b1240403	file:
 IOB	FDC.H	/^    IOB = 0xF$/;"	e	enum:__anon0d1820680403
-IOB	KERNEL.C	/^    IOB = 0xF$/;"	e	enum:__anon3760a2770403	file:
-IOB	TESTS/FDC_OLD.C	/^    IOB = 0xF$/;"	e	enum:__anon8feab0430403	file:
-IOB	TESTS/FDC_TEST.C	/^    IOB = 0xF$/;"	e	enum:__anon9874b1240403	file:
 IO_PORT16	DISK.C	/^typedef volatile UINT16 *const IO_PORT16;$/;"	t	typeref:typename:volatile UINT16 * const	file:
-IO_PORT16	TESTS/TEST_CLEAN/TYPES.H	/^typedef volatile UINT16 *const IO_PORT16;$/;"	t	typeref:typename:volatile UINT16 * const
 IO_PORT16	TYPES.H	/^typedef volatile UINT16 *const IO_PORT16;$/;"	t	typeref:typename:volatile UINT16 * const
 IO_PORT16_RO	DISK.C	/^typedef volatile const UINT16 *const IO_PORT16_RO;$/;"	t	typeref:typename:volatile const UINT16 * const	file:
-IO_PORT16_RO	TESTS/TEST_CLEAN/TYPES.H	/^typedef volatile const UINT16 *const IO_PORT16_RO;$/;"	t	typeref:typename:volatile const UINT16 * const
 IO_PORT16_RO	TYPES.H	/^typedef volatile const UINT16 *const IO_PORT16_RO;$/;"	t	typeref:typename:volatile const UINT16 * const
 IO_PORT8	DISK.C	/^typedef volatile UINT8 *const IO_PORT8;$/;"	t	typeref:typename:volatile UINT8 * const	file:
-IO_PORT8	TESTS/TEST_CLEAN/TYPES.H	/^typedef volatile UINT8 *const IO_PORT8;$/;"	t	typeref:typename:volatile UINT8 * const
 IO_PORT8	TYPES.H	/^typedef volatile UINT8 *const IO_PORT8;$/;"	t	typeref:typename:volatile UINT8 * const
 IO_PORT8_RO	DISK.C	/^typedef volatile const UINT8 *const IO_PORT8_RO;$/;"	t	typeref:typename:volatile const UINT8 * const	file:
-IO_PORT8_RO	TESTS/TEST_CLEAN/TYPES.H	/^typedef volatile const UINT8 *const IO_PORT8_RO;$/;"	t	typeref:typename:volatile const UINT8 * const
 IO_PORT8_RO	TYPES.H	/^typedef volatile const UINT8 *const IO_PORT8_RO;$/;"	t	typeref:typename:volatile const UINT8 * const
 ISR.C	.vscode/settings.json	/^        "ISR.C": "cpp",$/;"	s	object:files.associations
-ISR_H	TESTS/TEST_CLEAN/ISR.H	/^#define ISR_H$/;"	d
 IS_PRINTABLE	FONT.H	/^#define IS_PRINTABLE(/;"	d
 KERNEL.C	.vscode/settings.json	/^        "KERNEL.C": "cpp",$/;"	s	object:files.associations
-KERNEL_INIT_H	TESTS/TEST_CLEAN/KERNEL.H	/^#define KERNEL_INIT_H$/;"	d
 MAX_NUM_PROC	KERNEL.C	/^#define MAX_NUM_PROC /;"	d	file:
 MAX_SECTOR	FDC.H	/^#define MAX_SECTOR /;"	d
-MAX_SECTOR	KERNEL.C	/^#define MAX_SECTOR /;"	d	file:
-MAX_SECTOR	TESTS/FDC_OLD.C	/^#define MAX_SECTOR /;"	d	file:
-MAX_SECTOR	TESTS/FDC_TEST.C	/^#define MAX_SECTOR /;"	d	file:
 MAX_TRACK	FDC.H	/^#define MAX_TRACK /;"	d
-MAX_TRACK	KERNEL.C	/^#define MAX_TRACK /;"	d	file:
-MAX_TRACK	TESTS/FDC_OLD.C	/^#define MAX_TRACK /;"	d	file:
-MAX_TRACK	TESTS/FDC_TEST.C	/^#define MAX_TRACK /;"	d	file:
 MEM_CONFIG_REG	KERN_ASM.S	/^MEM_CONFIG_REG		equ		$FF8001$/;"	d
 MFP_GPIP4	KERNEL.C	/^#define MFP_GPIP4 /;"	d	file:
 MFP_IERA	KERNEL.C	/^IO_PORT8 MFP_IERA = 0xFFFA07;$/;"	v	typeref:typename:IO_PORT8
@@ -420,93 +260,34 @@ MIDI_ACIA_CR	KERNEL.C	/^IO_PORT8 MIDI_ACIA_CR = 0xFFFC04;$/;"	v	typeref:typename
 MODE	DISK.C	/^    } MODE;                                 \/* Writing to DMA_CONTROL_REGISTER *\/$/;"	m	union:__anonabd59501010a	typeref:struct:__anonabd59501010a::__anonabd595010308	file:
 MONO	KERN_ASM.S	/^MONO				equ		$02$/;"	d
 OS_RAM_TOP	KERN_ASM.S	/^OS_RAM_TOP			equ		$000800	$/;"	d
+Overview	README.md	/^## Overview$/;"	s	chapter:Custom Atari ST Disk Driver
 PORT_A_IN_OUT	FDC.H	/^    PORT_A_IN_OUT = 1 << 6,$/;"	e	enum:__anon0d1820680703
-PORT_A_IN_OUT	KERNEL.C	/^    PORT_A_IN_OUT = 1 << 6,$/;"	e	enum:__anon3760a2770703	file:
-PORT_A_IN_OUT	TESTS/FDC_OLD.C	/^    PORT_A_IN_OUT = 1 << 6,$/;"	e	enum:__anon8feab0430703	file:
-PORT_A_IN_OUT	TESTS/FDC_TEST.C	/^    PORT_A_IN_OUT = 1 << 6,$/;"	e	enum:__anon9874b1240703	file:
 PORT_B_IN_OUT	FDC.H	/^    PORT_B_IN_OUT = 1 << 7$/;"	e	enum:__anon0d1820680703
-PORT_B_IN_OUT	KERNEL.C	/^    PORT_B_IN_OUT = 1 << 7$/;"	e	enum:__anon3760a2770703	file:
-PORT_B_IN_OUT	TESTS/FDC_OLD.C	/^    PORT_B_IN_OUT = 1 << 7$/;"	e	enum:__anon8feab0430703	file:
-PORT_B_IN_OUT	TESTS/FDC_TEST.C	/^    PORT_B_IN_OUT = 1 << 7$/;"	e	enum:__anon9874b1240703	file:
 PRINTER_SELECT_IN	FDC.H	/^    PRINTER_SELECT_IN = 1 << 3,$/;"	e	enum:__anon0d1820680603
-PRINTER_SELECT_IN	KERNEL.C	/^    PRINTER_SELECT_IN = 1 << 3,$/;"	e	enum:__anon3760a2770603	file:
-PRINTER_SELECT_IN	TESTS/FDC_OLD.C	/^    PRINTER_SELECT_IN = 1 << 3,$/;"	e	enum:__anon8feab0430603	file:
-PRINTER_SELECT_IN	TESTS/FDC_TEST.C	/^    PRINTER_SELECT_IN = 1 << 3,$/;"	e	enum:__anon9874b1240603	file:
 PROC.C	.vscode/settings.json	/^        "PROC.C": "cpp",$/;"	s	object:files.associations
 PROCESS.C	.vscode/settings.json	/^        "PROCESS.C": "cpp",$/;"	s	object:files.associations
 PROCESS_ENTRY_SIZE	KERN_ASM.S	/^PROCESS_ENTRY_SIZE	equ		102$/;"	d
-PROCESS_H	TESTS/TEST_CLEAN/PROC.H	/^#define PROCESS_H$/;"	d
 PROC_BLOCKED	KERNEL.C	/^#define PROC_BLOCKED /;"	d	file:
 PROC_INVALID	KERNEL.C	/^#define PROC_INVALID /;"	d	file:
 PROC_READY	KERNEL.C	/^#define PROC_READY /;"	d	file:
 PROC_RUNNING	KERNEL.C	/^#define PROC_RUNNING /;"	d	file:
 PSG.C	.vscode/settings.json	/^        "PSG.C": "cpp",$/;"	s	object:files.associations
 PSG_CHANNEL_A_AMP_CONTROL	FDC.H	/^    PSG_CHANNEL_A_AMP_CONTROL,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_A_AMP_CONTROL	KERNEL.C	/^    PSG_CHANNEL_A_AMP_CONTROL,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_A_AMP_CONTROL	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_A_AMP_CONTROL,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_A_AMP_CONTROL	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_A_AMP_CONTROL,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_A_FREQ_HIGH	FDC.H	/^    PSG_CHANNEL_A_FREQ_HIGH,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_A_FREQ_HIGH	KERNEL.C	/^    PSG_CHANNEL_A_FREQ_HIGH,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_A_FREQ_HIGH	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_A_FREQ_HIGH,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_A_FREQ_HIGH	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_A_FREQ_HIGH,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_A_FREQ_LOW	FDC.H	/^    PSG_CHANNEL_A_FREQ_LOW,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_A_FREQ_LOW	KERNEL.C	/^    PSG_CHANNEL_A_FREQ_LOW,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_A_FREQ_LOW	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_A_FREQ_LOW,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_A_FREQ_LOW	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_A_FREQ_LOW,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_B_AMP_CONTROL	FDC.H	/^    PSG_CHANNEL_B_AMP_CONTROL,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_B_AMP_CONTROL	KERNEL.C	/^    PSG_CHANNEL_B_AMP_CONTROL,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_B_AMP_CONTROL	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_B_AMP_CONTROL,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_B_AMP_CONTROL	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_B_AMP_CONTROL,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_B_FREQ_HIGH	FDC.H	/^    PSG_CHANNEL_B_FREQ_HIGH,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_B_FREQ_HIGH	KERNEL.C	/^    PSG_CHANNEL_B_FREQ_HIGH,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_B_FREQ_HIGH	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_B_FREQ_HIGH,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_B_FREQ_HIGH	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_B_FREQ_HIGH,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_B_FREQ_LOW	FDC.H	/^    PSG_CHANNEL_B_FREQ_LOW,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_B_FREQ_LOW	KERNEL.C	/^    PSG_CHANNEL_B_FREQ_LOW,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_B_FREQ_LOW	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_B_FREQ_LOW,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_B_FREQ_LOW	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_B_FREQ_LOW,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_C_AMP_CONTROL	FDC.H	/^    PSG_CHANNEL_C_AMP_CONTROL,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_C_AMP_CONTROL	KERNEL.C	/^    PSG_CHANNEL_C_AMP_CONTROL,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_C_AMP_CONTROL	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_C_AMP_CONTROL,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_C_AMP_CONTROL	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_C_AMP_CONTROL,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_C_FREQ_HIGH	FDC.H	/^    PSG_CHANNEL_C_FREQ_HIGH,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_C_FREQ_HIGH	KERNEL.C	/^    PSG_CHANNEL_C_FREQ_HIGH,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_C_FREQ_HIGH	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_C_FREQ_HIGH,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_C_FREQ_HIGH	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_C_FREQ_HIGH,$/;"	e	enum:__anon9874b1240503	file:
 PSG_CHANNEL_C_FREQ_LOW	FDC.H	/^    PSG_CHANNEL_C_FREQ_LOW,$/;"	e	enum:__anon0d1820680503
-PSG_CHANNEL_C_FREQ_LOW	KERNEL.C	/^    PSG_CHANNEL_C_FREQ_LOW,$/;"	e	enum:__anon3760a2770503	file:
-PSG_CHANNEL_C_FREQ_LOW	TESTS/FDC_OLD.C	/^    PSG_CHANNEL_C_FREQ_LOW,$/;"	e	enum:__anon8feab0430503	file:
-PSG_CHANNEL_C_FREQ_LOW	TESTS/FDC_TEST.C	/^    PSG_CHANNEL_C_FREQ_LOW,$/;"	e	enum:__anon9874b1240503	file:
 PSG_ENVELOPE_PERIOD_HIGH	FDC.H	/^    PSG_ENVELOPE_PERIOD_HIGH,$/;"	e	enum:__anon0d1820680503
-PSG_ENVELOPE_PERIOD_HIGH	KERNEL.C	/^    PSG_ENVELOPE_PERIOD_HIGH,$/;"	e	enum:__anon3760a2770503	file:
-PSG_ENVELOPE_PERIOD_HIGH	TESTS/FDC_OLD.C	/^    PSG_ENVELOPE_PERIOD_HIGH,$/;"	e	enum:__anon8feab0430503	file:
-PSG_ENVELOPE_PERIOD_HIGH	TESTS/FDC_TEST.C	/^    PSG_ENVELOPE_PERIOD_HIGH,$/;"	e	enum:__anon9874b1240503	file:
 PSG_ENVELOPE_PERIOD_LOW	FDC.H	/^    PSG_ENVELOPE_PERIOD_LOW,$/;"	e	enum:__anon0d1820680503
-PSG_ENVELOPE_PERIOD_LOW	KERNEL.C	/^    PSG_ENVELOPE_PERIOD_LOW,$/;"	e	enum:__anon3760a2770503	file:
-PSG_ENVELOPE_PERIOD_LOW	TESTS/FDC_OLD.C	/^    PSG_ENVELOPE_PERIOD_LOW,$/;"	e	enum:__anon8feab0430503	file:
-PSG_ENVELOPE_PERIOD_LOW	TESTS/FDC_TEST.C	/^    PSG_ENVELOPE_PERIOD_LOW,$/;"	e	enum:__anon9874b1240503	file:
 PSG_ENVELOPE_SHAPE	FDC.H	/^    PSG_ENVELOPE_SHAPE,$/;"	e	enum:__anon0d1820680503
-PSG_ENVELOPE_SHAPE	KERNEL.C	/^    PSG_ENVELOPE_SHAPE,$/;"	e	enum:__anon3760a2770503	file:
-PSG_ENVELOPE_SHAPE	TESTS/FDC_OLD.C	/^    PSG_ENVELOPE_SHAPE,$/;"	e	enum:__anon8feab0430503	file:
-PSG_ENVELOPE_SHAPE	TESTS/FDC_TEST.C	/^    PSG_ENVELOPE_SHAPE,$/;"	e	enum:__anon9874b1240503	file:
 PSG_MIXER_CONTROL	FDC.H	/^    PSG_MIXER_CONTROL,$/;"	e	enum:__anon0d1820680503
-PSG_MIXER_CONTROL	KERNEL.C	/^    PSG_MIXER_CONTROL,$/;"	e	enum:__anon3760a2770503	file:
-PSG_MIXER_CONTROL	TESTS/FDC_OLD.C	/^    PSG_MIXER_CONTROL,$/;"	e	enum:__anon8feab0430503	file:
-PSG_MIXER_CONTROL	TESTS/FDC_TEST.C	/^    PSG_MIXER_CONTROL,$/;"	e	enum:__anon9874b1240503	file:
 PSG_NOISE_FREQ	FDC.H	/^    PSG_NOISE_FREQ,$/;"	e	enum:__anon0d1820680503
-PSG_NOISE_FREQ	KERNEL.C	/^    PSG_NOISE_FREQ,$/;"	e	enum:__anon3760a2770503	file:
-PSG_NOISE_FREQ	TESTS/FDC_OLD.C	/^    PSG_NOISE_FREQ,$/;"	e	enum:__anon8feab0430503	file:
-PSG_NOISE_FREQ	TESTS/FDC_TEST.C	/^    PSG_NOISE_FREQ,$/;"	e	enum:__anon9874b1240503	file:
 PSG_PORT_A_CONTROL	FDC.H	/^    PSG_PORT_A_CONTROL,$/;"	e	enum:__anon0d1820680503
-PSG_PORT_A_CONTROL	KERNEL.C	/^    PSG_PORT_A_CONTROL,$/;"	e	enum:__anon3760a2770503	file:
-PSG_PORT_A_CONTROL	TESTS/FDC_OLD.C	/^    PSG_PORT_A_CONTROL,$/;"	e	enum:__anon8feab0430503	file:
-PSG_PORT_A_CONTROL	TESTS/FDC_TEST.C	/^    PSG_PORT_A_CONTROL,$/;"	e	enum:__anon9874b1240503	file:
 PSG_PORT_B	FDC.H	/^    PSG_PORT_B$/;"	e	enum:__anon0d1820680503
-PSG_PORT_B	KERNEL.C	/^    PSG_PORT_B$/;"	e	enum:__anon3760a2770503	file:
-PSG_PORT_B	TESTS/FDC_OLD.C	/^    PSG_PORT_B$/;"	e	enum:__anon8feab0430503	file:
-PSG_PORT_B	TESTS/FDC_TEST.C	/^    PSG_PORT_B$/;"	e	enum:__anon9874b1240503	file:
-PSG_REG_SELECT	TESTS/TEST_PSG/PSG.C	/^#define PSG_REG_SELECT /;"	d	file:
-PSG_REG_WRITE	TESTS/TEST_PSG/PSG.C	/^#define PSG_REG_WRITE /;"	d	file:
 RAM_4M	KERN_ASM.S	/^RAM_4M				equ		$0A$/;"	d
 READ_FDC_REGISTER	DISK.C	/^#define READ_FDC_REGISTER(/;"	d	file:
 RESERVED_MODE	DISK.C	/^        UINT16 RESERVED_MODE : 8;           \/* Bits 8-15 - Reserved bits for mode register *\/$/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:8	file:
@@ -514,34 +295,15 @@ RESERVED_MODE_5	DISK.C	/^        UINT16 RESERVED_MODE_5 : 1;         \/* Bit 5 -
 RESERVED_STATUS	DISK.C	/^        UINT16 RESERVED_STATUS : 13;       \/* Bits 3-15 - Reserved bits for status register *\/$/;"	m	struct:__anonabd59501010a::__anonabd595010208	typeref:typename:UINT16:13	file:
 RW.C	.vscode/settings.json	/^        "RW.C": "cpp",$/;"	s	object:files.associations
 SECTOR_COUNT_REG_SELECT	DISK.C	/^        UINT16 SECTOR_COUNT_REG_SELECT : 1; \/* Bit 4 - Selects DMA internal sector count regist/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:1	file:
-SECTOR_COUNT_REG_SELECT	FDC.H	/^    SECTOR_COUNT_REG_SELECT = 1 << 4,$/;"	e	enum:__anon0d1820680a03
-SECTOR_COUNT_REG_SELECT	KERNEL.C	/^    SECTOR_COUNT_REG_SELECT = 1 << 4,$/;"	e	enum:__anon3760a2770a03	file:
-SECTOR_COUNT_REG_SELECT	TESTS/FDC_OLD.C	/^    SECTOR_COUNT_REG_SELECT = 1 << 4,$/;"	e	enum:__anon8feab0430a03	file:
-SECTOR_COUNT_REG_SELECT	TESTS/FDC_TEST.C	/^    SECTOR_COUNT_REG_SELECT = 1 << 4,$/;"	e	enum:__anon9874b1240a03	file:
 SECTOR_COUNT_STATUS	DISK.C	/^        UINT16 SECTOR_COUNT_STATUS : 1;    \/* Bit 1 - Sector count status (1: not zero, 0: zero/;"	m	struct:__anonabd59501010a::__anonabd595010208	typeref:typename:UINT16:1	file:
-SECTOR_COUNT_STATUS	FDC.H	/^    SECTOR_COUNT_STATUS = 1 << 1,$/;"	e	enum:__anon0d1820680903
-SECTOR_COUNT_STATUS	KERNEL.C	/^    SECTOR_COUNT_STATUS = 1 << 1,$/;"	e	enum:__anon3760a2770903	file:
-SECTOR_COUNT_STATUS	TESTS/FDC_OLD.C	/^    SECTOR_COUNT_STATUS = 1 << 1,$/;"	e	enum:__anon8feab0430903	file:
-SECTOR_COUNT_STATUS	TESTS/FDC_TEST.C	/^    SECTOR_COUNT_STATUS = 1 << 1,$/;"	e	enum:__anon9874b1240903	file:
+SECTOR_SIZE	FDC.C	/^#define SECTOR_SIZE /;"	d	file:
 SEEK.C	.vscode/settings.json	/^        "SEEK.C": "cpp",$/;"	s	object:files.associations
 SET_DMA_ADDRESS	DISK.C	/^#define SET_DMA_ADDRESS(/;"	d	file:
 SET_DMA_ADDRESS	FDC.H	/^#define SET_DMA_ADDRESS(/;"	d
-SET_DMA_ADDRESS	KERNEL.C	/^#define SET_DMA_ADDRESS(/;"	d	file:
-SET_DMA_ADDRESS	TESTS/FDC_OLD.C	/^#define SET_DMA_ADDRESS(/;"	d	file:
-SET_DMA_ADDRESS	TESTS/FDC_TEST.C	/^#define SET_DMA_ADDRESS(/;"	d	file:
 SET_DMA_ADDRESS_COUNTER	DISK.C	/^#define SET_DMA_ADDRESS_COUNTER(/;"	d	file:
 SET_DMA_ADDRESS_HIGH_BYTE	FDC.H	/^#define SET_DMA_ADDRESS_HIGH_BYTE(/;"	d
-SET_DMA_ADDRESS_HIGH_BYTE	KERNEL.C	/^#define SET_DMA_ADDRESS_HIGH_BYTE(/;"	d	file:
-SET_DMA_ADDRESS_HIGH_BYTE	TESTS/FDC_OLD.C	/^#define SET_DMA_ADDRESS_HIGH_BYTE(/;"	d	file:
-SET_DMA_ADDRESS_HIGH_BYTE	TESTS/FDC_TEST.C	/^#define SET_DMA_ADDRESS_HIGH_BYTE(/;"	d	file:
 SET_DMA_ADDRESS_LOW_BYTE	FDC.H	/^#define SET_DMA_ADDRESS_LOW_BYTE(/;"	d
-SET_DMA_ADDRESS_LOW_BYTE	KERNEL.C	/^#define SET_DMA_ADDRESS_LOW_BYTE(/;"	d	file:
-SET_DMA_ADDRESS_LOW_BYTE	TESTS/FDC_OLD.C	/^#define SET_DMA_ADDRESS_LOW_BYTE(/;"	d	file:
-SET_DMA_ADDRESS_LOW_BYTE	TESTS/FDC_TEST.C	/^#define SET_DMA_ADDRESS_LOW_BYTE(/;"	d	file:
 SET_DMA_ADDRESS_MID_BYTE	FDC.H	/^#define SET_DMA_ADDRESS_MID_BYTE(/;"	d
-SET_DMA_ADDRESS_MID_BYTE	KERNEL.C	/^#define SET_DMA_ADDRESS_MID_BYTE(/;"	d	file:
-SET_DMA_ADDRESS_MID_BYTE	TESTS/FDC_OLD.C	/^#define SET_DMA_ADDRESS_MID_BYTE(/;"	d	file:
-SET_DMA_ADDRESS_MID_BYTE	TESTS/FDC_TEST.C	/^#define SET_DMA_ADDRESS_MID_BYTE(/;"	d	file:
 SET_DMA_ADDR_HIGH	DISK.C	/^#define SET_DMA_ADDR_HIGH(/;"	d	file:
 SET_DMA_ADDR_LOW	DISK.C	/^#define SET_DMA_ADDR_LOW(/;"	d	file:
 SET_DMA_ADDR_MID	DISK.C	/^#define SET_DMA_ADDR_MID(/;"	d	file:
@@ -553,54 +315,36 @@ SET_DMA_SECTOR_COUNT	DISK.C	/^#define SET_DMA_SECTOR_COUNT(/;"	d	file:
 SET_DMA_WRITE_MODE	DISK.C	/^#define SET_DMA_WRITE_MODE(/;"	d	file:
 SHELL_BUF_LEN	KERNEL.C	/^#define SHELL_BUF_LEN /;"	d	file:
 SIDE_0	FDC.H	/^    SIDE_0,$/;"	e	enum:__anon0d1820680303
-SIDE_0	KERNEL.C	/^    SIDE_0,$/;"	e	enum:__anon3760a2770303	file:
-SIDE_0	TESTS/FDC_OLD.C	/^    SIDE_0,$/;"	e	enum:__anon8feab0430303	file:
-SIDE_0	TESTS/FDC_TEST.C	/^    SIDE_0,$/;"	e	enum:__anon9874b1240303	file:
 SIDE_1	FDC.H	/^    SIDE_1$/;"	e	enum:__anon0d1820680303
-SIDE_1	KERNEL.C	/^    SIDE_1$/;"	e	enum:__anon3760a2770303	file:
-SIDE_1	TESTS/FDC_OLD.C	/^    SIDE_1$/;"	e	enum:__anon8feab0430303	file:
-SIDE_1	TESTS/FDC_TEST.C	/^    SIDE_1$/;"	e	enum:__anon9874b1240303	file:
 SIDE_SELECT_0	FDC.H	/^    SIDE_SELECT_0 = 1 << 0,$/;"	e	enum:__anon0d1820680603
-SIDE_SELECT_0	KERNEL.C	/^    SIDE_SELECT_0 = 1 << 0,$/;"	e	enum:__anon3760a2770603	file:
-SIDE_SELECT_0	TESTS/FDC_OLD.C	/^    SIDE_SELECT_0 = 1 << 0,$/;"	e	enum:__anon8feab0430603	file:
-SIDE_SELECT_0	TESTS/FDC_TEST.C	/^    SIDE_SELECT_0 = 1 << 0,$/;"	e	enum:__anon9874b1240603	file:
 SPEAKER_DISABLE	FDC.H	/^    SPEAKER_DISABLE = 1 << 6,$/;"	e	enum:__anon0d1820680603
-SPEAKER_DISABLE	KERNEL.C	/^    SPEAKER_DISABLE = 1 << 6,$/;"	e	enum:__anon3760a2770603	file:
-SPEAKER_DISABLE	TESTS/FDC_OLD.C	/^    SPEAKER_DISABLE = 1 << 6,$/;"	e	enum:__anon8feab0430603	file:
-SPEAKER_DISABLE	TESTS/FDC_TEST.C	/^    SPEAKER_DISABLE = 1 << 6,$/;"	e	enum:__anon9874b1240603	file:
 START_DMA_READ_TRANSFER	DISK.C	/^#define START_DMA_READ_TRANSFER(/;"	d	file:
 START_DMA_WRITE_TRANSFER	DISK.C	/^#define START_DMA_WRITE_TRANSFER(/;"	d	file:
 STATUS	DISK.C	/^    } STATUS;                              \/* Reading from DMA_STATUS_REGISTER *\/$/;"	m	union:__anonabd59501010a	typeref:struct:__anonabd59501010a::__anonabd595010208	file:
+STEPRATE_12MS	FDC.H	/^#define STEPRATE_12MS /;"	d
+STEPRATE_2MS	FDC.H	/^#define STEPRATE_2MS /;"	d
+STEPRATE_3MS	FDC.H	/^#define STEPRATE_3MS /;"	d
+STEPRATE_6MS	FDC.H	/^#define STEPRATE_6MS /;"	d
 TEXT_OFFSET	KERNEL.C	/^#define TEXT_OFFSET /;"	d	file:
 TIMER_A_VECTOR	KERNEL.C	/^#define TIMER_A_VECTOR /;"	d	file:
 TRANSFER_DIRECTION	DISK.C	/^        UINT16 TRANSFER_DIRECTION : 1;      \/* Bit 7 - Sets data transfer direction  *\/$/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:1	file:
 TRANSFER_DIRECTION	FDC.H	/^    TRANSFER_DIRECTION = 1 << 7,$/;"	e	enum:__anon0d1820680a03
-TRANSFER_DIRECTION	KERNEL.C	/^    TRANSFER_DIRECTION = 1 << 7,$/;"	e	enum:__anon3760a2770a03	file:
-TRANSFER_DIRECTION	TESTS/FDC_OLD.C	/^    TRANSFER_DIRECTION = 1 << 7,$/;"	e	enum:__anon8feab0430a03	file:
-TRANSFER_DIRECTION	TESTS/FDC_TEST.C	/^    TRANSFER_DIRECTION = 1 << 7,$/;"	e	enum:__anon9874b1240a03	file:
 TRAP_1_VECTOR	KERNEL.C	/^#define TRAP_1_VECTOR /;"	d	file:
 TRAP_2_VECTOR	KERNEL.C	/^#define TRAP_2_VECTOR /;"	d	file:
 TRAP_3_VECTOR	KERNEL.C	/^#define TRAP_3_VECTOR /;"	d	file:
 TRAP_4_VECTOR	KERNEL.C	/^#define TRAP_4_VECTOR /;"	d	file:
 TRAP_5_VECTOR	KERNEL.C	/^#define TRAP_5_VECTOR /;"	d	file:
+TRAP_6_VECTOR	KERNEL.C	/^#define TRAP_6_VECTOR /;"	d	file:
 TRAP_7_VECTOR	KERNEL.C	/^#define TRAP_7_VECTOR /;"	d	file:
-TYPES_H	TESTS/TEST_CLEAN/TYPES.H	/^#define TYPES_H$/;"	d
 TYPES_H	TYPES.H	/^#define TYPES_H$/;"	d
 UINT16	DISK.C	/^typedef unsigned int UINT16;$/;"	t	typeref:typename:unsigned int	file:
-UINT16	TESTS/TEST_CLEAN/TYPES.H	/^typedef unsigned int UINT16;$/;"	t	typeref:typename:unsigned int
-UINT16	TESTS/TEST_PSG/PSG.C	/^typedef unsigned int UINT16;$/;"	t	typeref:typename:unsigned int	file:
 UINT16	TYPES.H	/^typedef unsigned int UINT16;$/;"	t	typeref:typename:unsigned int
 UINT32	DISK.C	/^typedef unsigned long UINT32;$/;"	t	typeref:typename:unsigned long	file:
-UINT32	TESTS/TEST_CLEAN/TYPES.H	/^typedef unsigned long UINT32;$/;"	t	typeref:typename:unsigned long
-UINT32	TESTS/TEST_PSG/PSG.C	/^typedef unsigned long UINT32;$/;"	t	typeref:typename:unsigned long	file:
 UINT32	TYPES.H	/^typedef unsigned long UINT32;$/;"	t	typeref:typename:unsigned long
 UINT8	DISK.C	/^typedef unsigned char UINT8;$/;"	t	typeref:typename:unsigned char	file:
-UINT8	TESTS/TEST_CLEAN/TYPES.H	/^typedef unsigned char UINT8;$/;"	t	typeref:typename:unsigned char
-UINT8	TESTS/TEST_PSG/PSG.C	/^typedef unsigned char UINT8;$/;"	t	typeref:typename:unsigned char	file:
 UINT8	TYPES.H	/^typedef unsigned char UINT8;$/;"	t	typeref:typename:unsigned char
 UNUSED	DISK.C	/^        UINT16 UNUSED : 1;                  \/* Bit 0 - Unused, must be set to 0 *\/$/;"	m	struct:__anonabd59501010a::__anonabd595010308	typeref:typename:UINT16:1	file:
 UTILS.C	.vscode/settings.json	/^        "UTILS.C": "cpp",$/;"	s	object:files.associations
-UTILS_H	TESTS/TEST_CLEAN/UTILS.H	/^#define UTILS_H$/;"	d
 VBL_VECTOR	KERNEL.C	/^#define VBL_VECTOR /;"	d	file:
 VIDEO_BASE	KERN_ASM.S	/^VIDEO_BASE			equ		$3F8000$/;"	d
 VIDEO_BASE_REG	KERN_ASM.S	/^VIDEO_BASE_REG		equ		$FF8201$/;"	d
@@ -610,25 +354,15 @@ VIDEO_SYNC_REG	KERN_ASM.S	/^VIDEO_SYNC_REG		equ		$FF820A$/;"	d
 VID_BASE_HI	KERNEL.C	/^IO_PORT8 VID_BASE_HI = 0xFF8201;$/;"	v	typeref:typename:IO_PORT8
 VID_BASE_MID	KERNEL.C	/^IO_PORT8 VID_BASE_MID = 0xFF8203;$/;"	v	typeref:typename:IO_PORT8
 Vector	DISK.C	/^typedef void (*Vector)();$/;"	t	typeref:typename:void (*)()	file:
-Vector	TESTS/TEST_CLEAN/TYPES.H	/^typedef void (*Vector)();$/;"	t	typeref:typename:void (*)()
 Vector	TYPES.H	/^typedef void (*Vector)();$/;"	t	typeref:typename:void (*)()
 WDC_DMA	DISK.C	/^} WDC_DMA;$/;"	t	typeref:union:__anonabd59501010a	file:
 WDC_DMA_ADDRESS	DISK.C	/^#define WDC_DMA_ADDRESS /;"	d	file:
 WDC_DMA_BASE_HIGH	DISK.C	/^IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609; \/* DMA base address high byte *\/$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_HIGH	FDC.H	/^IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_HIGH	KERNEL.C	/^IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_HIGH	TESTS/FDC_OLD.C	/^IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_HIGH	TESTS/FDC_TEST.C	/^IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609;$/;"	v	typeref:typename:IO_PORT8
+WDC_DMA_BASE_HIGH	FDC.C	/^IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609;$/;"	v	typeref:typename:IO_PORT8
 WDC_DMA_BASE_LOW	DISK.C	/^IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;  \/* DMA base address low byte *\/$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_LOW	FDC.H	/^IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_LOW	KERNEL.C	/^IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_LOW	TESTS/FDC_OLD.C	/^IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_LOW	TESTS/FDC_TEST.C	/^IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;$/;"	v	typeref:typename:IO_PORT8
+WDC_DMA_BASE_LOW	FDC.C	/^IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;$/;"	v	typeref:typename:IO_PORT8
 WDC_DMA_BASE_MID	DISK.C	/^IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;  \/* DMA base address middle byte *\/$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_MID	FDC.H	/^IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_MID	KERNEL.C	/^IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_MID	TESTS/FDC_OLD.C	/^IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;$/;"	v	typeref:typename:IO_PORT8
-WDC_DMA_BASE_MID	TESTS/FDC_TEST.C	/^IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;$/;"	v	typeref:typename:IO_PORT8
+WDC_DMA_BASE_MID	FDC.C	/^IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;$/;"	v	typeref:typename:IO_PORT8
 WDC_SECTOR_COUNT	DISK.C	/^IO_PORT16 WDC_SECTOR_COUNT = (IO_PORT16)0xFFFF8604;$/;"	v	typeref:typename:IO_PORT16
 WRITE_FDC_REGISTER	DISK.C	/^#define WRITE_FDC_REGISTER(/;"	d	file:
 __anon0d1820680103	FDC.H	/^{$/;"	g
@@ -641,40 +375,7 @@ __anon0d1820680703	FDC.H	/^{$/;"	g
 __anon0d1820680803	FDC.H	/^{$/;"	g
 __anon0d1820680903	FDC.H	/^{$/;"	g
 __anon0d1820680a03	FDC.H	/^{$/;"	g
-__anon0d1820680b08	FDC.H	/^{$/;"	s
-__anon3760a2770103	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770203	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770303	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770403	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770503	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770603	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770703	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770803	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770903	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770a03	KERNEL.C	/^{$/;"	g	file:
-__anon3760a2770b08	KERNEL.C	/^{$/;"	s	file:
-__anon8feab0430103	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430203	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430303	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430403	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430503	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430603	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430703	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430803	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430903	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430a03	TESTS/FDC_OLD.C	/^{$/;"	g	file:
-__anon8feab0430b08	TESTS/FDC_OLD.C	/^{$/;"	s	file:
-__anon9874b1240103	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240203	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240303	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240403	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240503	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240603	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240703	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240803	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240903	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240a03	TESTS/FDC_TEST.C	/^{$/;"	g	file:
-__anon9874b1240b08	TESTS/FDC_TEST.C	/^{$/;"	s	file:
+__anon0d1820680b08	FDC.H	/^{ \/* Type of operation (e.g., READ, WRITE) *\/$/;"	s
 __anonabd59501010a	DISK.C	/^typedef union {$/;"	u	file:
 __anonabd595010208	DISK.C	/^    {$/;"	s	union:__anonabd59501010a	file:
 __anonabd595010308	DISK.C	/^    {$/;"	s	union:__anonabd59501010a	file:
@@ -682,18 +383,20 @@ _addr_exception_isr	KERN_ASM.S	/^_addr_exception_isr:$/;"	l
 _await_interrupt	KERN_ASM.S	/^_await_interrupt:	stop	#$2200$/;"	l
 _clear_screen	KERN_ASM.S	/^_clear_screen:		movem.l	d0-7\/a0-6,-(sp)$/;"	l
 _create_process	KERN_ASM.S	/^_create_process:	link	a6,#0$/;"	l
+_disk_operation	KERN_ASM.S	/^_disk_operation:	link 	a6,#0					; create new stack frame$/;"	l
 _exception_isr	KERN_ASM.S	/^_exception_isr:		jsr		_do_exception_isr		; doesn't return$/;"	l
 _exit	KERN_ASM.S	/^_exit:				trap	#1						; no parameter$/;"	l
+_floppy_isr	KERN_ASM.S	/^_floppy_isr:		movem.l d0-2\/a0-2,-(sp)$/;"	l
 _get_pid	KERN_ASM.S	/^_get_pid:			trap	#5						; returns with output in d0.w$/;"	l
 _ikbd_isr	KERN_ASM.S	/^_ikbd_isr:			movem.l	d0-2\/a0-2,-(sp)$/;"	l
 _load_cpu_context	KERN_ASM.S	/^_load_cpu_context:	movea.l	4(sp),a0				; passed Context struct start addr$/;"	l
 _read	KERN_ASM.S	/^_read:				link	a6,#0$/;"	l
 _read_SR	KERN_ASM.S	/^_read_SR:			move.w	sr,d0$/;"	l
-_read_SR	TESTS/TEST_PSG/SR.S	/^_read_SR:			move.w	sr,d0$/;"	l
 _restart	KERN_ASM.S	/^_restart:			jmp		start$/;"	l
 _scroll	KERN_ASM.S	/^_scroll:			movem.l	d3-7\/a3-5,-(sp)$/;"	l
 _store_cpu_context	KERN_ASM.S	/^_store_cpu_context:	adda.l	#CPU_CONTEXT_SIZE,a0$/;"	l
 _sys_create_process	KERN_ASM.S	/^_sys_create_process:$/;"	l
+_sys_disk_operation	KERN_ASM.S	/^_sys_disk_operation:$/;"	l
 _sys_exit	KERN_ASM.S	/^_sys_exit:			jsr		_do_exit				; doesn't return$/;"	l
 _sys_get_pid	KERN_ASM.S	/^_sys_get_pid:		jsr		_do_get_pid				; returns with output in d0.w$/;"	l
 _sys_read	KERN_ASM.S	/^_sys_read:			;movem.l	d0-2\/a0-2,-(sp)		; [TO DO] simplify reg save\/restore for exceptions & tr/;"	l
@@ -703,34 +406,23 @@ _timer_A_isr	KERN_ASM.S	/^_timer_A_isr:		movem.l	d0-2\/a0-2,-(sp)$/;"	l
 _vbl_isr	KERN_ASM.S	/^_vbl_isr:			movem.l	d0-2\/a0-2,-(sp)$/;"	l
 _write	KERN_ASM.S	/^_write:				link	a6,#0$/;"	l
 _write_SR	KERN_ASM.S	/^_write_SR:			move.w	4(sp),sr$/;"	l
-_write_SR	TESTS/TEST_PSG/SR.S	/^_write_SR:			move.w	4(sp),sr$/;"	l
 _yield	KERN_ASM.S	/^_yield:				trap	#7$/;"	l
 a0	KERNEL.C	/^    UINT32 a0;$/;"	m	struct:CPU_context	typeref:typename:UINT32	file:
-addr_exception_isr	TESTS/TEST_CLEAN/ISR.C	/^void addr_exception_isr()$/;"	f	typeref:typename:void
 after_pc_adjust	KERN_ASM.S	/^after_pc_adjust:	movea.l	_curr_proc,a0			; switch to next process$/;"	l
 args	.vscode/tasks.json	/^            "args": [$/;"	a	object:tasks.0
-await_interrupt	TESTS/TEST_CLEAN/UTILS.C	/^void await_interrupt()$/;"	f	typeref:typename:void
 base	KERN_ASM.S	/^base	equ		64									; offset from SP, not A6$/;"	d
 buffer_address	FDC.H	/^    void *buffer_address;$/;"	m	struct:__anon0d1820680b08	typeref:typename:void *
-buffer_address	KERNEL.C	/^    void *buffer_address;$/;"	m	struct:__anon3760a2770b08	typeref:typename:void *	file:
-buffer_address	TESTS/FDC_OLD.C	/^    void *buffer_address;$/;"	m	struct:__anon8feab0430b08	typeref:typename:void *	file:
-buffer_address	TESTS/FDC_TEST.C	/^    void *buffer_address;$/;"	m	struct:__anon9874b1240b08	typeref:typename:void *	file:
 busy_wait	FDC.C	/^void busy_wait(void)$/;"	f	typeref:typename:void
-busy_wait	KERNEL.C	/^void busy_wait(void)$/;"	f	typeref:typename:void
-busy_wait	TESTS/FDC_OLD.C	/^void busy_wait(void)$/;"	f	typeref:typename:void
-busy_wait	TESTS/FDC_TEST.C	/^void busy_wait(void)$/;"	f	typeref:typename:void
 chrono	.vscode/settings.json	/^        "chrono": "cpp",$/;"	s	object:files.associations
 clear_cursor	KERNEL.C	/^void clear_cursor()$/;"	f	typeref:typename:void
 clear_rest	KERN_ASM.S	/^clear_rest:			movem.l	d2-7\/a2-5,-(a1)$/;"	l
-clear_screen	TESTS/TEST_CLEAN/CONS.C	/^void clear_screen(UINT8 *base)$/;"	f	typeref:typename:void
 command	.vscode/tasks.json	/^            "command": "\/usr\/bin\/gcc",$/;"	s	object:tasks.0
-console_x_p	KERNEL.C	/^UINT8 *const console_x_p = 0x000140; \/* [TO DO] group with console driver data *\/$/;"	v	typeref:typename:UINT8 * const
-console_y_p	KERNEL.C	/^UINT8 *const console_y_p = 0x000141;$/;"	v	typeref:typename:UINT8 * const
+console_x_p	KERNEL.C	/^UINT8 *const console_x_p = (UINT8 *)0x000140; \/* [TO DO] group with console driver data *\/$/;"	v	typeref:typename:UINT8 * const
+console_y_p	KERNEL.C	/^UINT8 *const console_y_p = (UINT8 *)0x000141;$/;"	v	typeref:typename:UINT8 * const
 cpu_context	KERNEL.C	/^    struct CPU_context cpu_context; \/* must be first element in structure *\/$/;"	m	struct:process	typeref:struct:CPU_context	file:
-create_process	TESTS/TEST_CLEAN/PROC.C	/^void create_process(UINT16 prog_num, UINT16 is_fg)$/;"	f	typeref:typename:void
 cstdint	.vscode/settings.json	/^        "cstdint": "cpp",$/;"	s	object:files.associations
-curr_proc	KERNEL.C	/^UINT16 *const curr_proc = 0x000200;$/;"	v	typeref:typename:UINT16 * const
-cursor_visible	KERNEL.C	/^UINT16 *const cursor_visible = 0x000144;$/;"	v	typeref:typename:UINT16 * const
+curr_proc	KERNEL.C	/^UINT16 *const curr_proc = (UINT16 *)0x000200;$/;"	v	typeref:typename:UINT16 * const
+cursor_visible	KERNEL.C	/^UINT16 *const cursor_visible = (UINT16 *)0x000144;$/;"	v	typeref:typename:UINT16 * const
 cwd	.vscode/tasks.json	/^                "cwd": "${fileDirname}"$/;"	s	object:tasks.0.options
 d0_to_7_a1_to_6	KERNEL.C	/^    UINT32 d0_to_7_a1_to_6[14];$/;"	m	struct:CPU_context	typeref:typename:UINT32[14]	file:
 dbra	KERN_ASM.S	/^					dbra	d0,clear_rest$/;"	d
@@ -739,63 +431,28 @@ dbra	KERN_ASM.S	/^					dbra	d0,scroll_most$/;"	d
 deque	.vscode/settings.json	/^        "deque": "cpp",$/;"	s	object:files.associations
 detail	.vscode/tasks.json	/^            "detail": "Task generated by Debugger."$/;"	s	object:tasks.0
 disk	FDC.H	/^    disk_selection_t disk;$/;"	m	struct:__anon0d1820680b08	typeref:typename:disk_selection_t
-disk	KERNEL.C	/^    disk_selection_t disk;$/;"	m	struct:__anon3760a2770b08	typeref:typename:disk_selection_t	file:
-disk	TESTS/FDC_OLD.C	/^    disk_selection_t disk;$/;"	m	struct:__anon8feab0430b08	typeref:typename:disk_selection_t	file:
-disk	TESTS/FDC_TEST.C	/^    disk_selection_t disk;$/;"	m	struct:__anon9874b1240b08	typeref:typename:disk_selection_t	file:
 disk_io_request_t	FDC.H	/^} disk_io_request_t;$/;"	t	typeref:struct:__anon0d1820680b08
-disk_io_request_t	KERNEL.C	/^} disk_io_request_t;$/;"	t	typeref:struct:__anon3760a2770b08	file:
-disk_io_request_t	TESTS/FDC_OLD.C	/^} disk_io_request_t;$/;"	t	typeref:struct:__anon8feab0430b08	file:
-disk_io_request_t	TESTS/FDC_TEST.C	/^} disk_io_request_t;$/;"	t	typeref:struct:__anon9874b1240b08	file:
 disk_operation_t	FDC.H	/^} disk_operation_t;$/;"	t	typeref:enum:__anon0d1820680103
-disk_operation_t	KERNEL.C	/^} disk_operation_t;$/;"	t	typeref:enum:__anon3760a2770103	file:
-disk_operation_t	TESTS/FDC_OLD.C	/^} disk_operation_t;$/;"	t	typeref:enum:__anon8feab0430103	file:
-disk_operation_t	TESTS/FDC_TEST.C	/^} disk_operation_t;$/;"	t	typeref:enum:__anon9874b1240103	file:
 disk_selection_t	FDC.H	/^} disk_selection_t;$/;"	t	typeref:enum:__anon0d1820680203
-disk_selection_t	KERNEL.C	/^} disk_selection_t;$/;"	t	typeref:enum:__anon3760a2770203	file:
-disk_selection_t	TESTS/FDC_OLD.C	/^} disk_selection_t;$/;"	t	typeref:enum:__anon8feab0430203	file:
-disk_selection_t	TESTS/FDC_TEST.C	/^} disk_selection_t;$/;"	t	typeref:enum:__anon9874b1240203	file:
 disk_side_t	FDC.H	/^} disk_side_t;$/;"	t	typeref:enum:__anon0d1820680303
-disk_side_t	KERNEL.C	/^} disk_side_t;$/;"	t	typeref:enum:__anon3760a2770303	file:
-disk_side_t	TESTS/FDC_OLD.C	/^} disk_side_t;$/;"	t	typeref:enum:__anon8feab0430303	file:
-disk_side_t	TESTS/FDC_TEST.C	/^} disk_side_t;$/;"	t	typeref:enum:__anon9874b1240303	file:
-dma_mode	FDC.H	/^IO_PORT16 dma_mode = (IO_PORT16)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16
-dma_mode	KERNEL.C	/^IO_PORT16 dma_mode = (IO_PORT16)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16
-dma_mode	TESTS/FDC_OLD.C	/^IO_PORT16 dma_mode = (IO_PORT16)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16
-dma_mode	TESTS/FDC_TEST.C	/^IO_PORT16 dma_mode = (IO_PORT16)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16
-dma_status	FDC.H	/^IO_PORT16_RO dma_status = (IO_PORT16_RO)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16_RO
-dma_status	KERNEL.C	/^IO_PORT16_RO dma_status = (IO_PORT16_RO)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16_RO
-dma_status	TESTS/FDC_OLD.C	/^IO_PORT16_RO dma_status = (IO_PORT16_RO)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16_RO
-dma_status	TESTS/FDC_TEST.C	/^IO_PORT16_RO dma_status = (IO_PORT16_RO)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16_RO
+dma_mode	FDC.C	/^IO_PORT16 dma_mode = (IO_PORT16)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16
+dma_status	FDC.C	/^IO_PORT16_RO dma_status = (IO_PORT16_RO)0xFFFF8606;$/;"	v	typeref:typename:IO_PORT16_RO
 do_addr_exception_isr	KERNEL.C	/^void do_addr_exception_isr(UINT16 flags, UINT32 addr, UINT16 ir, UINT16 sr)$/;"	f	typeref:typename:void
-do_addr_exception_isr	TESTS/TEST_CLEAN/ISR.C	/^void do_addr_exception_isr(UINT16 flags, UINT32 addr, UINT16 ir, UINT16 sr)$/;"	f	typeref:typename:void
 do_create_process	KERNEL.C	/^void do_create_process(UINT16 prog_num, UINT16 is_fg)$/;"	f	typeref:typename:void
+do_disk_operation	FDC.C	/^int do_disk_operation(disk_io_request_t *io)$/;"	f	typeref:typename:int
 do_exception_isr	KERNEL.C	/^void do_exception_isr(UINT16 sr)$/;"	f	typeref:typename:void
-do_exception_isr	TESTS/TEST_CLEAN/ISR.C	/^void do_exception_isr(UINT16 sr)$/;"	f	typeref:typename:void
 do_exit	KERNEL.C	/^void do_exit()$/;"	f	typeref:typename:void
-do_fdc_read	TESTS/FDC_OLD.C	/^int do_fdc_read(void *buff)$/;"	f	typeref:typename:int
 do_fdc_read_command	FDC.C	/^int do_fdc_read_command(void *buffer_address)$/;"	f	typeref:typename:int
-do_fdc_read_command	KERNEL.C	/^int do_fdc_read_command(void *buffer_address)$/;"	f	typeref:typename:int
-do_fdc_read_command	TESTS/FDC_TEST.C	/^int do_fdc_read_command(void *buffer_address)$/;"	f	typeref:typename:int
-do_fdc_restore	TESTS/FDC_OLD.C	/^int do_fdc_restore(void)$/;"	f	typeref:typename:int
 do_fdc_restore_command	FDC.C	/^int do_fdc_restore_command(void)$/;"	f	typeref:typename:int
-do_fdc_restore_command	KERNEL.C	/^int do_fdc_restore_command(void)$/;"	f	typeref:typename:int
-do_fdc_restore_command	TESTS/FDC_TEST.C	/^int do_fdc_restore_command(void)$/;"	f	typeref:typename:int
-do_fdc_seek	TESTS/FDC_OLD.C	/^int do_fdc_seek(void)$/;"	f	typeref:typename:int
 do_fdc_seek_command	FDC.C	/^int do_fdc_seek_command(void)$/;"	f	typeref:typename:int
-do_fdc_seek_command	KERNEL.C	/^int do_fdc_seek_command(void)$/;"	f	typeref:typename:int
-do_fdc_seek_command	TESTS/FDC_TEST.C	/^int do_fdc_seek_command(void)$/;"	f	typeref:typename:int
-do_fdc_write	TESTS/FDC_OLD.C	/^int do_fdc_write(const void *buff)$/;"	f	typeref:typename:int
 do_fdc_write_command	FDC.C	/^int do_fdc_write_command(const void *buffer_address)$/;"	f	typeref:typename:int
-do_fdc_write_command	KERNEL.C	/^int do_fdc_write_command(const void *buffer_address)$/;"	f	typeref:typename:int
-do_fdc_write_command	TESTS/FDC_TEST.C	/^int do_fdc_write_command(const void *buffer_address)$/;"	f	typeref:typename:int
 do_get_pid	KERNEL.C	/^int do_get_pid()$/;"	f	typeref:typename:int
 do_ikbd_isr	KERNEL.C	/^void do_ikbd_isr()$/;"	f	typeref:typename:void
 do_read	KERNEL.C	/^int do_read(char *buf, unsigned int len)$/;"	f	typeref:typename:int
-do_test_run	TESTS/FDC_TEST.C	/^int do_test_run(int track, int sector)$/;"	f	typeref:typename:int
+do_test_run	FDC.C	/^int do_test_run(int track, int sector)$/;"	f	typeref:typename:int
+do_test_run	KERNEL.C	/^int do_test_run(int track, int sector)$/;"	f	typeref:typename:int
 do_timer_A_isr	KERNEL.C	/^void do_timer_A_isr(UINT16 sr)$/;"	f	typeref:typename:void
-do_timer_A_isr	TESTS/TEST_CLEAN/ISR.C	/^void do_timer_A_isr(UINT16 sr)$/;"	f	typeref:typename:void
 do_vbl_isr	KERNEL.C	/^void do_vbl_isr()$/;"	f	typeref:typename:void
-do_vbl_isr	TESTS/TEST_CLEAN/ISR.C	/^void do_vbl_isr()$/;"	f	typeref:typename:void
 do_write	KERNEL.C	/^void do_write(const char *buf, unsigned int len)$/;"	f	typeref:typename:void
 do_yield	KERNEL.C	/^void do_yield()$/;"	f	typeref:typename:void
 dummy1	KERNEL.C	/^    UINT32 dummy1;$/;"	m	struct:process	typeref:typename:UINT32	file:
@@ -804,236 +461,128 @@ dummy3	KERNEL.C	/^    UINT32 dummy3;$/;"	m	struct:process	typeref:typename:UINT3
 dummy4	KERNEL.C	/^    UINT32 dummy4;$/;"	m	struct:process	typeref:typename:UINT32	file:
 dummy5	KERNEL.C	/^    UINT32 dummy5;$/;"	m	struct:process	typeref:typename:UINT32	file:
 dummy6	KERNEL.C	/^    UINT32 dummy6;$/;"	m	struct:process	typeref:typename:UINT32	file:
-exception_isr	TESTS/TEST_CLEAN/ISR.C	/^void exception_isr()$/;"	f	typeref:typename:void
-fdc_access	FDC.H	/^IO_PORT16 fdc_access = (IO_PORT16)0xFF8604;$/;"	v	typeref:typename:IO_PORT16
-fdc_access	KERNEL.C	/^IO_PORT16 fdc_access = (IO_PORT16)0xFF8604;$/;"	v	typeref:typename:IO_PORT16
-fdc_access	TESTS/FDC_OLD.C	/^IO_PORT16 fdc_access = (IO_PORT16)0xFF8604;$/;"	v	typeref:typename:IO_PORT16
-fdc_access	TESTS/FDC_TEST.C	/^IO_PORT16 fdc_access = (IO_PORT16)0xFF8604;$/;"	v	typeref:typename:IO_PORT16
+exception	.vscode/settings.json	/^        "exception": "cpp",$/;"	s	object:files.associations
+fdc_access	FDC.C	/^IO_PORT16 fdc_access = (IO_PORT16)0xFF8604;$/;"	v	typeref:typename:IO_PORT16
 files.associations	.vscode/settings.json	/^    "files.associations": {$/;"	o
 fill_loop	KERN_ASM.S	/^fill_loop:			movem.l	d1-7\/a1-6,-(a0)$/;"	l
+flock	KERNEL.C	/^UINT16 *const flock = (UINT16 *)0x000496L;$/;"	v	typeref:typename:UINT16 * const
 font	FONT.C	/^const UINT8 font[] = {$/;"	v	typeref:typename:const UINT8[]
+format	.vscode/settings.json	/^        "format": "cpp",$/;"	s	object:files.associations
+fstream	.vscode/settings.json	/^        "fstream": "cpp",$/;"	s	object:files.associations
 functional	.vscode/settings.json	/^        "functional": "cpp",$/;"	s	object:files.associations
 get_fdc_track	FDC.C	/^char get_fdc_track(void)$/;"	f	typeref:typename:char
-get_fdc_track	KERNEL.C	/^char get_fdc_track(void)$/;"	f	typeref:typename:char
-get_fdc_track	TESTS/FDC_OLD.C	/^char get_fdc_track(void)$/;"	f	typeref:typename:char
-get_fdc_track	TESTS/FDC_TEST.C	/^char get_fdc_track(void)$/;"	f	typeref:typename:char
 get_video_base	KERNEL.C	/^#define get_video_base(/;"	d	file:
 group	.vscode/tasks.json	/^            "group": {$/;"	o	object:tasks.0
 handle_floppy_interrupt	FDC.C	/^void handle_floppy_interrupt(void)$/;"	f	typeref:typename:void
-handle_floppy_interrupt	KERNEL.C	/^void handle_floppy_interrupt(void)$/;"	f	typeref:typename:void
-handle_floppy_interrupt	TESTS/FDC_TEST.C	/^void handle_floppy_interrupt(void)$/;"	f	typeref:typename:void
 hello	KERNEL.C	/^void hello()$/;"	f	typeref:typename:void
-ikbd_isr	TESTS/TEST_CLEAN/ISR.C	/^void ikbd_isr()$/;"	f	typeref:typename:void
-init	KERNEL.C	/^void init()$/;"	f	typeref:typename:void
-init	TESTS/TEST_CLEAN/KERNEL.C	/^void init()$/;"	f	typeref:typename:void
+init	KERNEL.C	/^void init(void)$/;"	f	typeref:typename:void
 init_IO	KERNEL.C	/^void init_IO()$/;"	f	typeref:typename:void
-init_IO	TESTS/TEST_CLEAN/KERNEL.C	/^void init_IO()$/;"	f	typeref:typename:void
+init_console	KERNEL.C	/^void init_console(void)$/;"	f	typeref:typename:void
 init_proc_table	KERNEL.C	/^void init_proc_table()$/;"	f	typeref:typename:void
-init_proc_table	TESTS/TEST_CLEAN/KERNEL.C	/^void init_proc_table()$/;"	f	typeref:typename:void
 init_vector_table	KERNEL.C	/^void init_vector_table()$/;"	f	typeref:typename:void
-init_vector_table	TESTS/TEST_CLEAN/KERNEL.C	/^void init_vector_table()$/;"	f	typeref:typename:void
 initialize_floppy_driver	FDC.C	/^int initialize_floppy_driver(void)$/;"	f	typeref:typename:int
-initialize_floppy_driver	KERNEL.C	/^int initialize_floppy_driver(void)$/;"	f	typeref:typename:int
-initialize_floppy_driver	TESTS/FDC_TEST.C	/^int initialize_floppy_driver(void)$/;"	f	typeref:typename:int
 input_enqueue	KERNEL.C	/^void input_enqueue(char ch)$/;"	f	typeref:typename:void
-input_enqueue	TESTS/TEST_CLEAN/ISR.C	/^void input_enqueue(char ch)$/;"	f	typeref:typename:void
 invert_cursor	KERNEL.C	/^void invert_cursor()$/;"	f	typeref:typename:void
+iosfwd	.vscode/settings.json	/^        "iosfwd": "cpp",$/;"	s	object:files.associations
 isDefault	.vscode/tasks.json	/^                "isDefault": true$/;"	b	object:tasks.0.group
 kind	.vscode/tasks.json	/^                "kind": "build",$/;"	s	object:tasks.0.group
-kybd_auto_ch	KERNEL.C	/^UINT8 *const kybd_auto_ch = 0x00040E;$/;"	v	typeref:typename:UINT8 * const
-kybd_auto_count	KERNEL.C	/^UINT16 *const kybd_auto_count = 0x000410;$/;"	v	typeref:typename:UINT16 * const
-kybd_blocked_proc	KERNEL.C	/^UINT16 *const kybd_blocked_proc = 0x000412;$/;"	v	typeref:typename:UINT16 * const
-kybd_buff	KERNEL.C	/^UINT8 *const kybd_buff = 0x000416; \/* 128 byte circular queue - must be a power of 2 *\/$/;"	v	typeref:typename:UINT8 * const
-kybd_buff_fill	KERNEL.C	/^UINT16 *const kybd_buff_fill = 0x000406;$/;"	v	typeref:typename:UINT16 * const
-kybd_buff_head	KERNEL.C	/^UINT16 *const kybd_buff_head = 0x000402;$/;"	v	typeref:typename:UINT16 * const
-kybd_buff_tail	KERNEL.C	/^UINT16 *const kybd_buff_tail = 0x000404;$/;"	v	typeref:typename:UINT16 * const
-kybd_fg_proc	KERNEL.C	/^UINT16 *const kybd_fg_proc = 0x000414;$/;"	v	typeref:typename:UINT16 * const
-kybd_isr_state	KERNEL.C	/^UINT16 *const kybd_isr_state = 0x000400; \/* 0=not in mouse packet, 1=expecting delta x, 2=expec/;"	v	typeref:typename:UINT16 * const
-kybd_len_line	KERNEL.C	/^UINT16 *const kybd_len_line = 0x00040A; \/* number of characters in buffer for current line *\/$/;"	v	typeref:typename:UINT16 * const
-kybd_num_lines	KERNEL.C	/^UINT16 *const kybd_num_lines = 0x000408;$/;"	v	typeref:typename:UINT16 * const
-kybd_shifted	KERNEL.C	/^UINT16 *const kybd_shifted = 0x00040C;$/;"	v	typeref:typename:UINT16 * const
+kybd_auto_ch	KERNEL.C	/^UINT8 *const kybd_auto_ch = (UINT8 *)0x00040E;$/;"	v	typeref:typename:UINT8 * const
+kybd_auto_count	KERNEL.C	/^UINT16 *const kybd_auto_count = (UINT16 *)0x000410;$/;"	v	typeref:typename:UINT16 * const
+kybd_blocked_proc	KERNEL.C	/^UINT16 *const kybd_blocked_proc = (UINT16 *)0x000412;$/;"	v	typeref:typename:UINT16 * const
+kybd_buff	KERNEL.C	/^UINT8 *const kybd_buff = (UINT8 *)0x000416; \/* 128 byte circular queue - must be a power of 2 */;"	v	typeref:typename:UINT8 * const
+kybd_buff_fill	KERNEL.C	/^UINT16 *const kybd_buff_fill = (UINT16 *)0x000406;$/;"	v	typeref:typename:UINT16 * const
+kybd_buff_head	KERNEL.C	/^UINT16 *const kybd_buff_head = (UINT16 *)0x000402;$/;"	v	typeref:typename:UINT16 * const
+kybd_buff_tail	KERNEL.C	/^UINT16 *const kybd_buff_tail = (UINT16 *)0x000404;$/;"	v	typeref:typename:UINT16 * const
+kybd_fg_proc	KERNEL.C	/^UINT16 *const kybd_fg_proc = (UINT16 *)0x000414;$/;"	v	typeref:typename:UINT16 * const
+kybd_isr_state	KERNEL.C	/^UINT16 *const kybd_isr_state = (UINT16 *)0x000400; \/* 0=not in mouse packet, 1=expecting delta /;"	v	typeref:typename:UINT16 * const
+kybd_len_line	KERNEL.C	/^UINT16 *const kybd_len_line = (UINT16 *)0x00040A; \/* number of characters in buffer for current/;"	v	typeref:typename:UINT16 * const
+kybd_num_lines	KERNEL.C	/^UINT16 *const kybd_num_lines = (UINT16 *)0x000408;$/;"	v	typeref:typename:UINT16 * const
+kybd_shifted	KERNEL.C	/^UINT16 *const kybd_shifted = (UINT16 *)0x00040C;$/;"	v	typeref:typename:UINT16 * const
 label	.vscode/tasks.json	/^            "label": "C\/C++: gcc build active file",$/;"	s	object:tasks.0
 list	.vscode/settings.json	/^        "list": "cpp",$/;"	s	object:files.associations
 load	KERNEL.C	/^void load(UINT16 i, void (*p)())$/;"	f	typeref:typename:void
-load	TESTS/TEST_CLEAN/PROC.C	/^void load(UINT16 i, void (*p)())$/;"	f	typeref:typename:void
-main	TESTS/FDC_OLD.C	/^int main(void)$/;"	f	typeref:typename:int
-main	TESTS/FDC_TEST.C	/^int main(void)$/;"	f	typeref:typename:int
+main	FDC.C	/^int main(void)$/;"	f	typeref:typename:int
+memcpy	KERNEL.C	/^void *memcpy(void *dest, const void *src, UINT32 n)$/;"	f	typeref:typename:void *
+memory_resource	.vscode/settings.json	/^        "memory_resource": "cpp",$/;"	s	object:files.associations
+my_strlen	KERNEL.C	/^UINT32 my_strlen(const char *str)$/;"	f	typeref:typename:UINT32
 n_sector	FDC.H	/^    int n_sector;$/;"	m	struct:__anon0d1820680b08	typeref:typename:int
-n_sector	KERNEL.C	/^    int n_sector;$/;"	m	struct:__anon3760a2770b08	typeref:typename:int	file:
-n_sector	TESTS/FDC_OLD.C	/^    int n_sector;$/;"	m	struct:__anon8feab0430b08	typeref:typename:int	file:
-n_sector	TESTS/FDC_TEST.C	/^    int n_sector;$/;"	m	struct:__anon9874b1240b08	typeref:typename:int	file:
+new	.vscode/settings.json	/^        "new": "cpp",$/;"	s	object:files.associations
 operation	FDC.H	/^    disk_operation_t operation;$/;"	m	struct:__anon0d1820680b08	typeref:typename:disk_operation_t
-operation	KERNEL.C	/^    disk_operation_t operation;$/;"	m	struct:__anon3760a2770b08	typeref:typename:disk_operation_t	file:
-operation	TESTS/FDC_OLD.C	/^    disk_operation_t operation;$/;"	m	struct:__anon8feab0430b08	typeref:typename:disk_operation_t	file:
-operation	TESTS/FDC_TEST.C	/^    disk_operation_t operation;$/;"	m	struct:__anon9874b1240b08	typeref:typename:disk_operation_t	file:
 options	.vscode/tasks.json	/^            "options": {$/;"	o	object:tasks.0
+ostream	.vscode/settings.json	/^        "ostream": "cpp",$/;"	s	object:files.associations
 out1	KERN_ASM.S	/^out1:				movea.l	(sp)+,a0$/;"	l
 out2	KERN_ASM.S	/^out2:				rts$/;"	l
 panic	KERNEL.C	/^void panic()$/;"	f	typeref:typename:void
 parent	KERNEL.C	/^    struct process *parent;$/;"	m	struct:process	typeref:struct:process *	file:
 pc	KERNEL.C	/^    UINT32 pc;$/;"	m	struct:CPU_context	typeref:typename:UINT32	file:
-perform_disk_operation	FDC.C	/^int perform_disk_operation(disk_io_request_t *io)$/;"	f	typeref:typename:int
-perform_disk_operation	KERNEL.C	/^int perform_disk_operation(disk_io_request_t *io)$/;"	f	typeref:typename:int
-perform_disk_operation	TESTS/FDC_TEST.C	/^int perform_disk_operation(disk_io_request_t *io)$/;"	f	typeref:typename:int
 perform_read_operation_from_floppy	FDC.C	/^int perform_read_operation_from_floppy(disk_io_request_t *io)$/;"	f	typeref:typename:int
-perform_read_operation_from_floppy	KERNEL.C	/^int perform_read_operation_from_floppy(disk_io_request_t *io)$/;"	f	typeref:typename:int
-perform_read_operation_from_floppy	TESTS/FDC_TEST.C	/^int perform_read_operation_from_floppy(disk_io_request_t *io)$/;"	f	typeref:typename:int
 perform_write_operation_to_floppy	FDC.C	/^int perform_write_operation_to_floppy(disk_io_request_t *io)$/;"	f	typeref:typename:int
-perform_write_operation_to_floppy	KERNEL.C	/^int perform_write_operation_to_floppy(disk_io_request_t *io)$/;"	f	typeref:typename:int
-perform_write_operation_to_floppy	TESTS/FDC_TEST.C	/^int perform_write_operation_to_floppy(disk_io_request_t *io)$/;"	f	typeref:typename:int
 pid	KERNEL.C	/^    UINT16 pid;$/;"	m	struct:process	typeref:typename:UINT16	file:
 plot_glyph	KERNEL.C	/^void plot_glyph(UINT8 ch)$/;"	f	typeref:typename:void
-plot_glyph	TESTS/TEST_CLEAN/CONS.C	/^void plot_glyph(UINT8 ch)$/;"	f	typeref:typename:void
 pre_return	KERN_ASM.S	/^pre_return:			cmpi.w	#$2000,4(sp)			; check if S bit was set (xxSx xxxx xxxx xxxx)$/;"	l
 print_char	KERNEL.C	/^void print_char(char ch)$/;"	f	typeref:typename:void
-print_char	TESTS/TEST_CLEAN/CONS.C	/^void print_char(char ch)$/;"	f	typeref:typename:void
 print_char_safe	KERNEL.C	/^void print_char_safe(char ch)$/;"	f	typeref:typename:void
-print_char_safe	TESTS/TEST_CLEAN/CONS.C	/^void print_char_safe(char ch)$/;"	f	typeref:typename:void
 print_str	KERNEL.C	/^void print_str(char *str)$/;"	f	typeref:typename:void
-print_str	TESTS/TEST_CLEAN/CONS.C	/^void print_str(char *str)$/;"	f	typeref:typename:void
 print_str_safe	KERNEL.C	/^void print_str_safe(char *str)$/;"	f	typeref:typename:void
-print_str_safe	TESTS/TEST_CLEAN/CONS.C	/^void print_str_safe(char *str)$/;"	f	typeref:typename:void
 problemMatcher	.vscode/tasks.json	/^            "problemMatcher": [$/;"	a	object:tasks.0
-proc	KERNEL.C	/^struct process *const proc = 0x000204;   \/* array of MAX_NUM_PROC (4) process structures *\/$/;"	v	typeref:struct:process * const
+proc	KERNEL.C	/^struct process *const proc = (struct process *)0x000204; \/* array of MAX_NUM_PROC (4) process s/;"	v	typeref:struct:process * const
 process	KERNEL.C	/^struct process \/* 102 bytes *\/$/;"	s	file:
-prog	KERNEL.C	/^const Vector prog[] = {shell, hello, user_program_2, user_program_3, user_program_4};$/;"	v	typeref:typename:const Vector[]
+prog	KERNEL.C	/^const Vector prog[] = {shell, hello, test_run, user_program_3, user_program_4};$/;"	v	typeref:typename:const Vector[]
 psg_io_port_t	FDC.H	/^} psg_io_port_t;$/;"	t	typeref:enum:__anon0d1820680403
-psg_io_port_t	KERNEL.C	/^} psg_io_port_t;$/;"	t	typeref:enum:__anon3760a2770403	file:
-psg_io_port_t	TESTS/FDC_OLD.C	/^} psg_io_port_t;$/;"	t	typeref:enum:__anon8feab0430403	file:
-psg_io_port_t	TESTS/FDC_TEST.C	/^} psg_io_port_t;$/;"	t	typeref:enum:__anon9874b1240403	file:
 psg_mixer_control_t	FDC.H	/^} psg_mixer_control_t;$/;"	t	typeref:enum:__anon0d1820680703
-psg_mixer_control_t	KERNEL.C	/^} psg_mixer_control_t;$/;"	t	typeref:enum:__anon3760a2770703	file:
-psg_mixer_control_t	TESTS/FDC_OLD.C	/^} psg_mixer_control_t;$/;"	t	typeref:enum:__anon8feab0430703	file:
-psg_mixer_control_t	TESTS/FDC_TEST.C	/^} psg_mixer_control_t;$/;"	t	typeref:enum:__anon9874b1240703	file:
 psg_port_a_control_t	FDC.H	/^} psg_port_a_control_t;$/;"	t	typeref:enum:__anon0d1820680603
-psg_port_a_control_t	KERNEL.C	/^} psg_port_a_control_t;$/;"	t	typeref:enum:__anon3760a2770603	file:
-psg_port_a_control_t	TESTS/FDC_OLD.C	/^} psg_port_a_control_t;$/;"	t	typeref:enum:__anon8feab0430603	file:
-psg_port_a_control_t	TESTS/FDC_TEST.C	/^} psg_port_a_control_t;$/;"	t	typeref:enum:__anon9874b1240603	file:
-psg_reg_read	FDC.H	/^IO_PORT8_RO psg_reg_read = (IO_PORT8_RO)0xFF8800;$/;"	v	typeref:typename:IO_PORT8_RO
-psg_reg_read	KERNEL.C	/^IO_PORT8_RO psg_reg_read = (IO_PORT8_RO)0xFF8800;$/;"	v	typeref:typename:IO_PORT8_RO
-psg_reg_read	TESTS/FDC_OLD.C	/^IO_PORT8_RO psg_reg_read = (IO_PORT8_RO)0xFF8800;$/;"	v	typeref:typename:IO_PORT8_RO
-psg_reg_read	TESTS/FDC_TEST.C	/^IO_PORT8_RO psg_reg_read = (IO_PORT8_RO)0xFF8800;$/;"	v	typeref:typename:IO_PORT8_RO
-psg_reg_select	FDC.H	/^IO_PORT8 psg_reg_select = (IO_PORT8)0xFF8800;$/;"	v	typeref:typename:IO_PORT8
-psg_reg_select	KERNEL.C	/^IO_PORT8 psg_reg_select = (IO_PORT8)0xFF8800;$/;"	v	typeref:typename:IO_PORT8
-psg_reg_select	TESTS/FDC_OLD.C	/^IO_PORT8 psg_reg_select = (IO_PORT8)0xFF8800;$/;"	v	typeref:typename:IO_PORT8
-psg_reg_select	TESTS/FDC_TEST.C	/^IO_PORT8 psg_reg_select = (IO_PORT8)0xFF8800;$/;"	v	typeref:typename:IO_PORT8
-psg_reg_write	FDC.H	/^IO_PORT8 psg_reg_write = (IO_PORT8)0xFF8802;$/;"	v	typeref:typename:IO_PORT8
-psg_reg_write	KERNEL.C	/^IO_PORT8 psg_reg_write = (IO_PORT8)0xFF8802;$/;"	v	typeref:typename:IO_PORT8
-psg_reg_write	TESTS/FDC_OLD.C	/^IO_PORT8 psg_reg_write = (IO_PORT8)0xFF8802;$/;"	v	typeref:typename:IO_PORT8
-psg_reg_write	TESTS/FDC_TEST.C	/^IO_PORT8 psg_reg_write = (IO_PORT8)0xFF8802;$/;"	v	typeref:typename:IO_PORT8
+psg_reg_read	FDC.C	/^IO_PORT8_RO psg_reg_read = (IO_PORT8_RO)0xFF8800;$/;"	v	typeref:typename:IO_PORT8_RO
+psg_reg_select	FDC.C	/^IO_PORT8 psg_reg_select = (IO_PORT8)0xFF8800;$/;"	v	typeref:typename:IO_PORT8
+psg_reg_write	FDC.C	/^IO_PORT8 psg_reg_write = (IO_PORT8)0xFF8802;$/;"	v	typeref:typename:IO_PORT8
 psg_sel_t	FDC.H	/^} psg_sel_t;$/;"	t	typeref:enum:__anon0d1820680503
-psg_sel_t	KERNEL.C	/^} psg_sel_t;$/;"	t	typeref:enum:__anon3760a2770503	file:
-psg_sel_t	TESTS/FDC_OLD.C	/^} psg_sel_t;$/;"	t	typeref:enum:__anon8feab0430503	file:
-psg_sel_t	TESTS/FDC_TEST.C	/^} psg_sel_t;$/;"	t	typeref:enum:__anon9874b1240503	file:
-read_SR	TESTS/TEST_CLEAN/UTILS.C	/^UINT16 read_SR()$/;"	f	typeref:typename:UINT16
-read_command	FDC.H	/^const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_MOTOR_ON;$/;"	v	typeref:typename:const UINT8
-read_command	KERNEL.C	/^const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_MOTOR_ON;$/;"	v	typeref:typename:const UINT8
-read_command	TESTS/FDC_OLD.C	/^const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_MOTOR_ON;$/;"	v	typeref:typename:const UINT8
-read_command	TESTS/FDC_TEST.C	/^const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_MOTOR_ON;$/;"	v	typeref:typename:const UINT8
+read_command	FDC.C	/^const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_SUPPRESS_MOTOR_ON;$/;"	v	typeref:typename:const UINT8
 read_sector	FDC.C	/^int read_sector(int sector, void *buffer_address)$/;"	f	typeref:typename:int
-read_sector	KERNEL.C	/^int read_sector(int sector, void *buffer_address)$/;"	f	typeref:typename:int
-read_sector	TESTS/FDC_OLD.C	/^int read_sector(int sector, void *buff)$/;"	f	typeref:typename:int
-read_sector	TESTS/FDC_TEST.C	/^int read_sector(int sector, void *buffer_address)$/;"	f	typeref:typename:int
-resched_needed	KERNEL.C	/^UINT16 *const resched_needed = 0x000202; \/* 0=no, 1=yes, 2=yes with eventual trap restart (bloc/;"	v	typeref:typename:UINT16 * const
+resched_needed	KERNEL.C	/^UINT16 *const resched_needed = (UINT16 *)0x000202;       \/* 0=no, 1=yes, 2=yes with eventual tr/;"	v	typeref:typename:UINT16 * const
 reset_cursor	KERNEL.C	/^void reset_cursor()$/;"	f	typeref:typename:void
-restore_command	FDC.H	/^const UINT8 restore_command = FDC_FLAG_H | FDC_CMD_RESTORE | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-restore_command	KERNEL.C	/^const UINT8 restore_command = FDC_FLAG_H | FDC_CMD_RESTORE | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-restore_command	TESTS/FDC_OLD.C	/^const UINT8 restore_command = FDC_FLAG_H | FDC_CMD_RESTORE | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-restore_command	TESTS/FDC_TEST.C	/^const UINT8 restore_command = FDC_FLAG_H | FDC_CMD_RESTORE | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-safe_psg	TESTS/TEST_PSG/PSG.C	/^UINT8 safe_psg(UINT8 value, UINT8 register_number)$/;"	f	typeref:typename:UINT8
+restore_command	FDC.C	/^const UINT8 restore_command = FDC_CMD_RESTORE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_/;"	v	typeref:typename:const UINT8
 scan2ascii	KERNEL.C	/^const UINT8 scan2ascii[2][128] = {$/;"	v	typeref:typename:const UINT8[2][128]
 schedule	KERNEL.C	/^void schedule()$/;"	f	typeref:typename:void
-schedule	TESTS/TEST_CLEAN/PROC.C	/^void schedule()$/;"	f	typeref:typename:void
 scroll_most	KERN_ASM.S	/^scroll_most:		movem.l	(a0)+,d2-d7\/a2-5$/;"	l
 sector	FDC.H	/^    int sector;$/;"	m	struct:__anon0d1820680b08	typeref:typename:int
-sector	KERNEL.C	/^    int sector;$/;"	m	struct:__anon3760a2770b08	typeref:typename:int	file:
-sector	TESTS/FDC_OLD.C	/^    int sector;$/;"	m	struct:__anon8feab0430b08	typeref:typename:int	file:
-sector	TESTS/FDC_TEST.C	/^    int sector;$/;"	m	struct:__anon9874b1240b08	typeref:typename:int	file:
 seek	FDC.C	/^int seek(int track)$/;"	f	typeref:typename:int
-seek	KERNEL.C	/^int seek(int track)$/;"	f	typeref:typename:int
-seek	TESTS/FDC_OLD.C	/^int seek(int track)$/;"	f	typeref:typename:int
-seek	TESTS/FDC_TEST.C	/^int seek(int track)$/;"	f	typeref:typename:int
-seek_command	FDC.H	/^const UINT8 seek_command = FDC_FLAG_H | FDC_CMD_SEEK | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-seek_command	KERNEL.C	/^const UINT8 seek_command = FDC_FLAG_H | FDC_CMD_SEEK | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-seek_command	TESTS/FDC_OLD.C	/^const UINT8 seek_command = FDC_FLAG_H | FDC_CMD_SEEK | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-seek_command	TESTS/FDC_TEST.C	/^const UINT8 seek_command = FDC_FLAG_H | FDC_CMD_SEEK | FDC_FLAG_R1;$/;"	v	typeref:typename:const UINT8
-select_drive	TESTS/TEST_PSG/PSG.C	/^void select_drive(UINT8 drive, UINT8 side)$/;"	f	typeref:typename:void
+seek_command	FDC.C	/^const UINT8 seek_command = FDC_CMD_SEEK | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_3;$/;"	v	typeref:typename:const UINT8
+seekrate	KERNEL.C	/^UINT32 *const seekrate = (UINT32 *)0x000498L; \/* aligned on a longword (4-byte) boundary *\/$/;"	v	typeref:typename:UINT32 * const
 select_floppy_drive	FDC.C	/^void select_floppy_drive(disk_selection_t drive, disk_side_t side)$/;"	f	typeref:typename:void
-select_floppy_drive	KERNEL.C	/^void select_floppy_drive(disk_selection_t drive, disk_side_t side)$/;"	f	typeref:typename:void
-select_floppy_drive	TESTS/FDC_OLD.C	/^void select_floppy_drive(disk_selection_t drive, disk_side_t side)$/;"	f	typeref:typename:void
-select_floppy_drive	TESTS/FDC_TEST.C	/^void select_floppy_drive(disk_selection_t drive, disk_side_t side)$/;"	f	typeref:typename:void
 send_command_to_fdc	FDC.C	/^void send_command_to_fdc(UINT8 command)$/;"	f	typeref:typename:void
-send_command_to_fdc	KERNEL.C	/^void send_command_to_fdc(UINT8 command)$/;"	f	typeref:typename:void
-send_command_to_fdc	TESTS/FDC_TEST.C	/^void send_command_to_fdc(UINT8 command)$/;"	f	typeref:typename:void
 set_fdc_sector	FDC.C	/^void set_fdc_sector(int sector)$/;"	f	typeref:typename:void
-set_fdc_sector	KERNEL.C	/^void set_fdc_sector(int sector)$/;"	f	typeref:typename:void
-set_fdc_sector	TESTS/FDC_OLD.C	/^void set_fdc_sector(int sector)$/;"	f	typeref:typename:void
-set_fdc_sector	TESTS/FDC_TEST.C	/^void set_fdc_sector(int sector)$/;"	f	typeref:typename:void
 set_fdc_track	FDC.C	/^void set_fdc_track(int track)$/;"	f	typeref:typename:void
-set_fdc_track	KERNEL.C	/^void set_fdc_track(int track)$/;"	f	typeref:typename:void
-set_fdc_track	TESTS/FDC_OLD.C	/^void set_fdc_track(int track)$/;"	f	typeref:typename:void
-set_fdc_track	TESTS/FDC_TEST.C	/^void set_fdc_track(int track)$/;"	f	typeref:typename:void
 set_ipl	KERNEL.C	/^UINT16 set_ipl(UINT16 ipl)$/;"	f	typeref:typename:UINT16
-set_ipl	TESTS/TEST_CLEAN/UTILS.C	/^UINT16 set_ipl(UINT16 ipl)$/;"	f	typeref:typename:UINT16
-set_ipl	TESTS/TEST_PSG/PSG.C	/^UINT16 set_ipl(UINT16 ipl)$/;"	f	typeref:typename:UINT16
 setup_dma_buffer	FDC.C	/^void setup_dma_buffer(void *buffer_address)$/;"	f	typeref:typename:void
-setup_dma_buffer	KERNEL.C	/^void setup_dma_buffer(void *buffer_address)$/;"	f	typeref:typename:void
-setup_dma_buffer	TESTS/FDC_TEST.C	/^void setup_dma_buffer(void *buffer_address)$/;"	f	typeref:typename:void
 setup_dma_for_rw	FDC.C	/^int setup_dma_for_rw(disk_selection_t disk, disk_side_t side, int track)$/;"	f	typeref:typename:int
-setup_dma_for_rw	KERNEL.C	/^int setup_dma_for_rw(disk_selection_t disk, disk_side_t side, int track)$/;"	f	typeref:typename:int
-setup_dma_for_rw	TESTS/FDC_TEST.C	/^int setup_dma_for_rw(disk_selection_t disk, disk_side_t side, int track)$/;"	f	typeref:typename:int
 shell	KERNEL.C	/^void shell()$/;"	f	typeref:typename:void
 side	FDC.H	/^    disk_side_t side;$/;"	m	struct:__anon0d1820680b08	typeref:typename:disk_side_t
-side	KERNEL.C	/^    disk_side_t side;$/;"	m	struct:__anon3760a2770b08	typeref:typename:disk_side_t	file:
-side	TESTS/FDC_OLD.C	/^    disk_side_t side;$/;"	m	struct:__anon8feab0430b08	typeref:typename:disk_side_t	file:
-side	TESTS/FDC_TEST.C	/^    disk_side_t side;$/;"	m	struct:__anon9874b1240b08	typeref:typename:disk_side_t	file:
 sr	KERNEL.C	/^    UINT16 sr;$/;"	m	struct:CPU_context	typeref:typename:UINT16	file:
+sstream	.vscode/settings.json	/^        "sstream": "cpp",$/;"	s	object:files.associations
 start	KERN_ASM.S	/^start:				move.w	#$2700,sr$/;"	l
 state	KERNEL.C	/^    UINT16 state;$/;"	m	struct:process	typeref:typename:UINT16	file:
+stop_token	.vscode/settings.json	/^        "stop_token": "cpp",$/;"	s	object:files.associations
+streambuf	.vscode/settings.json	/^        "streambuf": "cpp"$/;"	s	object:files.associations
 string	.vscode/settings.json	/^        "string": "cpp",$/;"	s	object:files.associations
 system_error	.vscode/settings.json	/^        "system_error": "cpp",$/;"	s	object:files.associations
 tasks	.vscode/tasks.json	/^    "tasks": [$/;"	a
 terminate	KERNEL.C	/^void terminate()$/;"	f	typeref:typename:void
-terminate	TESTS/TEST_CLEAN/PROC.C	/^void terminate()$/;"	f	typeref:typename:void
-timer_A_isr	TESTS/TEST_CLEAN/ISR.C	/^void timer_A_isr()$/;"	f	typeref:typename:void
+test_buffer	FDC.C	/^UINT8 test_buffer[SECTOR_SIZE];$/;"	v	typeref:typename:UINT8[]
+test_run	KERNEL.C	/^void test_run(void)$/;"	f	typeref:typename:void
 track	FDC.H	/^    int track;$/;"	m	struct:__anon0d1820680b08	typeref:typename:int
-track	KERNEL.C	/^    int track;$/;"	m	struct:__anon3760a2770b08	typeref:typename:int	file:
-track	TESTS/FDC_OLD.C	/^    int track;$/;"	m	struct:__anon8feab0430b08	typeref:typename:int	file:
-track	TESTS/FDC_TEST.C	/^    int track;$/;"	m	struct:__anon9874b1240b08	typeref:typename:int	file:
 type	.vscode/tasks.json	/^            "type": "cppbuild",$/;"	s	object:tasks.0
 unordered_map	.vscode/settings.json	/^        "unordered_map": "cpp",$/;"	s	object:files.associations
 user_program_2	KERNEL.C	/^void user_program_2()$/;"	f	typeref:typename:void
 user_program_3	KERNEL.C	/^void user_program_3()$/;"	f	typeref:typename:void
 user_program_4	KERNEL.C	/^void user_program_4()$/;"	f	typeref:typename:void
 usp	KERNEL.C	/^    UINT32 usp;$/;"	m	struct:CPU_context	typeref:typename:UINT32	file:
-vbl_counter	KERNEL.C	/^UINT16 *const vbl_counter = 0x000142;$/;"	v	typeref:typename:UINT16 * const
-vbl_isr	TESTS/TEST_CLEAN/ISR.C	/^void vbl_isr()$/;"	f	typeref:typename:void
+vbl_counter	KERNEL.C	/^UINT16 *const vbl_counter = (UINT16 *)0x000142;$/;"	v	typeref:typename:UINT16 * const
 vector	.vscode/settings.json	/^        "vector": "cpp",$/;"	s	object:files.associations
 vector_table	KERNEL.C	/^Vector *const vector_table = 0x000000;$/;"	v	typeref:typename:Vector * const
 version	.vscode/tasks.json	/^    "version": "2.0.0"$/;"	s
 wdc_dma_mode_t	FDC.H	/^} wdc_dma_mode_t;$/;"	t	typeref:enum:__anon0d1820680a03
-wdc_dma_mode_t	KERNEL.C	/^} wdc_dma_mode_t;$/;"	t	typeref:enum:__anon3760a2770a03	file:
-wdc_dma_mode_t	TESTS/FDC_OLD.C	/^} wdc_dma_mode_t;$/;"	t	typeref:enum:__anon8feab0430a03	file:
-wdc_dma_mode_t	TESTS/FDC_TEST.C	/^} wdc_dma_mode_t;$/;"	t	typeref:enum:__anon9874b1240a03	file:
 wdc_dma_status_t	FDC.H	/^} wdc_dma_status_t;$/;"	t	typeref:enum:__anon0d1820680903
-wdc_dma_status_t	KERNEL.C	/^} wdc_dma_status_t;$/;"	t	typeref:enum:__anon3760a2770903	file:
-wdc_dma_status_t	TESTS/FDC_OLD.C	/^} wdc_dma_status_t;$/;"	t	typeref:enum:__anon8feab0430903	file:
-wdc_dma_status_t	TESTS/FDC_TEST.C	/^} wdc_dma_status_t;$/;"	t	typeref:enum:__anon9874b1240903	file:
 wdc_fdc_access_t	FDC.H	/^} wdc_fdc_access_t;$/;"	t	typeref:enum:__anon0d1820680803
-wdc_fdc_access_t	KERNEL.C	/^} wdc_fdc_access_t;$/;"	t	typeref:enum:__anon3760a2770803	file:
-wdc_fdc_access_t	TESTS/FDC_OLD.C	/^} wdc_fdc_access_t;$/;"	t	typeref:enum:__anon8feab0430803	file:
-wdc_fdc_access_t	TESTS/FDC_TEST.C	/^} wdc_fdc_access_t;$/;"	t	typeref:enum:__anon9874b1240803	file:
-write_SR	TESTS/TEST_CLEAN/UTILS.C	/^void write_SR(UINT16 sr)$/;"	f	typeref:typename:void
-write_command	FDC.H	/^const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_MOTOR_ON | FDC_FLAG_WRITE_PRECOMP;$/;"	v	typeref:typename:const UINT8
-write_command	KERNEL.C	/^const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_MOTOR_ON | FDC_FLAG_WRITE_PRECOMP;$/;"	v	typeref:typename:const UINT8
-write_command	TESTS/FDC_OLD.C	/^const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_MOTOR_ON | FDC_FLAG_WRITE_PRECOMP;$/;"	v	typeref:typename:const UINT8
-write_command	TESTS/FDC_TEST.C	/^const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_MOTOR_ON | FDC_FLAG_WRITE_PRECOMP;$/;"	v	typeref:typename:const UINT8
-write_deleted_data_command	FDC.H	/^const UINT8 write_deleted_data_command =$/;"	v	typeref:typename:const UINT8
-write_deleted_data_command	KERNEL.C	/^const UINT8 write_deleted_data_command =$/;"	v	typeref:typename:const UINT8
-write_deleted_data_command	TESTS/FDC_OLD.C	/^const UINT8 write_deleted_data_command =$/;"	v	typeref:typename:const UINT8
-write_deleted_data_command	TESTS/FDC_TEST.C	/^const UINT8 write_deleted_data_command =$/;"	v	typeref:typename:const UINT8
+write_command	FDC.C	/^const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_WRITE_PRECOMPE/;"	v	typeref:typename:const UINT8
+write_deleted_data_command	FDC.C	/^const UINT8 write_deleted_data_command =$/;"	v	typeref:typename:const UINT8
 write_sector	FDC.C	/^int write_sector(int sector, const void *buffer_address)$/;"	f	typeref:typename:int
-write_sector	KERNEL.C	/^int write_sector(int sector, const void *buffer_address)$/;"	f	typeref:typename:int
-write_sector	TESTS/FDC_OLD.C	/^int write_sector(int sector, const void *buff)$/;"	f	typeref:typename:int
-write_sector	TESTS/FDC_TEST.C	/^int write_sector(int sector, const void *buffer_address)$/;"	f	typeref:typename:int
 zeros	KERN_ASM.S	/^zeros:				ds.l	13$/;"	d

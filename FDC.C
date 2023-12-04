@@ -14,8 +14,8 @@ IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609;
 IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;
 IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;
 
-const UINT8 restore_command = FDC_CMD_RESTORE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_2;
-const UINT8 seek_command = FDC_CMD_SEEK | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_2;
+const UINT8 restore_command = FDC_CMD_RESTORE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_3;
+const UINT8 seek_command = FDC_CMD_SEEK | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_3;
 const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_SUPPRESS_MOTOR_ON;
 const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_WRITE_PRECOMPENSATION;
 const UINT8 write_deleted_data_command =
@@ -270,6 +270,7 @@ int initialize_floppy_driver(void)
     if (do_fdc_restore_command() == 0)
         return 0; /* If the restore command failed, return with an error */
 
+    *dma_mode = 0;
     /* Initialize the DMA mode */
     *dma_mode = DMA_MODE_READ | DMA_SECTOR_COUNT_REG_SELECT;
 

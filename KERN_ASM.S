@@ -21,6 +21,8 @@
 
 					xdef	_disk_operation,_sys_disk_operation
 					xref	_do_disk_operation
+					xdef	_floppy_isr
+					xref	_do_floppy_isr
 
 					xdef	_vbl_isr
 					xref	_do_vbl_isr
@@ -115,6 +117,12 @@ after_pc_adjust:	movea.l	_curr_proc,a0			; switch to next process
 					jsr		_schedule				; doesn't return
 out1:				movea.l	(sp)+,a0
 out2:				rts
+
+_floppy_isr:		movem.l d0-2/a0-2,-(sp)
+					jsr		_do_floppy_isr
+					movem.l	(sp)+,d0-2/a0-2
+					jsr		pre_return
+					rte
 
 _timer_A_isr:		movem.l	d0-2/a0-2,-(sp)
 					jsr		_do_timer_A_isr

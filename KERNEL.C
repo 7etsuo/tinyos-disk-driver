@@ -44,6 +44,7 @@
 #define TRAP_7_VECTOR 39 /* yield          */
 #define IKBD_VECTOR 70
 #define TIMER_A_VECTOR 77
+#define FLOPPY_VECTOR 78
 
 #define MFP_TIMER_A 0x20
 #define MFP_GPIP4 0x40
@@ -200,16 +201,16 @@ void sys_write();
 void do_write(const char *buf, unsigned int len);
 
 int read(char *buf, unsigned int len);
-void sys_read();
+void sys_read(void);
 int do_read(char *buf, unsigned int len);
 
-int get_pid();
-void sys_get_pid();
-int do_get_pid();
+int get_pid(void);
+void sys_get_pid(void);
+int do_get_pid(void);
 
-void yield();
-void sys_yield();
-void do_yield();
+void yield(void);
+void sys_yield(void);
+void do_yield(void);
 
 /* UINT8 *get_video_base(); */
 void clear_screen(UINT8 *base);
@@ -218,29 +219,32 @@ void print_char(char);
 void print_str(char *);
 void print_char_safe(char);
 void print_str_safe(char *);
-void scroll();
-void invert_cursor();
-void reset_cursor();
-void clear_cursor();
+void scroll(void);
+void invert_cursor(void);
+void reset_cursor(void);
+void clear_cursor(void);
 
-void vbl_isr();
-void do_vbl_isr();
-void exception_isr();
+void vbl_isr(void);
+void do_vbl_isr(void);
+void exception_isr(void);
 void do_exception_isr(UINT16 sr);
-void addr_exception_isr();
+void addr_exception_isr(void);
 void do_addr_exception_isr(UINT16 flags, UINT32 addr, UINT16 ir, UINT16 sr);
-void timer_A_isr();
+void timer_A_isr(void);
 void do_timer_A_isr(UINT16 sr);
-void ikbd_isr();
-void do_ikbd_isr();
+void ikbd_isr(void);
+void do_ikbd_isr(void);
 void input_enqueue(char ch);
 
-void schedule();
-void await_interrupt();
+void do_floppy_isr(void);
+extern void floppy_isr(void);
 
-void panic();
+void schedule(void);
+void await_interrupt(void);
 
-UINT16 read_SR();
+void panic(void);
+
+UINT16 read_SR(void);
 void write_SR(UINT16 sr);
 UINT16 set_ipl(UINT16 ipl);
 
@@ -498,10 +502,10 @@ void *memcpy(void *dest, const void *src, UINT32 n)
     unsigned char *d = (unsigned char *)dest;
     const unsigned char *s = (const unsigned char *)src;
 
-        while (n--)
-            *d++ = *s++;
+    while (n--)
+        *d++ = *s++;
 
-        return dest;
+    return dest;
 }
 
 UINT32 my_strlen(const char *str)
@@ -712,6 +716,11 @@ void init_IO()
     *MFP_IMRB |= MFP_GPIP4;
 }
 
+void do_floppy_isr(void)
+{
+    ;
+}
+
 void do_timer_A_isr(UINT16 sr)
 {
     /* NOTE: timer A is very high priority.  Could use lower (e.g. C) */
@@ -843,6 +852,7 @@ void init_vector_table()
     vector_table[TRAP_7_VECTOR] = sys_yield;
     vector_table[IKBD_VECTOR] = ikbd_isr;
     vector_table[TIMER_A_VECTOR] = timer_A_isr;
+    vector_table[FLOPPY_VECTOR] = floppy_isr;
 }
 
 void panic()
