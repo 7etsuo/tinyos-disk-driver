@@ -6,17 +6,23 @@ RM = Rm
 os.img: os.prg
 	burnroms
 
-os.prg: kern_asm.o kernel.o font.o
-	ld -o os.prg kern_asm.o kernel.o font.o #crt0.o libc.a
+os.prg: kern_asm.o fdc.o kernel.o font.o
+	ld -o os.prg kern_asm.o fdc.o kernel.o font.o #crt0.o libc.a
 
 kern_asm.o: kern_asm.s
 	gen -L2 kern_asm.s
 
-kernel.o: kernel.c types.h font.h
+kernel.o: kernel.c types.h font.h fdc.h
 	cc68x -c kernel.c
 
 font.o: font.c font.h types.h
 	cc68x -c font.c
 
+fdc.o: fdc.c types.h fdc.h
+	cc68x -c fdc.c
+
 clean:
-	!$(RM) $(PROGNAME) $(ROM) kern_asm.o kernel.o font.o
+	!$(RM) $(PROGNAME) $(ROM) fdc kern_asm.o kernel.o font.o fdc.o
+
+test:
+	cc68x fdc.c -DTESTING=1 -o fdc
