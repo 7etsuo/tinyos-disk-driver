@@ -44,10 +44,11 @@
 #define TRAP_7_VECTOR 39 /* yield          */
 #define IKBD_VECTOR 70
 #define TIMER_A_VECTOR 77
-#define FLOPPY_VECTOR 78
+#define FLOPPY_VECTOR 30
 
 #define MFP_TIMER_A 0x20
 #define MFP_GPIP4 0x40
+#define MFP_GPIP5_FDC_VECTOR_OFFSET (1 << 5)
 
 #define ACIA_OVRN 0x20
 #define ACIA_IRQ 0x80
@@ -711,9 +712,10 @@ void init_IO()
 
     *MFP_IERA |= MFP_TIMER_A;
     *MFP_IMRA |= MFP_TIMER_A;
-
     *MFP_IERB |= MFP_GPIP4;
     *MFP_IMRB |= MFP_GPIP4;
+    *MFP_IERB |= MFP_GPIP5_FDC_VECTOR_OFFSET;
+    *MFP_IMRB |= MFP_GPIP5_FDC_VECTOR_OFFSET;
 }
 
 void do_floppy_isr(void)
