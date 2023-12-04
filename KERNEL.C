@@ -3,6 +3,12 @@
               NOTE ALSO THAT ISRs CAN NEST!
 */
 
+/*
+    Vector table is at 0x000000 - 0x00013F
+    Kernel data ranges from 0x000140 - 0x0005FF
+    Kernel stack ranges from 0x000600 - 0x0007FF
+*/
+
 #include "FONT.H"
 #include "TYPES.H"
 
@@ -82,79 +88,6 @@ struct process /* 102 bytes */
     */
 };
 
-void restart();
-
-void init_IO();
-void init_vector_table();
-void init_proc_table();
-
-void load(UINT16 i, void (*p)());
-void load_cpu_context(struct CPU_context *);
-
-void shell();
-void hello();
-void user_program_2();
-void user_program_3();
-void user_program_4();
-
-void exit();
-void sys_exit();
-void do_exit();
-void terminate();
-
-void create_process(UINT16 prog_num, UINT16 is_fg);
-void sys_create_process();
-void do_create_process(UINT16 prog_num, UINT16 is_fg);
-
-void write(const char *buf, unsigned int len);
-void sys_write();
-void do_write(const char *buf, unsigned int len);
-
-int read(char *buf, unsigned int len);
-void sys_read();
-int do_read(char *buf, unsigned int len);
-
-int get_pid();
-void sys_get_pid();
-int do_get_pid();
-
-void yield();
-void sys_yield();
-void do_yield();
-
-/* UINT8 *get_video_base(); */
-void clear_screen(UINT8 *base);
-void plot_glyph(UINT8 ch);
-void print_char(char);
-void print_str(char *);
-void print_char_safe(char);
-void print_str_safe(char *);
-void scroll();
-void invert_cursor();
-void reset_cursor();
-void clear_cursor();
-
-void vbl_isr();
-void do_vbl_isr();
-void exception_isr();
-void do_exception_isr(UINT16 sr);
-void addr_exception_isr();
-void do_addr_exception_isr(UINT16 flags, UINT32 addr, UINT16 ir, UINT16 sr);
-void timer_A_isr();
-void do_timer_A_isr(UINT16 sr);
-void ikbd_isr();
-void do_ikbd_isr();
-void input_enqueue(char ch);
-
-void schedule();
-void await_interrupt();
-
-void panic();
-
-UINT16 read_SR();
-void write_SR(UINT16 sr);
-UINT16 set_ipl(UINT16 ipl);
-
 /* NOTE: only constants may be declared globally! */
 
 IO_PORT8 MFP_IERA = 0xFFFA07;
@@ -186,30 +119,34 @@ IO_PORT8 VID_BASE_MID = 0xFF8203;
 
 Vector *const vector_table = 0x000000;
 
-UINT8 *const console_x_p = 0x000140; /* [TO DO] group with console driver data */
-UINT8 *const console_y_p = 0x000141;
-UINT16 *const vbl_counter = 0x000142;
-UINT16 *const cursor_visible = 0x000144;
+UINT8 *const console_x_p = (UINT8 *)0x000140; /* [TO DO] group with console driver data */
+UINT8 *const console_y_p = (UINT8 *)0x000141;
+UINT16 *const vbl_counter = (UINT16 *)0x000142;
+UINT16 *const cursor_visible = (UINT16 *)0x000144;
 
 #define MAX_NUM_PROC 4 /* must be a power of 2 */
 #define CURR_PROC (proc + *curr_proc)
 
-UINT16 *const curr_proc = 0x000200;
-UINT16 *const resched_needed = 0x000202; /* 0=no, 1=yes, 2=yes with eventual trap restart (blocking) */
-struct process *const proc = 0x000204;   /* array of MAX_NUM_PROC (4) process structures */
+UINT16 *const curr_proc = (UINT16 *)0x000200;
+UINT16 *const resched_needed = (UINT16 *)0x000202;       /* 0=no, 1=yes, 2=yes with eventual trap restart (blocking) */
+struct process *const proc = (struct process *)0x000204; /* array of MAX_NUM_PROC (4) process structures */
 
-UINT16 *const kybd_isr_state = 0x000400; /* 0=not in mouse packet, 1=expecting delta x, 2=expecting delta y */
-UINT16 *const kybd_buff_head = 0x000402;
-UINT16 *const kybd_buff_tail = 0x000404;
-UINT16 *const kybd_buff_fill = 0x000406;
-UINT16 *const kybd_num_lines = 0x000408;
-UINT16 *const kybd_len_line = 0x00040A; /* number of characters in buffer for current line */
-UINT16 *const kybd_shifted = 0x00040C;
-UINT8 *const kybd_auto_ch = 0x00040E;
-UINT16 *const kybd_auto_count = 0x000410;
-UINT16 *const kybd_blocked_proc = 0x000412;
-UINT16 *const kybd_fg_proc = 0x000414;
-UINT8 *const kybd_buff = 0x000416; /* 128 byte circular queue - must be a power of 2 */
+UINT16 *const kybd_isr_state = (UINT16 *)0x000400; /* 0=not in mouse packet, 1=expecting delta x, 2=expecting delta y */
+UINT16 *const kybd_buff_head = (UINT16 *)0x000402;
+UINT16 *const kybd_buff_tail = (UINT16 *)0x000404;
+UINT16 *const kybd_buff_fill = (UINT16 *)0x000406;
+UINT16 *const kybd_num_lines = (UINT16 *)0x000408;
+UINT16 *const kybd_len_line = (UINT16 *)0x00040A; /* number of characters in buffer for current line */
+UINT16 *const kybd_shifted = (UINT16 *)0x00040C;
+UINT8 *const kybd_auto_ch = (UINT8 *)0x00040E;
+UINT16 *const kybd_auto_count = (UINT16 *)0x000410;
+UINT16 *const kybd_blocked_proc = (UINT16 *)0x000412;
+UINT16 *const kybd_fg_proc = (UINT16 *)0x000414;
+UINT8 *const kybd_buff = (UINT8 *)0x000416; /* 128 byte circular queue - must be a power of 2 */
+
+/* floppy disk */
+UINT16 *const flock = (UINT16 *)0x000496L;
+UINT32 *const seekrate = (UINT32 *)0x000498L; /* aligned on a longword (4-byte) boundary */
 
 const UINT8 scan2ascii[2][128] = {
     {                                                    /* unshifted */
@@ -227,8 +164,6 @@ const UINT8 scan2ascii[2][128] = {
      0,   0,   0,   0,   0,   0,   0,    0,   0,   0,   0,   0,   0,   0,   0,    0,    0,   0,   0,    0,   0,   0,
      0,   0,   0,   0,   0,   0,   0,    0,   0,   0,   0,   0,   0,   0,   0,    0,    0,   0,   0,    0,   0,   0,
      0,   0,   0,   0,   0,   0,   0,    0,   0,   0,   0,   0,   0,   0,   0,    0,    0,   0}};
-
-const Vector prog[] = {shell, hello, user_program_2, user_program_3, user_program_4};
 
 /* FDC */
 #define CB_SECTOR 512
@@ -327,68 +262,56 @@ typedef enum
 {
     /* Bit 0 - Busy: 1 when the 177x is busy, 0 when it is free for CPU commands */
     FDC_BUSY = 1 << 0,
-
     /* Bit 1 - Index / Data Request: High during index pulse for Type I commands, signals CPU for data handling in Type
      * II and III commands */
     FDC_INDEX_DATA_REQUEST = 1 << 1,
-
     /* Bit 2 - Track Zero / Lost Data: Indicates track zero position after Type I commands or lost data due to slow CPU
      * response for Type II and III commands */
-    FDC_TRACK_ZERO_LOST_DATA = 1 << 2,
-
+    FDC_TRACK_ZERO = 1 << 2,
+    FDC_LOST_DATA = 1 << 2,
     /* Bit 3 - CRC Error: Indicates CRC mismatch in data. Can happen from things other than magnetic errors */
     FDC_CRC_ERROR = 1 << 3,
-
     /* Bit 4 - Record Not Found: Set if the FDC can't find the requested track, sector, or side */
     FDC_RECORD_NOT_FOUND = 1 << 4,
-
     /* Bit 5 - Spin-up / Record Type: Indicates motor spin-up status for Type I commands and data mark type for Type II
      * and III commands */
     FDC_SPIN_UP_RECORD_TYPE = 1 << 5,
-
     /* Bit 6 - Write Protect: High during writes if the disk is write-protected */
     FDC_WRITE_PROTECT = 1 << 6,
-
     /* Bit 7 - Motor On: Indicates if the drive motor is on or off */
     FDC_MOTOR_ON = 1 << 7
 } wdc_fdc_access_t;
 
-#define FDC_RESTORE_ERROR_CHECK(fdc_access) (!((fdc_access) & FDC_TRACK_ZERO_LOST_DATA))
+#define FDC_RESTORE_ERROR_CHECK(fdc_access) (!((fdc_access) & FDC_TRACK_ZERO))
 #define FDC_SEEK_ERROR_CHECK(fdc_access) ((fdc_access) & FDC_RECORD_NOT_FOUND)
-#define FDC_WRITE_ERROR_CHECK(fdc_access)                                                                              \
-    ((fdc_access) & (FDC_WRITE_PROTECT | FDC_TRACK_ZERO_LOST_DATA | FDC_RECORD_NOT_FOUND))
-#define FDC_READ_ERROR_CHECK(fdc_access)                                                                               \
-    ((fdc_access) & (FDC_CRC_ERROR | FDC_TRACK_ZERO_LOST_DATA | FDC_RECORD_NOT_FOUND))
+#define FDC_WRITE_ERROR_CHECK(fdc_access) ((fdc_access) & (FDC_WRITE_PROTECT | FDC_LOST_DATA | FDC_RECORD_NOT_FOUND))
+#define FDC_READ_ERROR_CHECK(fdc_access) ((fdc_access) & (FDC_CRC_ERROR | FDC_LOST_DATA | FDC_RECORD_NOT_FOUND))
 
 typedef enum
 {
-    DMA_ERROR_STATUS = 1 << 0,
-    SECTOR_COUNT_STATUS = 1 << 1,
-
-    /* Bit 2 - Condition of FDC DATA REQUEST signal */
-    DATA_REQUEST_CONDITION = 1 << 2
+    /* 1=ok, 0=err */
+    DMA_OK_ERROR_STATUS = 1 << 0,
+    /* 1=sector count not zero */
+    DMA_SECTOR_COUNT_NOT0 = 1 << 1,
+    /* 1=Condition of FDC DATA REQUEST signal */
+    DMA_DATREQ_CONDITION = 1 << 2
 } wdc_dma_status_t;
 
 typedef enum
 {
     /* Bit 0 - Unused, must be set to 0 */
-
     /* Bit 1 - Controls CA1 output (FDC A0 line and HDC command block start) */
-    CA1_CONTROL = 1 << 1,
-
+    DMA_NOT_NEWCMDBLK = 1 << 1,
+    DMA_A0_CONTROL = 1 << 1,
     /* Bit 2 - Controls CA2 output (FDC A1 line) */
-    CA2_CONTROL = 1 << 2,
-
+    DMA_A1_CONTROL = 1 << 2,
     /* Bit 3 - Selects HDCS* or FDCS* chip-select (1: HDCS*, 0: FDCS*) */
-    HDCS_FDCS_SELECT = 1 << 3,
-
+    DMA_CHIP_SELECT = 1 << 3,
     /* Bit 4 - Select DMA internal sect cnt or HDC/FDC external */
     /* controller registers (1: internal, 0: external) */
-    SECTOR_COUNT_REG_SELECT = 1 << 4,
-
+    DMA_SECTOR_COUNT_REG_SELECT = 1 << 4,
     /* Bit 5 - Reserved, must be set to 0 */
     /* Bit 6 - Unused, set to 0 (historically for DMA enable/disable) */
-
     /* Bit 7 - Sets data transfer direction  */
     /* (1: write to controller, 0: read from controller) */
     TRANSFER_DIRECTION = 1 << 7,
@@ -449,45 +372,66 @@ IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;
 /* Holds the count of bytes to be written. Note: This register is write-only */
 #define DMA_COUNT_REG_WRITE (DMA_MODE_WRITE << 8 | 0x90)
 
-/* type I command flags */
+/* commands */
 
-/* Restore command base */
+/* [hvrr] restore seeks to track 0  */
 #define FDC_CMD_RESTORE 0x00
-/* Seek command base */
+/* [hvrr] seek to track  */
 #define FDC_CMD_SEEK 0x10
-
-/* Stepping rate flag r0, corresponds to bit 0 */
-#define FDC_FLAG_R0 0x01
-/* Stepping rate flag r1, corresponds to bit 1 */
-#define FDC_FLAG_R1 0x02
-/* Verify flag 'V', corresponds to bit 2 */
-#define FDC_FLAG_V 0x04
-/* Motor On flag 'h', corresponds to bit 3 */
-#define FDC_FLAG_H 0x08
-
-/* type II command flags */
-
-/* Read Sector command base */
+/* [uhvrr] step to same direction  */
+#define FDC_CMD_STEP 0x20
+/* [uhvrr] step in */
+#define FDC_CMD_STEPI 0x40
+/* [uhvrr] step out */
+#define FDC_CMD_STEPO 0x60
+/* [mhe00] read sector */
 #define FDC_CMD_READ 0x80
-/* Write Sector command base */
+/* [mhepa] write sector  */
 #define FDC_CMD_WRITE 0xA0
-/* Data Address Mark 'a0', corresponds to bit 0 */
-#define FDC_FLAG_DATA_ADDR_MARK 0x01
-/* Write Precompensation 'p', corresponds to bit 1 */
-#define FDC_FLAG_WRITE_PRECOMP 0x02
-/* Delay flag 'e', corresponds to bit 2 */
-#define FDC_FLAG_DELAY 0x04
-/* Motor On flag 'h', corresponds to bit 3 */
-#define FDC_FLAG_MOTOR_ON 0x08
-/* Multiple Sector flag 'm', corresponds to bit 4 */
-#define FDC_FLAG_MULTIPLE_SECT 0x10
+/* [he00] read sector ID */
+#define FDC_CMD_READID 0xC0
+/* [he00] read track */
+#define FDC_CMD_READTR 0xE0
+/* [hep0] write track */
+#define FDC_CMD_WRITETR 0xF0
+/* force interrupt */
+#define FDC_CMD_INTERRUPT 0xD0
 
-const UINT8 restore_command = FDC_FLAG_H | FDC_CMD_RESTORE | FDC_FLAG_R1;
-const UINT8 seek_command = FDC_FLAG_H | FDC_CMD_SEEK | FDC_FLAG_R1;
-const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_MOTOR_ON;
-const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_MOTOR_ON | FDC_FLAG_WRITE_PRECOMP;
+/* bits for commands */
+
+/* Stepping rate 6 msec, corresponds to value 0x00 */
+#define FDC_FLAG_STEP_RATE_6 0x00
+/* Stepping rate 12 msec, corresponds to value 0x01 'r0' */
+#define FDC_FLAG_STEP_RATE_12 0x01
+/* Stepping rate 2 msec, corresponds to value 0x02 'r1' */
+#define FDC_FLAG_STEP_RATE_2 0x02
+/* Stepping rate 3 msec, corresponds to value 0x03 */
+#define FDC_FLAG_STEP_RATE_3 0x03
+/* Verify sector ID flag 'V', corresponds to bit 2 */
+#define FDC_FLAG_VERIFY_SECTOR_ID 0x04
+/* Suppress motor on sequence flag 'h', corresponds to bit 3 */
+#define FDC_FLAG_SUPPRESS_MOTOR_ON 0x08
+/* Update track register flag 'u', corresponds to bit 4 */
+#define FDC_FLAG_UPDATE_TRACK_REG 0x10
+/* Wait 30 msec to settle flag 'e', corresponds to bit 2 */
+#define FDC_FLAG_SETTLE_DELAY 0x04
+/* Multi-sector flag 'm', corresponds to bit 4 */
+#define FDC_FLAG_MULTI_SECTOR 0x10
+/* Write precompensation flag 'p', corresponds to bit 1 */
+#define FDC_FLAG_WRITE_PRECOMPENSATION 0x02
+/* Suppress data address mark flag 'a0', corresponds to bit 0 */
+#define FDC_FLAG_SUPPRESS_DATA_ADDR_MARK 0x01
+/* Interrupt on each index pulse flag, corresponds to bit 2 */
+#define FDC_FLAG_INTERRUPT_INDEX_PULSE 0x04
+/* Force interrupt flag, corresponds to bit 3 */
+#define FDC_FLAG_FORCE_INTERRUPT 0x08
+
+const UINT8 restore_command = FDC_CMD_RESTORE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_2;
+const UINT8 seek_command = FDC_CMD_SEEK | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_2;
+const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_SUPPRESS_MOTOR_ON;
+const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_WRITE_PRECOMPENSATION;
 const UINT8 write_deleted_data_command =
-    FDC_CMD_WRITE | FDC_FLAG_MOTOR_ON | FDC_FLAG_WRITE_PRECOMP | FDC_FLAG_DATA_ADDR_MARK;
+    FDC_CMD_WRITE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_WRITE_PRECOMPENSATION | FDC_FLAG_SUPPRESS_DATA_ADDR_MARK;
 
 /*
     NOTE: Typically if you wanted to simulate the behavior where the motor spin-up sequence is skipped
@@ -497,9 +441,24 @@ const UINT8 write_deleted_data_command =
 */
 /* FDC_FLAG_R1 => 2000 cycles */
 
+/* double density stepping rates */
+#define STEPRATE_6MS 0
+#define STEPRATE_12MS 1
+#define STEPRATE_2MS 2
+#define STEPRATE_3MS 3
+
+/* 1 millisecond delay */
+
+/* 68000 timing assumes 16MHz */
+#define DELAY_68000_16MHZ 760
+
+/* 68000 timing assumes 8MHz */
+#define DELAY_68000_8MHZ 320
+
+#define DELAY_GUESS (DELAY_68000_8MHZ / 10)
+
 typedef struct
-{
-    /* Type of operation (e.g., READ, WRITE) */
+{ /* Type of operation (e.g., READ, WRITE) */
     disk_operation_t operation;
     /* Disk selection (e.g., DRIVE_A, DRIVE_B) */
     disk_selection_t disk;
@@ -514,6 +473,84 @@ typedef struct
     /* Number of sectors to read/write (NOT IMPLEMENTED)*/
     int n_sector;
 } disk_io_request_t;
+
+void restart();
+
+/* IO */
+void init_IO();
+void init_vector_table();
+void init_proc_table();
+
+void load(UINT16 i, void (*p)());
+void load_cpu_context(struct CPU_context *);
+
+/* user programs */
+void shell(void);
+void hello(void);
+int do_test_run(int track, int sector);
+void test_run(void);
+void user_program_2(void);
+void user_program_3(void);
+void user_program_4(void);
+
+/* syscalls */
+void exit(void);
+void sys_exit(void);
+void do_exit(void);
+void terminate(void);
+
+void create_process(UINT16 prog_num, UINT16 is_fg);
+void sys_create_process();
+void do_create_process(UINT16 prog_num, UINT16 is_fg);
+
+void write(const char *buf, unsigned int len);
+void sys_write();
+void do_write(const char *buf, unsigned int len);
+
+int read(char *buf, unsigned int len);
+void sys_read();
+int do_read(char *buf, unsigned int len);
+
+int get_pid();
+void sys_get_pid();
+int do_get_pid();
+
+void yield();
+void sys_yield();
+void do_yield();
+
+/* UINT8 *get_video_base(); */
+void clear_screen(UINT8 *base);
+void plot_glyph(UINT8 ch);
+void print_char(char);
+void print_str(char *);
+void print_char_safe(char);
+void print_str_safe(char *);
+void scroll();
+void invert_cursor();
+void reset_cursor();
+void clear_cursor();
+
+void vbl_isr();
+void do_vbl_isr();
+void exception_isr();
+void do_exception_isr(UINT16 sr);
+void addr_exception_isr();
+void do_addr_exception_isr(UINT16 flags, UINT32 addr, UINT16 ir, UINT16 sr);
+void timer_A_isr();
+void do_timer_A_isr(UINT16 sr);
+void ikbd_isr();
+void do_ikbd_isr();
+void input_enqueue(char ch);
+
+void schedule();
+void await_interrupt();
+
+void panic();
+
+UINT16 read_SR();
+void write_SR(UINT16 sr);
+UINT16 set_ipl(UINT16 ipl);
 
 int initialize_floppy_driver(void);
 void handle_floppy_interrupt(void);
@@ -550,11 +587,13 @@ UINT32 my_strlen(const char *str);
 /* added */
 void init_console(void);
 
+const Vector prog[] = {shell, hello, test_run, user_program_3, user_program_4};
+
 void init(void)
 {
     /* [TO DO] init_memory? */
-    init_IO();
 
+    init_IO();
     init_vector_table();
 
     /* [TO DO]
@@ -857,6 +896,88 @@ void user_program_4()
         if (++printed == 10)
             printed / 0;
     }
+}
+
+int do_test_run(int track, int sector)
+{
+    char buffer[CB_SECTOR];
+    disk_io_request_t io;
+    int i;
+    char track_prnt = '0' + track;
+    char sector_print = '0' + sector;
+    io.operation = DISK_OPERATION_WRITE;
+    io.disk = DRIVE_A;
+    io.side = SIDE_0;
+    io.track = track;
+    io.sector = sector;
+    io.buffer_address = buffer;
+    io.n_sector = 0;
+
+    for (i = 0; i < CB_SECTOR; i++)
+    {
+        buffer[i] = i;
+    }
+
+    write("doing write\r\n", my_strlen("doing write\r\n"));
+    if (!disk_operation(&io))
+    {
+        goto fail;
+    }
+
+    write("doing read\r\n", my_strlen("doing write\r\n"));
+    for (i = 0; i < CB_SECTOR; i++)
+    {
+        buffer[i] = 0;
+    }
+
+    io.operation = DISK_OPERATION_READ;
+    if (!disk_operation(&io))
+    {
+        goto fail;
+    }
+
+    for (i = 0; i < CB_SECTOR; i++)
+    {
+        if (buffer[i] != (char)i)
+        {
+            goto fail;
+        }
+    }
+
+    write("pass\r\n", my_strlen("pass\r\n"));
+    return 1;
+fail:
+    switch (io.n_sector)
+    {
+    case 0:
+        write("syscall failed\r\n", my_strlen("syscall failed\r\n"));
+        break;
+    case 1:
+        write("do_disk_operation()\r\n", my_strlen("do_disk_operation()\r\n"));
+        break;
+    case 2:
+        write("write_operation_to_floppy()\r\n", my_strlen("write_operation_to_floppy()\r\n"));
+        break;
+    case 3:
+        write("setup_dma_for_rw()\r\n", my_strlen("setup_dma_for_rw()\r\n"));
+        break;
+    case 4:
+        write("write_sector()\r\n", my_strlen("write_sector()\r\n"));
+        break;
+    case 5:
+        write("wtf\r\n", my_strlen("wtf\r\n"));
+        break;
+    default:
+        write("fail\r\n", my_strlen("fail\r\n"));
+    }
+    return 0;
+}
+
+void test_run(void)
+{
+    do_test_run(0, 1);
+
+    exit();
 }
 
 void do_create_process(UINT16 prog_num, UINT16 is_fg)
@@ -1253,18 +1374,17 @@ void select_floppy_drive(disk_selection_t drive, disk_side_t side)
     register_state |= drive == DRIVE_A ? DRIVE_B_DISABLE : DRIVE_A_DISABLE;
     register_state |= side == SIDE_SELECT_0;
 
+    busy_wait();
+
     *psg_reg_write = register_state;
     (void)set_ipl(orig_ipl);
 }
 
 void busy_wait(void)
 {
-    *dma_mode = DMA_COMMAND_REG_READ;
-
-    while (*fdc_access & FDC_BUSY)
-    {
+    UINT16 time = DELAY_GUESS;
+    while (--time)
         ;
-    }
 }
 
 int do_fdc_restore_command(void)
@@ -1367,32 +1487,38 @@ int read_operation_from_floppy(disk_io_request_t *io)
 
 int write_operation_to_floppy(disk_io_request_t *io)
 {
-
+    int retval = 0;
+    io->n_sector = 2;
     if (setup_dma_for_rw(io->disk, io->side, io->track))
     {
+        io->n_sector = 3;
         setup_dma_buffer(io->buffer_address);
         return write_sector(io->sector, io->buffer_address);
     }
 
+    io->n_sector = 5;
     return 0;
 }
 
 int do_disk_operation(disk_io_request_t *io)
 {
-    if (io->operation == DISK_OPERATION_READ)
-    {
-        return read_operation_from_floppy(io);
-    }
-    else if (io->operation == DISK_OPERATION_WRITE)
+    UINT16 orig_ipl = set_ipl(7); /* [TO DO] mask less aggressively? */
+    io->n_sector = 1;
+    if (io->operation == DISK_OPERATION_WRITE)
     {
         return write_operation_to_floppy(io);
     }
-
+    else if (io->operation == DISK_OPERATION_WRITE)
+    {
+        return read_operation_from_floppy(io);
+    }
+    set_ipl(orig_ipl);
     return 0;
 }
 
 int initialize_floppy_driver(void)
 {
+    *seekrate = STEPRATE_3MS;
     select_floppy_drive(DRIVE_A, SIDE_0);
     return do_fdc_restore_command();
 }
@@ -1403,7 +1529,7 @@ void handle_floppy_interrupt(void)
     UINT16 dma_stat = *dma_status;
 
     /* Check for errors and handle them */
-    if (FDC_READ_ERROR_CHECK(fdc_stat) || (dma_stat & DMA_ERROR_STATUS))
+    if (FDC_READ_ERROR_CHECK(fdc_stat) || (dma_stat & DMA_OK_ERROR_STATUS))
     {
         ;
     }
