@@ -7,6 +7,15 @@
 #define MAX_TRACK 40
 #define MAX_SECTOR 9
 
+#define BUSY 0
+#define COMMAND_COMPLETE 1
+#define LOST_DATA 2
+#define CRC_ERROR 3
+#define RECORD_NOT_FOUND 4
+#define WRITE_PROTECT 5
+#define SEEK_DONE 6
+#define BUSY_ZERO 7
+
 typedef enum
 {
     DISK_OPERATION_READ,
@@ -102,9 +111,9 @@ typedef enum
     /* Bit 1 - Index / Data Request: High during index pulse for Type I commands, signals CPU for data handling in Type
      * II and III commands */
     FDC_INDEX_DATA_REQUEST = 1 << 1,
-    /* Bit 2 - Track Zero / Lost Data: Indicates track zero position after Type I commands or lost data due to slow CPU
-     * response for Type II and III commands */
+    /* Bit 2 - Track Zero /  Indicates track zero position after Type I commands */
     FDC_TRACK_ZERO = 1 << 2,
+    /* Bit 2 - Lost data lost data due to slow CPU for Type II and III commands */
     FDC_LOST_DATA = 1 << 2,
     /* Bit 3 - CRC Error: Indicates CRC mismatch in data. Can happen from things other than magnetic errors */
     FDC_CRC_ERROR = 1 << 3,
@@ -236,6 +245,43 @@ extern IO_PORT8 WDC_DMA_BASE_LOW;
 
 /* bits for commands */
 
+/* Update Flag [BIT 4] 0: No Update 1: Update Track Register */
+#define BIT_U_UPDATE_TRACK_REG (1 << 4)
+
+/* Motor On Flag [BIT 3] 0: Enable Spin-up Sequence 1: Disable Spin-up Sequence */
+#define BIT_H_DISABLE_SPIN_UP (1 << 3)
+
+/* Verify Flag [BIT 2] 0: No Verify 1: Verify on Destination Track */
+#define BIT_V_VERIFY_ON_DEST_TRACK (1 << 2)
+
+/* Write Precompensation [BIT 1] 0: Unable Write Pre-comp 1: Disable Write Pre-comp */
+#define BIT_P_DISABLE_WRITE_PRECOMP (1 << 1)
+
+/* Data Address Mark [BIT 0] 0: Write Normal Data Mark 1: Write Deleted Data Mark */
+#define BIT_A0_WRITE_NORMAL_DATA_MARK (0 << 0)
+#define BIT_A0_WRITE_DELETED_DATA_MARK (1 << 0)
+
+/* Stepping Rate [Bits 1,0] */
+/* 00: 6 ms, 01: 12 ms, 10: 2 ms, 11: 3 ms */
+#define BIT_RL_R0_6MS (0 << 1 | 0 << 0)
+#define BIT_RL_R0_12MS (0 << 1 | 1 << 0)
+#define BIT_RL_R0_2MS (1 << 1 | 0 << 0)
+#define BIT_RL_R0_3MS (1 << 1 | 1 << 0)
+
+/* Interrupt Condition [Bits 3-0] */
+/* 1000: Immediate Interrupt, 0100: Interrupt on Index Pulse, 0000: Terminate without interrupt */
+#define BIT_INT_CONDITION_IMMEDIATE (1 << 3 | 0 << 2 | 0 << 1 | 0 << 0)
+#define BIT_INT_CONDITION_ON_INDEX_PULSE (0 << 3 | 1 << 2 | 0 << 1 | 0 << 0)
+#define BIT_INT_CONDITION_TERMINATE (0 << 3 | 0 << 2 | 0 << 1 | 0 << 0)
+
+/* Multiple Sector Flag [Bit 4] */
+#define BIT_M_MULTIPLE_SECTOR (1 << 4)
+
+/* Settling Delay [Bit 2] */
+#define BIT_E_ADD_15MS_DELAY (1 << 2)
+
+/* OLD MACROS [TODO] CHANGE THESE TO THE ONES ABOVE */
+
 /* Stepping rate 6 msec, corresponds to value 0x00 */
 #define FDC_FLAG_STEP_RATE_6 0x00
 /* Stepping rate 12 msec, corresponds to value 0x01 'r0' */
@@ -245,9 +291,9 @@ extern IO_PORT8 WDC_DMA_BASE_LOW;
 /* Stepping rate 3 msec, corresponds to value 0x03 */
 #define FDC_FLAG_STEP_RATE_3 0x03
 /* Verify sector ID flag 'V', corresponds to bit 2 */
-#define FDC_FLAG_VERIFY_SECTOR_ID 0x04
+#define FDC_FLAG_V_VERIFY_SECTOR_ID 0x04
 /* Suppress motor on sequence flag 'h', corresponds to bit 3 */
-#define FDC_FLAG_SUPPRESS_MOTOR_ON 0x08
+#define FDC_FLAG_SUPPRESS_MOTOR_ON 1 << 3
 /* Update track register flag 'u', corresponds to bit 4 */
 #define FDC_FLAG_UPDATE_TRACK_REG 0x10
 /* Wait 30 msec to settle flag 'e', corresponds to bit 2 */
@@ -323,17 +369,22 @@ char get_fdc_track(void);
 void set_fdc_sector(int sector);
 void set_fdc_track(int track);
 
-int do_fdc_restore_command(void);
-int do_fdc_seek_command(void);
-int do_fdc_read_command(void *buffer_address);
-int do_fdc_write_command(const void *buffer_address);
+void do_fdc_restore_command(void);
+void do_fdc_seek_command(void);
+void do_fdc_read_command(void);
+void do_fdc_write_command(void);
 
 int seek(int track);
-int read_sector(int sector, void *buffer_address);
-int write_sector(int sector, const void *buffer_address);
+void read_sector(int sector);
+void write_sector(int sector);
 
 int perform_read_operation_from_floppy(disk_io_request_t *io);
 int perform_write_operation_to_floppy(disk_io_request_t *io);
 int do_disk_operation(disk_io_request_t *disk_io_req);
+
+extern int disk_operation(disk_io_request_t *disk_io_req);
+extern void sys_disk_operation(void);
+extern int waitfstatus(void);
+extern void sys_waitfstatus(void);
 
 #endif /* FDC_H*/

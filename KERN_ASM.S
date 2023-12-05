@@ -19,6 +19,9 @@
 					xdef	_yield,_sys_yield
 					xref	_do_yield
 
+					xdef	_waitfstatus,_sys_waitfstatus
+					xref	_do_waitfstatus
+
 					xdef	_disk_operation,_sys_disk_operation
 					xref	_do_disk_operation
 					xdef	_floppy_isr
@@ -65,6 +68,9 @@ start:				move.w	#$2700,sr
 					reset
 					movea.l	#OS_RAM_TOP,sp
 					move.b	#RAM_4M,MEM_CONFIG_REG
+													; FD related
+;					move.w	#$190,$FF8606			; clear the fifo
+;					move.w	#$90,$FF8606			; and leave in the write state
 					move.l	#VIDEO_BASE,d0
 					lsr.l	#8,d0
 					movea.l	#VIDEO_BASE_REG,a0
@@ -72,8 +78,6 @@ start:				move.w	#$2700,sr
 					clr.b	VIDEO_SYNC_REG
 					move.w	#1,VIDEO_PAL0_REG
 					move.b	#MONO,VIDEO_REZ_REG
-;					move.w	#$190,$FF8606			; clear the fifo
-;					move.w	#$90,$FF8606			; and leave in the write state
 					jsr		_init
 
 _restart:			jmp		start
@@ -167,6 +171,14 @@ _write:				link	a6,#0
 					unlk	a6
 					rts
 					
+_waitfstatus:		trap	#9
+					rts
+
+_sys_waitfstatus:	move.l	usp,a0
+					jsr		_do_waitfstatus
+					jsr		pre_return
+					rte
+
 _sys_write:			move.l	usp,a0
 					move.w	4(a0),-(sp)
 					move.l	(a0),-(sp)
