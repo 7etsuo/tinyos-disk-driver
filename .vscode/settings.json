@@ -35,6 +35,7 @@
         "ostream": "cpp",
         "sstream": "cpp",
         "stop_token": "cpp",
-        "streambuf": "cpp"
+        "streambuf": "cpp",
+        "MIDI.C": "cpp"
     },
 }

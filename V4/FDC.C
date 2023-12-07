@@ -14,18 +14,68 @@ IO_PORT8 WDC_DMA_BASE_HIGH = (IO_PORT8)0xFFFF8609;
 IO_PORT8 WDC_DMA_BASE_MID = (IO_PORT8)0xFFFF860B;
 IO_PORT8 WDC_DMA_BASE_LOW = (IO_PORT8)0xFFFF860D;
 
-const UINT8 restore_command = FDC_CMD_RESTORE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_3;
-const UINT8 seek_command = FDC_CMD_SEEK | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_3;
+const UINT8 restore_command = FDC_CMD_RESTORE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_2;
+const UINT8 seek_command = FDC_CMD_SEEK | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_STEP_RATE_2;
 const UINT8 read_command = FDC_CMD_READ | FDC_FLAG_SUPPRESS_MOTOR_ON;
 const UINT8 write_command = FDC_CMD_WRITE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_WRITE_PRECOMPENSATION;
 const UINT8 write_deleted_data_command =
     FDC_CMD_WRITE | FDC_FLAG_SUPPRESS_MOTOR_ON | FDC_FLAG_WRITE_PRECOMPENSATION | FDC_FLAG_SUPPRESS_DATA_ADDR_MARK;
 
+extern void print_str_safe(char *str);
+extern void print_char_safe(char);
+
 extern UINT16 set_ipl(UINT16 ipl);
 
-#define SECTOR_SIZE 512
+#ifndef TESTING
+IO_PORT8 FBASE = (IO_PORT8)0x3FFD00;
+#else
+IO_PORT8 FBASE[CB_SECTOR];
+#endif
 
-UINT8 test_buffer[SECTOR_SIZE];
+int initialize_floppy_driver(void)
+{
+    int drive_count = 0;
+    UINT16 old_ipl = set_ipl(7);
+
+    /* Reset the FDC to track 0 (restore) */
+    if (do_fdc_restore_command() == 0)
+        return 0; /* If the restore command failed, return with an error */
+
+    /* Initialize the DMA mode */
+    *dma_mode = DMA_MODE_READ | DMA_SECTOR_COUNT_REG_SELECT;
+
+    /* Detect the number of drives */
+    select_floppy_drive(DRIVE_A, SIDE_0);
+    busy_wait();
+
+    /* Issue a command to drive A and wait for it to complete */
+    send_command_to_fdc(FDC_CMD_STEPI | FDC_FLAG_STEP_RATE_2);
+    busy_wait(); /* Wait for the command to complete */
+
+    if (!FDC_SEEK_ERROR_CHECK(*fdc_access))
+        drive_count++; /* Drive A is present */
+
+    /* Repeat the above steps for drive B if necessary */
+    select_floppy_drive(DRIVE_B, SIDE_0);
+    busy_wait();
+
+    send_command_to_fdc(FDC_CMD_STEPI | FDC_FLAG_STEP_RATE_2);
+    busy_wait(); /* Wait for the command to complete */
+
+    if (!FDC_SEEK_ERROR_CHECK(*fdc_access))
+        drive_count++; /* Drive B is present */
+
+    if (do_fdc_restore_command() == 0)
+        return 0; /* If the restore command failed, return with an error */
+
+    clear_fdc_interrupt();
+
+    /* Consider handling the motor on status here if necessary */
+
+    set_ipl(old_ipl);
+
+    return drive_count;
+}
 
 #ifdef TESTING
 #include <osbind.h>
@@ -33,33 +83,30 @@ UINT8 test_buffer[SECTOR_SIZE];
 
 int do_test_run(int track, int sector)
 {
-    char buffer[CB_SECTOR];
     disk_io_request_t io;
     int i;
 
-    io.operation = DISK_OPERATION_WRITE;
     io.disk = DRIVE_A;
     io.side = SIDE_0;
     io.track = track;
     io.sector = sector;
-    io.buffer_address = buffer;
+    io.buffer_address = FBASE;
     io.n_sector = 0;
 
+    io.operation = DISK_OPERATION_WRITE;
     for (i = 0; i < CB_SECTOR; i++)
         buffer[i] = 1;
-
     if (!do_disk_operation(&io))
         goto fail;
-
-    for (i = 0; i < CB_SECTOR; i++)
-        buffer[i] = 0;
 
     io.operation = DISK_OPERATION_READ;
+    for (i = 0; i < CB_SECTOR; i++)
+        buffer[i] = 0;
     if (!do_disk_operation(&io))
         goto fail;
 
     for (i = 0; i < CB_SECTOR; i++)
-        if (buffer[i] != 1)
+        if (buffer[i] != (char)i)
             goto fail;
 
     printf("pass\n");
@@ -117,13 +164,25 @@ void select_floppy_drive(disk_selection_t drive, disk_side_t side)
 
 void busy_wait(void)
 {
-    int i; 
+    int i;
     *dma_mode = DMA_COMMAND_REG_READ;
 
     while (*fdc_access & FDC_BUSY)
     {
         ;
     }
+}
+
+void reset_fdc(void)
+{
+    /* Issue a restore command to seek to track 00 */
+    send_command_to_fdc(restore_command);
+
+    /* Clear the interrupt status if needed */
+    clear_fdc_interrupt();
+
+    /* You might want to check the status register to ensure the command completed successfully */
+    /* Code to read and verify FDC status goes here */
 }
 
 int do_fdc_restore_command(void)
@@ -146,8 +205,27 @@ int do_fdc_read_command(void *buffer_address)
 
 int do_fdc_write_command(const void *buffer_address)
 {
+    int status = 1;
+
     send_command_to_fdc(write_command);
-    return !(FDC_WRITE_ERROR_CHECK(*fdc_access));
+    status = *fdc_access;
+    if (status & FDC_WRITE_PROTECT)
+    {
+        print_str_safe("FDC_WRITE_PROTECT\r\n");
+        status = 0;
+    }
+    else if (status & FDC_LOST_DATA)
+    {
+        print_str_safe("FDC_LOST_DATA\r\n");
+        status = 0;
+    }
+    else if (status & FDC_RECORD_NOT_FOUND)
+    {
+        print_str_safe("FDC_LOST_DATA\r\n");
+        status = 0;
+    }
+
+    return status;
 }
 
 void set_fdc_track(int track)
@@ -194,7 +272,6 @@ int read_sector(int sector, void *buffer_address)
 void send_command_to_fdc(UINT8 command)
 {
     /* Write command and any necessary parameters to the FDC's registers */
-    busy_wait();
     *dma_mode = DMA_COMMAND_REG_WRITE;
     *fdc_access = command;
     /* wait for command to finish */
@@ -203,8 +280,15 @@ void send_command_to_fdc(UINT8 command)
 
 int setup_dma_for_rw(disk_selection_t disk, disk_side_t side, int track)
 {
+    int status;
     select_floppy_drive(disk, side);
-    return seek(track);
+    status = seek(track);
+    if (status)
+        print_str_safe("seek() pass\r\n");
+    else
+        print_str_safe("seek() failed\r\n");
+
+    return status;
 }
 
 void setup_dma_buffer(void *buffer_address)
@@ -217,8 +301,7 @@ int perform_read_operation_from_floppy(disk_io_request_t *io)
 {
     if (setup_dma_for_rw(io->disk, io->side, io->track))
     {
-        setup_dma_buffer(io->buffer_address);
-        return read_sector(io->sector, io->buffer_address);
+        return read_sector(io->sector, (void *)0);
     }
 
     return 0;
@@ -226,18 +309,24 @@ int perform_read_operation_from_floppy(disk_io_request_t *io)
 
 int perform_write_operation_to_floppy(disk_io_request_t *io)
 {
-
+    int status;
+    setup_dma_buffer((void *)io->buffer_address);
     if (setup_dma_for_rw(io->disk, io->side, io->track))
     {
-        setup_dma_buffer(io->buffer_address);
-        return write_sector(io->sector, io->buffer_address);
+        status = write_sector(io->sector, (void *)0);
+        if (status == 0)
+        {
+            print_str_safe("write failed\r\n");
+        }
     }
 
-    return 0;
+    return !status;
 }
 
 int do_disk_operation(disk_io_request_t *io)
 {
+    initialize_dma_buffer(io->operation);
+
     if (io->operation == DISK_OPERATION_READ)
     {
         return perform_read_operation_from_floppy(io);
@@ -248,46 +337,6 @@ int do_disk_operation(disk_io_request_t *io)
     }
 
     return 0;
-}
-
-int initialize_floppy_driver(void)
-{
-    int drive_count = 0;
-
-    /* Reset the FDC to track 0 (restore) */
-    if (do_fdc_restore_command() == 0)
-        return 0; /* If the restore command failed, return with an error */
-
-    *dma_mode = 0;
-    /* Initialize the DMA mode */
-    *dma_mode = DMA_MODE_READ | DMA_SECTOR_COUNT_REG_SELECT;
-
-    /* Detect the number of drives */
-    select_floppy_drive(DRIVE_A, SIDE_0);
-    busy_wait();
-
-    /* Issue a command to drive A and wait for it to complete */
-    send_command_to_fdc(FDC_CMD_STEPI | FDC_FLAG_STEP_RATE_3);
-    busy_wait(); /* Wait for the command to complete */
-
-    if (!FDC_SEEK_ERROR_CHECK(*fdc_access))
-    {
-        drive_count++; /* Drive A is present */
-    }
-
-    /* Repeat the above steps for drive B if necessary */
-    select_floppy_drive(DRIVE_B, SIDE_0);
-    busy_wait();
-
-    send_command_to_fdc(FDC_CMD_STEPI | FDC_FLAG_STEP_RATE_3);
-    busy_wait(); /* Wait for the command to complete */
-
-    if (!FDC_SEEK_ERROR_CHECK(*fdc_access))
-    {
-        drive_count++; /* Drive B is present */
-    }
-
-    return drive_count;
 }
 
 void handle_floppy_interrupt(void)
@@ -311,4 +360,36 @@ void handle_floppy_interrupt(void)
     }
     /* Detect disk change and handle it */
     /* Reset hardware or retry operation */
+}
+
+void set_dma_length(UINT16 sectors)
+{
+    /* Length is specified in sectors for the DMA, so for 512 bytes, we set it to 1 */
+    *DMA_SECTOR_COUNT_HIGH = (sectors >> 8) & 0xFF; /* High byte of sector count */
+    *DMA_SECTOR_COUNT_LOW = sectors & 0xFF;         /* Low byte of sector count */
+}
+
+void initialize_dma_buffer(disk_operation_t operation)
+{
+    *WDC_DMA_BASE_HIGH = ((UINT32)FBASE >> 16) & 0xFF; /* Set DMA base address high byte */
+    *WDC_DMA_BASE_MID = ((UINT32)FBASE >> 8) & 0xFF;   /* Set DMA base address middle byte */
+    *WDC_DMA_BASE_LOW = (UINT32)FBASE & 0xFF;          /* Set DMA base address low byte */
+
+    /* Set the DMA length for one sector */
+    *DMA_SECTOR_COUNT_HIGH = 0;            /* assuming one sector */
+    *DMA_SECTOR_COUNT_LOW = SECTOR_LENGTH; /* 1 sector = 512 bytes */
+
+    /* Also make sure the DMA is in the correct mode for reading or writing */
+    *dma_mode = operation ? DMA_MODE_READ : DMA_MODE_WRITE;
+}
+
+void clear_fdc_interrupt(void)
+{
+    /* Read the status register to acknowledge and clear any pending interrupt */
+    UINT8 status = *fdc_access;
+
+    /* 0x10 == disable motor off */
+    send_command_to_fdc(FDC_FLAG_FORCE_INTERRUPT | 0x10);
+
+    busy_wait();
 }

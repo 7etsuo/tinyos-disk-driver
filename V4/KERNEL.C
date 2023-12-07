@@ -253,6 +253,8 @@ extern int disk_operation(disk_io_request_t *disk_io_req);
 extern void sys_disk_operation(void);
 extern int do_disk_operation(disk_io_request_t *disk_io_req);
 
+extern IO_PORT8 FBASE;
+
 /* helpers */
 
 void *memcpy(void *dest, const void *src, UINT32 n);
@@ -263,12 +265,29 @@ void init_console(void);
 
 const Vector prog[] = {shell, hello, test_run, user_program_3, user_program_4};
 
+void reset_psg(void)
+{
+    UINT8 reg;
+    UINT16 old_ipl = set_ipl(7);
+    for (reg = 0; reg < 16; reg++)
+    {
+        *psg_reg_select = reg; /* Select register */
+        *psg_reg_write = 0;    /* Reset the selected register to 0 */
+    }
+    set_ipl(old_ipl);
+}
+
 void init(void)
 {
     /* [TO DO] init_memory? */
 
     init_IO();
     init_vector_table();
+    reset_psg();
+    if (initialize_floppy_driver() == 0)
+    {
+        return;
+    }
 
     /* [TO DO]
         * fg/bg (deal with parent termination, block instead of terminate when bg process reads)
@@ -280,11 +299,6 @@ void init(void)
     */
 
     init_console();
-
-    if (initialize_floppy_driver() == 0)
-    {
-        return;
-    }
 
     init_proc_table();
     do_create_process(0, 1); /* load shell */
@@ -585,76 +599,41 @@ void user_program_4()
 
 int do_test_run(int track, int sector)
 {
-    char buffer[CB_SECTOR];
     disk_io_request_t io;
     int i;
-    char track_prnt = '0' + track;
-    char sector_print = '0' + sector;
+
     io.operation = DISK_OPERATION_WRITE;
     io.disk = DRIVE_A;
     io.side = SIDE_0;
     io.track = track;
     io.sector = sector;
-    io.buffer_address = buffer;
+    io.buffer_address = FBASE;
     io.n_sector = 0;
 
     for (i = 0; i < CB_SECTOR; i++)
-    {
-        buffer[i] = i;
-    }
+        FBASE[i] = 1;
 
     write("doing write\r\n", my_strlen("doing write\r\n"));
     if (!disk_operation(&io))
-    {
         goto fail;
-    }
+    write("write done\r\n", my_strlen("write done\r\n"));
 
     write("doing read\r\n", my_strlen("doing write\r\n"));
     for (i = 0; i < CB_SECTOR; i++)
-    {
-        buffer[i] = 0;
-    }
+        FBASE[i] = 0;
 
     io.operation = DISK_OPERATION_READ;
     if (!disk_operation(&io))
-    {
         goto fail;
-    }
 
     for (i = 0; i < CB_SECTOR; i++)
-    {
-        if (buffer[i] != (char)i)
-        {
+        if (FBASE[i] != (char)i)
             goto fail;
-        }
-    }
 
     write("pass\r\n", my_strlen("pass\r\n"));
     return 1;
 fail:
-    switch (io.n_sector)
-    {
-    case 0:
-        write("syscall failed\r\n", my_strlen("syscall failed\r\n"));
-        break;
-    case 1:
-        write("do_disk_operation()\r\n", my_strlen("do_disk_operation()\r\n"));
-        break;
-    case 2:
-        write("write_operation_to_floppy()\r\n", my_strlen("write_operation_to_floppy()\r\n"));
-        break;
-    case 3:
-        write("setup_dma_for_rw()\r\n", my_strlen("setup_dma_for_rw()\r\n"));
-        break;
-    case 4:
-        write("write_sector()\r\n", my_strlen("write_sector()\r\n"));
-        break;
-    case 5:
-        write("wtf\r\n", my_strlen("wtf\r\n"));
-        break;
-    default:
-        write("fail\r\n", my_strlen("fail\r\n"));
-    }
+    write("fail\r\n", my_strlen("fail\r\n"));
     return 0;
 }
 

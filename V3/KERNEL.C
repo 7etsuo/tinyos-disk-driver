@@ -42,9 +42,10 @@
 #define TRAP_5_VECTOR 37 /* get_pid        */
 #define TRAP_6_VECTOR 38 /* disk_operation */
 #define TRAP_7_VECTOR 39 /* yield          */
+#define TRAP_9_VECTOR 41 /* wait_fstatus */
 #define IKBD_VECTOR 70
 #define TIMER_A_VECTOR 77
-#define FLOPPY_VECTOR 30
+#define FLOPPY_VECTOR 64
 
 #define MFP_TIMER_A 0x20
 #define MFP_GPIP4 0x40
@@ -148,8 +149,18 @@ UINT16 *const kybd_fg_proc = (UINT16 *)0x000414;
 UINT8 *const kybd_buff = (UINT8 *)0x000416; /* 128 byte circular queue - must be a power of 2 */
 
 /* floppy disk */
-UINT16 *const flock = (UINT16 *)0x000496L;
-UINT32 *const seekrate = (UINT32 *)0x000498L; /* aligned on a longword (4-byte) boundary */
+
+extern UINT16 *const flock;                  /* 496 */
+UINT32 *const seekrate = (UINT32 *)0x000498; /* [TODO] */
+extern UINT8 *const fstatus;                 /* 49C */
+UINT8 *const fcount = (UINT8 *)0x00049D;     /* Used in timer_A */
+extern UINT8 *const fseek;                   /* 49E */
+extern UINT8 *const fzero;                   /* 49F */
+extern UINT8 *const fread;                   /* 4A0 */
+extern UINT8 *const fwrite;                  /* 4A1 */
+extern UINT8 *const interrupt_processed;     /* 4A2 */
+
+extern IO_PORT8 FDISK_BASE; /* 0x3f7d00 */
 
 const UINT8 scan2ascii[2][128] = {
     {                                                    /* unshifted */
@@ -181,8 +192,6 @@ void load_cpu_context(struct CPU_context *);
 /* user programs */
 void shell(void);
 void hello(void);
-int do_test_run(int track, int sector);
-void test_run(void);
 void user_program_2(void);
 void user_program_3(void);
 void user_program_4(void);
@@ -213,6 +222,8 @@ void yield(void);
 void sys_yield(void);
 void do_yield(void);
 
+int do_waitfstatus(void);
+
 /* UINT8 *get_video_base(); */
 void clear_screen(UINT8 *base);
 void plot_glyph(UINT8 ch);
@@ -237,9 +248,6 @@ void ikbd_isr(void);
 void do_ikbd_isr(void);
 void input_enqueue(char ch);
 
-void do_floppy_isr(void);
-extern void floppy_isr(void);
-
 void schedule(void);
 void await_interrupt(void);
 
@@ -249,23 +257,31 @@ UINT16 read_SR(void);
 void write_SR(UINT16 sr);
 UINT16 set_ipl(UINT16 ipl);
 
-extern int disk_operation(disk_io_request_t *disk_io_req);
-extern void sys_disk_operation(void);
-extern int do_disk_operation(disk_io_request_t *disk_io_req);
+/* [TODO] Clean up: floppy stuff */
+extern IO_PORT8 FDISK_BASE; /* 0x3f7d00 */
 
-/* helpers */
+void do_test_read(int track, int sector);
+void do_test_write(int track, int sector);
+void test_read(void);
+void test_write(void);
+void do_floppy_isr(void);
+extern void floppy_isr(void);
 
-void *memcpy(void *dest, const void *src, UINT32 n);
+void *safe_memcpy(void *dest, const void *src, UINT32 n);
 UINT32 my_strlen(const char *str);
 
-/* added */
 void init_console(void);
+void reset_psg(void);
 
-const Vector prog[] = {shell, hello, test_run, user_program_3, user_program_4};
+const Vector prog[] = {shell, test_write, test_read, hello, user_program_4};
 
 void init(void)
 {
     /* [TO DO] init_memory? */
+
+    reset_psg();
+    initialize_floppy_driver();
+    init_floppy_flags();
 
     init_IO();
     init_vector_table();
@@ -281,15 +297,20 @@ void init(void)
 
     init_console();
 
-    if (initialize_floppy_driver() == 0)
-    {
-        return;
-    }
-
     init_proc_table();
     do_create_process(0, 1); /* load shell */
 
     schedule();
+}
+
+void reset_psg(void)
+{
+    UINT8 reg;
+    for (reg = 0; reg < 16; reg++)
+    {
+        *psg_reg_select = reg; /* Select register */
+        *psg_reg_write = 0;    /* Reset the selected register to 0 */
+    }
 }
 
 void init_console(void)
@@ -498,14 +519,16 @@ void input_enqueue(char ch)
     }
 }
 
-void *memcpy(void *dest, const void *src, UINT32 n)
+void *safe_memcpy(void *dest, const void *src, UINT32 n)
 {
+    UINT16 old_ipl = set_ipl(7);
     unsigned char *d = (unsigned char *)dest;
     const unsigned char *s = (const unsigned char *)src;
 
     while (n--)
         *d++ = *s++;
 
+    (void)set_ipl(old_ipl);
     return dest;
 }
 
@@ -583,14 +606,12 @@ void user_program_4()
     }
 }
 
-int do_test_run(int track, int sector)
+void do_test_write(int track, int sector)
 {
-    char buffer[CB_SECTOR];
+    volatile UINT8 *buffer = FDISK_BASE;
     disk_io_request_t io;
     int i;
-    char track_prnt = '0' + track;
-    char sector_print = '0' + sector;
-    io.operation = DISK_OPERATION_WRITE;
+
     io.disk = DRIVE_A;
     io.side = SIDE_0;
     io.track = track;
@@ -599,68 +620,60 @@ int do_test_run(int track, int sector)
     io.n_sector = 0;
 
     for (i = 0; i < CB_SECTOR; i++)
-    {
-        buffer[i] = i;
-    }
+        FDISK_BASE[i] = 1;
 
     write("doing write\r\n", my_strlen("doing write\r\n"));
-    if (!disk_operation(&io))
-    {
-        goto fail;
-    }
+    io.operation = DISK_OPERATION_WRITE;
+    disk_operation(&io);
+    write("write done\r\n", my_strlen("write done\r\n"));
+}
 
-    write("doing read\r\n", my_strlen("doing write\r\n"));
-    for (i = 0; i < CB_SECTOR; i++)
-    {
+void do_test_read(int track, int sector)
+{
+    volatile UINT8 *buffer = FDISK_BASE;
+    disk_io_request_t io;
+    int i;
+    char c;
+
+    io.disk = DRIVE_A;
+    io.side = SIDE_0;
+    io.track = track;
+    io.sector = sector;
+    io.buffer_address = buffer;
+    io.n_sector = 0;
+
+    for (i = 0; i < CB_SECTOR; i++) {
+        c = '0' + buffer[i];
+        write(&c, 1);
         buffer[i] = 0;
     }
 
+    write("\r\ndoing read\r\n", my_strlen("\r\ndoing read\r\n"));
     io.operation = DISK_OPERATION_READ;
-    if (!disk_operation(&io))
-    {
-        goto fail;
+    disk_operation(&io);
+    write("read done\r\n", my_strlen("write done\r\n"));
+
+    for (i = 0; i < CB_SECTOR; i++) {
+        c = '0' + buffer[i];
+        write(&c, 1);
     }
 
-    for (i = 0; i < CB_SECTOR; i++)
-    {
-        if (buffer[i] != (char)i)
-        {
-            goto fail;
-        }
-    }
-
-    write("pass\r\n", my_strlen("pass\r\n"));
-    return 1;
+    write("passed\r\n", my_strlen("passed\r\n"));
+    return;
 fail:
-    switch (io.n_sector)
-    {
-    case 0:
-        write("syscall failed\r\n", my_strlen("syscall failed\r\n"));
-        break;
-    case 1:
-        write("do_disk_operation()\r\n", my_strlen("do_disk_operation()\r\n"));
-        break;
-    case 2:
-        write("write_operation_to_floppy()\r\n", my_strlen("write_operation_to_floppy()\r\n"));
-        break;
-    case 3:
-        write("setup_dma_for_rw()\r\n", my_strlen("setup_dma_for_rw()\r\n"));
-        break;
-    case 4:
-        write("write_sector()\r\n", my_strlen("write_sector()\r\n"));
-        break;
-    case 5:
-        write("wtf\r\n", my_strlen("wtf\r\n"));
-        break;
-    default:
-        write("fail\r\n", my_strlen("fail\r\n"));
-    }
-    return 0;
+    write("failed\r\n", my_strlen("failed\r\n"));
 }
 
-void test_run(void)
+void test_read(void)
 {
-    do_test_run(0, 1);
+    do_test_read(2, 5);
+
+    exit();
+}
+
+void test_write(void)
+{
+    do_test_write(2, 5);
 
     exit();
 }
@@ -714,19 +727,76 @@ void init_IO()
     *MFP_IMRA |= MFP_TIMER_A;
     *MFP_IERB |= MFP_GPIP4;
     *MFP_IMRB |= MFP_GPIP4;
+    /* using TIMER_A instead for floppy disk */
     *MFP_IERB |= MFP_GPIP5_FDC_VECTOR_OFFSET;
     *MFP_IMRB |= MFP_GPIP5_FDC_VECTOR_OFFSET;
 }
 
 void do_floppy_isr(void)
 {
-    ;
+    UINT16 orig_ipl;
+    int f_state;
+
+    if (*flock == 1 || *fstatus == COMMAND_COMPLETE)
+    {
+        return;
+    }
+
+    orig_ipl = set_ipl(7);
+    handle_floppy_interrupt();
+    f_state = *fstatus;
+    set_ipl(orig_ipl);
+
+    /* Log status messages */
+    switch (f_state)
+    {
+    case BUSY:
+        print_str_safe("FDC_BUSY\r\n");
+        break;
+    case LOST_DATA:
+        print_str_safe("LOST_DATA\r\n");
+        break;
+    case CRC_ERROR:
+        print_str_safe("CRC_ERROR\r\n");
+        break;
+    case RECORD_NOT_FOUND:
+        print_str_safe("RECORD_NOT_FOUND\r\n");
+        break;
+    case WRITE_PROTECT:
+        print_str_safe("WRITE_PROTECT\r\n");
+        break;
+    case SEEK_DONE:
+        print_str_safe("SEEK_DONE\r\n");
+        break;
+    case BUSY_ZERO:
+        print_str_safe("BUSY_ZERO\r\n");
+        break;
+    case WRITE_DONE:
+        print_str_safe("WRITE_DONE\r\n");
+        break;
+    case READ_DONE:
+        print_str_safe("READ_DONE\r\n");
+        break;
+    case COMMAND_COMPLETE:
+        print_str_safe("COMMAND_COMPLETE\r\n");
+        break;
+    default:
+        break;
+    }
+
+    if (f_state == 1)
+    {
+        print_str_safe("DONE\r\n");
+    }
 }
 
 void do_timer_A_isr(UINT16 sr)
 {
     /* NOTE: timer A is very high priority.  Could use lower (e.g. C) */
+    int c = *fcount;
+
     /* NOTE: could lower 68000 IPL to 4 to allow higher priority IRQs */
+    UINT16 orig_ipl = set_ipl(4);
 
     if (CURR_PROC->state == PROC_RUNNING)
     {
@@ -734,7 +804,16 @@ void do_timer_A_isr(UINT16 sr)
         *resched_needed = 1;
     }
 
+    *fcount = *fcount + 1;
+
+    if (c == 8)
+    {
+        *fcount = 0;
+        do_floppy_isr();
+    }
+
     *MFP_ISRA &= ~MFP_TIMER_A;
+    set_ipl(orig_ipl);
 }
 
 void schedule()
@@ -771,6 +850,11 @@ void do_exit()
 int do_get_pid()
 {
     return CURR_PROC->pid;
+}
+
+int do_waitfstatus(void)
+{
+    return *fstatus;
 }
 
 void do_yield()
@@ -852,6 +936,7 @@ void init_vector_table()
     vector_table[TRAP_5_VECTOR] = sys_get_pid;
     vector_table[TRAP_6_VECTOR] = sys_disk_operation;
     vector_table[TRAP_7_VECTOR] = sys_yield;
+    vector_table[TRAP_9_VECTOR] = sys_waitfstatus;
     vector_table[IKBD_VECTOR] = ikbd_isr;
     vector_table[TIMER_A_VECTOR] = timer_A_isr;
     vector_table[FLOPPY_VECTOR] = floppy_isr;
@@ -904,6 +989,7 @@ UINT8 *get_video_base()
         ((UINT32)*VID_BASE_MID << 8)
     );
 }
+b
 */
 
 #define TEXT_OFFSET (get_video_base() + (UINT16) * console_y_p * 640 + *console_x_p)
