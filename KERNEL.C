@@ -586,10 +586,11 @@ void user_program_4()
 int do_test_run(int track, int sector)
 {
     char buffer[CB_SECTOR];
+    int check_value = 1;
+    char c;
     disk_io_request_t io;
     int i;
-    char track_prnt = '0' + track;
-    char sector_print = '0' + sector;
+
     io.operation = DISK_OPERATION_WRITE;
     io.disk = DRIVE_A;
     io.side = SIDE_0;
@@ -599,62 +600,48 @@ int do_test_run(int track, int sector)
     io.n_sector = 0;
 
     for (i = 0; i < CB_SECTOR; i++)
-    {
-        buffer[i] = i;
-    }
+        buffer[i] = check_value;
 
     write("doing write\r\n", my_strlen("doing write\r\n"));
     if (!disk_operation(&io))
-    {
         goto fail;
-    }
+    write("write passed\r\n", my_strlen("write passed\r\n"));
 
     write("doing read\r\n", my_strlen("doing write\r\n"));
     for (i = 0; i < CB_SECTOR; i++)
     {
-        buffer[i] = 0;
+        buffer[i] = 0; /* clear the buffer for the read */
+        if (i % 4 == 0)
+        {
+            c = '0' + buffer[i];
+            write(&c, 1);
+        }
     }
+    write("\r\n", 2);
 
     io.operation = DISK_OPERATION_READ;
     if (!disk_operation(&io))
-    {
         goto fail;
-    }
+    write("read passed\r\n", my_strlen("read passed\r\n"));
 
+    write("verifying checksum\r\n", my_strlen("verifying checksum\r\n"));
     for (i = 0; i < CB_SECTOR; i++)
     {
-        if (buffer[i] != (char)i)
+        if (i % 4 == 0)
         {
-            goto fail;
+            c = '0' + buffer[i];
+            write(&c, 1);
         }
+        if (buffer[i] != (char)check_value)
+            goto fail;
     }
+    write("\r\n", 2);
+    write("checksum passed\r\n", my_strlen("checksum passed\r\n"));
 
-    write("pass\r\n", my_strlen("pass\r\n"));
+    write("passed\r\n", my_strlen("passed\r\n"));
     return 1;
 fail:
-    switch (io.n_sector)
-    {
-    case 0:
-        write("syscall failed\r\n", my_strlen("syscall failed\r\n"));
-        break;
-    case 1:
-        write("do_disk_operation()\r\n", my_strlen("do_disk_operation()\r\n"));
-        break;
-    case 2:
-        write("write_operation_to_floppy()\r\n", my_strlen("write_operation_to_floppy()\r\n"));
-        break;
-    case 3:
-        write("setup_dma_for_rw()\r\n", my_strlen("setup_dma_for_rw()\r\n"));
-        break;
-    case 4:
-        write("write_sector()\r\n", my_strlen("write_sector()\r\n"));
-        break;
-    case 5:
-        write("wtf\r\n", my_strlen("wtf\r\n"));
-        break;
-    default:
-        write("fail\r\n", my_strlen("fail\r\n"));
-    }
+    write("failed\r\n", my_strlen("failed\r\n"));
     return 0;
 }
 

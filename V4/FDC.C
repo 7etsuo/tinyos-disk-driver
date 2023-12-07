@@ -197,13 +197,13 @@ int do_fdc_seek_command(void)
     return !(FDC_SEEK_ERROR_CHECK(*fdc_access));
 }
 
-int do_fdc_read_command(void *buffer_address)
+int do_fdc_read_command()
 {
     send_command_to_fdc(read_command);
     return !(FDC_READ_ERROR_CHECK(*fdc_access));
 }
 
-int do_fdc_write_command(const void *buffer_address)
+int do_fdc_write_command()
 {
     int status = 1;
 
